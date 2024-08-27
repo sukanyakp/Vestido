@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="/user/css/otp.css">
+
+<body>
+    <div class="main">
+        <div class="image">
+            <img class="logo" src="/user/img/logo.png" alt>
+        </div>
+        <p>Please enter Your Email address</p>
+       <%if(locals.err){%>
+            <p style="color: red;"><%=err%></p>
+        <%}%>
+        <div class="form">
+            <form action="/otplogin" method="post"   >
+                <div class="form-group">
+                    <input type="email" name="email" class="inp">
+                </div>
+                <br>
+                <button type="submit" class="otpbtn">Get OTP</button>
+            </form>
+           
+        </body>
+

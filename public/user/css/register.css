@@ -1,0 +1,128 @@
+/* register.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    max-width: 100px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group input.inp {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* .form-group .icon {
+    position: absolute;
+    right: 15px;
+    top: 40px;
+    cursor: pointer;
+} */
+
+.register {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+.icon{
+    width: 20px;
+    position: absolute;
+    right: 600px;
+    margin-top: 13px;
+}
+
+.register:hover {
+    background-color: #0056b3;
+}
+
+.or {
+    margin: 20px 0;
+    color: #888;
+}
+
+.gsignin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    background-color: #db4437;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.gsignin:hover {
+    background-color: #c33d2d;
+}
+
+.google {
+    margin-right: 10px;
+}
+
+.dlogin {
+    margin-top: 20px;
+}
+
+.dlogin .login {
+    display: block;
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 14px;
+}
+
+.dlogin .login:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+}
+
+.footer p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.err{
+    color: red;
+}

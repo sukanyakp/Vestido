@@ -1,0 +1,117 @@
+/* Admin Coupon Management Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+
+/* .pagination-container {
+    max-width: 600px;
+    margin: 20px auto;
+    margin-bottom: 500px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);   
+} */
+form#create-coupon-form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form#create-coupon-form input  {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form#create-coupon-form button ,#add-coupon-button{
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#add-coupon-button:hover {
+    background-color: #218838;
+}
+/*   pagination css  */
+.pagination-container{ 
+    max-width: 600px;
+    margin: 20px auto;
+    margin-left: 449px;
+    /* margin-top: 300px; */
+    margin-bottom: 100px;
+    padding: 0;
+    list-style-type: none;
+
+}
+ul#coupon-list {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul#coupon-list li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ul#coupon-list li span {
+    font-size: 16px;
+    color: #333;
+}
+
+ul#coupon-list li button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+ul#coupon-list li .edit-coupon-btn {
+    background-color: #ffc107;
+    color: #fff;
+    margin-right: 5px;
+}
+
+ul#coupon-list li .edit-coupon-btn:hover {
+    background-color: #e0a800;
+}
+
+ul#coupon-list li .delete-coupon-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+ul#coupon-list li .delete-coupon-btn:hover {
+    background-color: #c82333;
+}

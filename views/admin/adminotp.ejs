@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="/user/css/otp.css">
+
+<body>
+    <div class="main">
+        <div class="image">
+            <img class="logo" src="/user/img/logo.png" alt>
+        </div>
+        <p id="error" style="color: red;"></p>
+        <p id="timer"></p>
+        <p id="txt">Seconds left</p>
+        <div class="form">
+            <form action="/admin/otpVerification" method="post" id="form">
+                <div class="form-group">
+                    <input type="text" name="otp" class="inp" id="inp">
+                </div>
+                <br>
+                <button type="submit" class="otpbtn">Verify</button>
+            </form>
+            <div class="links">
+                <a class="resend" href="/admin/resendotp">Resend otp</a>
+
+                <div id="error"  style="color: red;"></div>
+            </div>
+           
+        </body>
+        
+
+        <script>
+            const timer = document.getElementById("timer");
+            const txt = document.getElementById("txt")
+            const error = document.getElementById("error")
+            let i =60;
+            timer.innerHTML =i;
+            function* generator(){
+                
+                while(true){
+                    timer.innerHTML = i;
+                    yield
+                    i--
+                }
+            }
+            const time = generator();
+           
+            const interval = setInterval(()=>{
+                time.next()
+                if (i === 0) {
+                    timer.innerHTML = "Your OTP has expired";
+                    timer.style.color = "red"
+                    txt.style.display = "none"
+                    clearInterval(interval);
+                }
+            },1000)
+
+            setTimeout(()=>{
+                clearInterval(interval)
+            },61000)
+            
+                const form = document.getElementById("form");
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const otp = document.getElementById('inp').value;
+                    axios.post(`/admin/otpVerification/?data=${otp}`)
+                        .then((response) => {
+                           if(response.status == 200){
+                            window.location.href = "/admin"
+                           }else{
+                            error.innerHTML = "invalid OTP"
+                            
+                           }
+                        })
+                        .catch((error) => {
+                            // Handle errors
+                            console.error('Error:', error);
+                            // Display the error message on the frontend
+                            document.getElementById("error").innerHTML = error.response.data;
+                        });
+                });
+            
+           
+        </script>
+
+ 
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>

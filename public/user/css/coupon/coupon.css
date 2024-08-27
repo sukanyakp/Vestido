@@ -1,0 +1,70 @@
+/* Container for coupons section */
+#coupons-section {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Button to view coupons */
+#view-coupons-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color:#c96;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#view-coupons-btn:hover {
+    background-color: #316b1f;
+}
+
+/* List of coupons */
+#coupons-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 ;
+}
+
+/* Individual coupon item */
+#coupons-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Coupon description and minimum purchase */
+#coupons-list span {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Apply coupon button */
+.apply-coupon-btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.apply-coupon-btn:hover {
+    background-color: #218838;
+}
+
+
+/* Style for when there are no coupons */
+#coupons-list li.no-coupons {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}

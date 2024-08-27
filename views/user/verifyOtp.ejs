@@ -1,0 +1,109 @@
+<link rel="stylesheet" href="/user/css/otp.css">
+<link rel="stylesheet" href="/admin/assets/css/snackbar/snackbar.css">
+
+<body>
+    <div id="snackbar"></div>
+    <div class="main">
+        <div class="image">
+            <img class="logo" src="/user/img/logo.png" alt>
+        </div>
+       
+        <p id="timer"></p>
+        <p id="txt">Seconds left</p>
+        <div class="form">
+            <form action="/otpverify" method="post"  id="form">
+                <div class="form-group">
+                    <input type="text" name="otp" class="inp"  id="otp">
+                </div>
+                <br>
+                <button type="submit" class="otpbtn">Verify</button>
+                <div id="message" style="color: green;"></div>
+                <div id="error" style="color: red;"></div>
+              
+            </form>
+            <div class="links">
+                <a class="resend" href="/resendOTP"  style="display:none"> Resend OTP</a>
+                <a class="login" href="/login">Login with Password</a>
+            </div>
+           
+        </body>
+
+
+        <script>
+        const timer = document.getElementById("timer");
+        const otpInput = document.getElementById("otp");
+        const submitButton = document.querySelector(".otpbtn");
+        const message = document.getElementById("message");
+        const txt = document.getElementById("txt");
+        const resendLink = document.querySelector(".resend");
+        let i = 60; // Timer duration in seconds
+        timer.innerHTML = i;
+
+        function* generator() {
+            while (true) {
+                timer.innerHTML = i;
+                yield;
+                i--;
+            }
+        }
+
+        const time = generator();
+
+        const interval = setInterval(() => {
+            time.next();
+            if (i === 0) {
+                timer.innerHTML = "Your OTP has expired";
+                timer.style.color = "red";
+                txt.style.display = "none";
+                otpInput.style.display = "none";
+                submitButton.style.display = "none";
+                resendLink.style.display = "block";
+                clearInterval(interval);
+            }
+        }, 1000);
+
+            setTimeout(()=>{
+                clearInterval(interval)
+            },81000)
+
+            const form = document.getElementById("form");
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const otp = document.getElementById('otp').value;
+
+    try {
+        const response = await axios.post(`/verifyotp/?data=${otp}`);
+
+        if (response.status == 200) {
+            // Display the success message
+            document.getElementById("error").innerHTML = ' ';
+            showSnackBar('Registered Successfully');
+            
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 3000); // 3-second delay
+
+        } else if (response.status == 404) {
+            showSnackBar(response.data.msg); // Display the error message
+        }
+    } catch (error) {
+        // Handle errors
+        console.error('Error:', error);
+        
+        // Display the error message on the frontend
+        const errorMsg = error.response.data.msg || "An unexpected error occurred.";
+        document.getElementById("error").innerHTML = errorMsg;
+    }
+});
+
+
+
+  function showSnackBar(text) {
+  var x = document.getElementById("snackbar");
+  x.innerHTML = text
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+<%- include('../layouts/footer') %>

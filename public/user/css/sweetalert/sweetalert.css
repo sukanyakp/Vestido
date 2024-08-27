@@ -1,0 +1,38 @@
+/* Custom SweetAlert2 styles */
+.swal2-popup {
+    font-size: 1.1rem; /* Adjust font size */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.swal2-title {
+    font-family: 'Arial', sans-serif; /* Custom font */
+    color: #333; /* Title color */
+}
+
+.swal2-content {
+    font-family: 'Verdana', sans-serif; /* Custom font for content */
+    color: #555; /* Content color */
+}
+
+.swal2-icon.swal2-warning {
+    border-color: #f1c40f; /* Custom warning icon border color */
+    color: #f39c12; /* Custom warning icon color */
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: #4CAF50; /* Confirm button color */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+}
+
+.swal2-styled.swal2-cancel {
+    background-color: #f44336; /* Cancel button color */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+}
+
+.swal2-styled.swal2-confirm:focus, .swal2-styled.swal2-cancel:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Focus outline */
+}

@@ -1,0 +1,39 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 0;
+}
+.orders-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
+.order-box {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+.order-box img {
+  max-width: 100px;
+  margin-right: 20px;
+}
+.order-details {
+  flex-grow: 1;
+}
+.order-details h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+.order-details p {
+  margin: 5px 0;
+  color: #555;
+}
+.order-details .price {
+  color: #b12704;
+  font-weight: bold;
+}

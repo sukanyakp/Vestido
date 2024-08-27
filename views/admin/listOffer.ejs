@@ -1,0 +1,321 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/admin/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/admin/assets/css/users.css" />
+
+
+  <link rel="stylesheet" href="/admin/assets/css/coupon/coupon.css">
+  <link rel="stylesheet" href="/admin/assets/css/snackbar/snackbar.css">
+
+  <title>Admin - Offers</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+  <style>
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .modal-header, .modal-footer {
+            display: flex;
+            justify-content: center;
+        }
+       .modal-header, .modal-footer {
+          display: flex;
+          justify-content: center;
+      }
+  </style>
+ 
+</head>
+<body>
+  <div id="snackbar"></div>
+  <!-- Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between hello">
+        
+            <img src="/admin/assets/images/logos/dark-logo.svg" width="180" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/category" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Category</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/admin/brands" aria-expanded="false">
+                  <span></span>
+                  <span class="hide-menu">Brands</span>
+                </a>
+              </li>
+
+              
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/products" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Products</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/users" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Users</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/orders" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Orders</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/coupons" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Coupon</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/offers" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Offer</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/salesreport" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Sales Report</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu"  id="logout-link"  >Logout</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!-- Sidebar End -->
+    <!-- Main wrapper -->
+    
+<body>
+  <link rel="stylesheet" href="/admin//assets/css/styles.min.css" />
+<!--  Body Wrapper -->
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+  data-sidebar-position="fixed" data-header-position="fixed">
+  <!-- Sidebar Start -->
+ 
+  <!--  Sidebar End -->
+  <!--  Main wrapper -->
+
+
+
+
+
+
+
+
+
+
+<div class="content">
+    <div class="container mt-5">
+        <h1 class="mb-4">Available Offers</h1>
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Offer Name</th>
+            <th> Offer Type</th>
+            <th> offer Category</th>
+            <th>Discount</th>
+            <th>Redeem Amount</th>
+            <th>Valid Until</th>
+        </tr>
+    </thead>
+    <tbody id="offersTableBody">
+        <!-- Offers will be dynamically inserted here -->
+        <% if(offer) { %>
+            <% offer.forEach((offer) => { %>
+                <tr>
+                    <td><%= offer.offerName %></td>
+                    <td>  </td>
+
+                    <td><%= offer.discount %></td>
+                    <td><%= offer.redeemAmount %></td>
+                    <td><%= offer.validUntil %></td>
+                </tr>
+            <% }) %>
+        <% } %>
+    </tbody>
+</table>
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOfferModal">
+            Add Offer
+        </button>
+    </div>
+
+    <!-- Add Offer Modal -->
+    <div class="modal fade" id="addOfferModal" tabindex="-1" role="dialog" aria-labelledby="addOfferModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addOfferModalLabel">Add New Offer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addOfferForm">
+                        <div class="form-group">
+                            <label for="offerName">Offer Name</label>
+                            <input type="text" class="form-control" id="offerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="discount">Discount (%)</label>
+                            <input type="number" class="form-control" id="discount" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="discount">Redeem Amount</label>
+                          <input type="number" class="form-control" id="redeem_amount" required>
+                      </div>
+                        <div class="form-group">
+                            <label for="validUntil">Valid Until</label>
+                            <input type="date" class="form-control" id="validUntil" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Offer</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+  <!-- Bootstrap and jQuery Scripts -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+
+      document.getElementById('addOfferForm').addEventListener('submit', async function(e) {
+          e.preventDefault();
+try{
+          // Get form values
+          const offerName = document.getElementById('offerName').value;
+          const discount = document.getElementById('discount').value;
+          const validUntil = document.getElementById('validUntil').value;
+          const redeemAmount = document.getElementById('redeem_amount').value;
+
+          // Send POST request to backend to save offer
+          const response = await fetch('/admin/offers', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ 
+              offerName:offerName,
+              discount:discount,
+              validUntil:validUntil,
+              redeemAmount:redeemAmount
+
+            })
+
+          });
+          const newOffer = await response.json();
+           console.log(newOffer,'newOffer');
+           showSnackBar(newOffer.message);
+
+           if (!response.ok) {
+                    console.error(newOffer.message);
+                    showSnackBar(newOffer.message);
+                    return;
+                }
+          // Add new row to the offers table
+          // const tableBody = document.getElementById('offersTableBody');
+          // const newRow = document.createElement('tr');
+          // newRow.innerHTML = `<td>${newOffer.name}</td><td>${newOffer.discount}%</td><td>${newOffer.redeemAmount}</td><td>${newOffer.validUntil.slice(0, 10)}</td>`;
+          // tableBody.appendChild(newRow);
+
+          // Clear form and hide modal
+          document.getElementById('addOfferForm').reset();
+          $('#addOfferModal').modal('hide');
+
+            
+}catch(err){
+  console.log(err);
+}
+      });
+
+ 
+
+  function showSnackBar(text) {
+  var x = document.getElementById("snackbar");
+  x.innerHTML = text
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+</script>
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/sidebarmenu.js"></script>
+<script src="../assets/js/app.min.js"></script>
+<script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+<script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.getElementById('logout-link').addEventListener('click', function(event) {
+    event.preventDefault();
+    Swal.fire({
+        title: 'Do you want to logout?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, logout',
+        cancelButtonText: 'No, stay logged in'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/admin/logout';
+        }
+    });
+});
+</script>

@@ -1,0 +1,592 @@
+
+<body>
+    <link rel="stylesheet" href="/admin//assets/css/styles.min.css" />
+
+    <style>
+
+.chart-container {
+    width: 400px; /* Adjust the width as needed */
+    height: 500px; /* Keeps the aspect ratio */
+    margin: 0 auto; /* Center the container */
+    position: relative; /* Position the canvas inside the div */
+}
+
+#myPieChart {
+    width: 100%; /* Make the canvas responsive */
+    height: 100%;
+    display: block; /* Removes the default padding/margin from the canvas */
+}
+
+    </style>
+    
+<style>
+  body {
+    font-family: Arial, sans-serif;
+}
+
+.dashboard-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.section {
+    width: 100%; /* Updated to make each section larger */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px; /* Added margin for spacing between boxes */
+}
+
+.section h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px; /* Increase the font size for the section titles */
+}
+
+.item-list {
+    list-style: none;
+    padding: 0;
+}
+
+.item-list li {
+    display: flex;
+    align-items: center;
+    padding: 15px 0; /* Increased padding */
+    border-bottom: 1px solid #ddd;
+}
+
+.item-list img {
+    width: 100px; /* Increased image size */
+    height: 100px; /* Increased image size */
+    margin-right: 20px; /* Increased space between the image and text */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.item-list span {
+    font-size: 16px; /* Increased font size for the text */
+    font-weight: bold;
+}
+
+.item-list li:last-child {
+    border-bottom: none;
+}
+
+</style>
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="./index.html" class="text-nowrap logo-img">
+            <img src="/admin/assets/images/logos/dark-logo.svg" width="180" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/category" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Category</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/brands" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Brands</span>
+              </a>
+            </li>
+
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/products" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Products</span>
+              </a>
+            </li>
+
+           
+
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/users" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Users</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/orders" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Orders</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/coupons" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Coupon</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/offers" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Offer</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/salesreport" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Sales Report</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu"  id="logout-link" >Logout</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+
+    <!-- header start -->
+    <header class="app-header">
+     
+    </header>
+
+    <!-- hedaer end -->
+    <div class="body-wrapper">
+     
+      <div class="container-fluid">
+        <!--  Row 1 -->
+        <div class="row">
+          <div class="col-lg-8 d-flex align-items-strech">
+            <div class="card w-100">
+              <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                  <div class="mb-3 mb-sm-0">
+                    <h5 class="card-title fw-semibold">Sales Overview</h5>
+                  </div>
+                  <div>
+                    <% if(dataPoints){ %>
+                    <select class="form-select" id="reportSelect" onchange="sendReportType( '<%= dataPoints %>')"> <!--- -->
+                      <% } %>
+                      <!-- <option value="weekly">Report type</option> -->
+                      <option value="weekly"  <% if (reportType === 'weekly') { %> selected <% } %>>Weekly Report</option>
+                      <option value="yearly"   <% if (reportType === 'yearly') { %> selected <% } %>>Yearly Report</option>
+                  </select>
+                  
+                  </div>
+
+
+                </div>
+               
+                  <!-- Conditionally render the table for Weekly or Yearly report -->
+    <% if (reportType.toLowerCase() === 'weekly') { %>
+      <table style="display: none;">
+          <tbody>
+              <tr class="tr1">
+                  <% labels.forEach(label => { %>
+                      <th><%= label %></th>
+                  <% }); %>
+              </tr>
+              <tr class="tr2">
+                  <% dataPoints.forEach(point => { %>
+                      <td><%= point %></td>
+                  <% }); %>
+              </tr>
+          </tbody>
+      </table>
+  <% } else if (reportType.toLowerCase() === 'yearly') { %>
+      <table style="display: none;">
+          <tbody>
+              <tr class="tr1">
+                  <% labels.forEach(label => { %>
+                      <th><%= label %></th>
+                  <% }); %>
+              </tr>
+              <tr class="tr2">
+                  <% dataPoints.forEach(point => { %>
+                      <td><%= point %></td>
+                  <% }); %>
+              </tr>
+          </tbody>
+      </table>
+  <% } %>
+
+  <!-- Chart Container -->
+  <h5><%= reportType %> Sales Report</h5>
+  <canvas id="myChart" style="width:100%;max-width:800px"></canvas>
+  
+
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="row">       
+              <div class="col-lg-12">
+                <!-- Yearly Breakup -->
+               <div class="card overflow-hidden">
+                <div class="chart-container">
+                  <canvas id="myPieChart"></canvas>
+              </div>
+              
+                </div> 
+
+              </div>
+              <div class="col-lg-12">
+                <!-- Monthly Earnings -->
+                <!-- <div class="card">
+                  <div class="card-body">
+                    <div class="row alig n-items-start">
+                      <div class="col-8">
+                        <h5 class="card-title mb-9 fw-semibold"> Monthly Earnings </h5>
+                        <h4 class="fw-semibold mb-3">$6,820</h4>
+                        <div class="d-flex align-items-center pb-1">
+                          <span
+                            class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-arrow-down-right text-danger"></i>
+                          </span>
+                          <p class="text-dark me-1 fs-3 mb-0">+9%</p>
+                          <p class="fs-3 mb-0">last year</p>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="d-flex justify-content-end">
+                          <div
+                            class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-currency-dollar fs-6"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="earning"></div>
+                </div>
+                 -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- <div class="col-lg-4 d-flex align-items-stretch"> -->
+            <div class="dashboard-container">
+              <!-- Top 10 Products Section -->
+              <div class="section">
+                  <h3>Top 10 Products</h3>
+                  <ul class="item-list">
+                      <% topProducts.forEach(product => { %>
+                          <li>
+                              <img src="<%= product.image[0] %>" alt="<%= product._id %>">
+                              <span><strong><%= product._id %></strong>: <%= product.count %> orders</span>
+                          </li>
+                      <% }) %>
+                  </ul>
+              </div>
+      
+              <!-- Top 10 Categories Section -->
+              <div class="section">
+                  <h3>Top 10 Categories</h3>
+                  <ul class="item-list">
+                      <% topCategories.forEach(category => { %>
+                          <li>
+                              <img src="<%= category.image[0] %>" alt="<%= category._id %>">
+                              <span><strong><%= category._id %></strong>: <%= category.count %> orders</span>
+                          </li>
+                      <% }) %>
+                  </ul>
+              </div>
+
+                       <!-- Top 10 Brands Section -->
+           <div class="section">
+            <h3>Top 10 Brands</h3>
+            <ul class="item-list">
+                <% topBrands.forEach(brand => { %>
+                    <li>
+                        <img src="<%= brand.image[0] %>" alt="<%= brand._id %>">
+                        <span><strong><%= brand._id %></strong>: <%= brand.count %> orders</span>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+
+
+         
+
+    </div>
+
+
+</div>    
+
+          <!-- </div> -->
+        </div>
+
+
+        <!-- <div class="row">
+          <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="../assets/images/products/s4.jpg" class="card-img-top rounded-0" alt="..."></a>
+                <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>                      </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">Boat Headphone</h6>
+                <div class="d-flex align-items-center justify-content-between">
+                  <h6 class="fw-semibold fs-4 mb-0">$50 <span class="ms-2 fw-normal text-muted fs-3"><del>$65</del></span></h6>
+                  <ul class="list-unstyled d-flex align-items-center mb-0">
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="../assets/images/products/s5.jpg" class="card-img-top rounded-0" alt="..."></a>
+                <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>                      </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">MacBook Air Pro</h6>
+                <div class="d-flex align-items-center justify-content-between">
+                  <h6 class="fw-semibold fs-4 mb-0">$650 <span class="ms-2 fw-normal text-muted fs-3"><del>$900</del></span></h6>
+                  <ul class="list-unstyled d-flex align-items-center mb-0">
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="../assets/images/products/s7.jpg" class="card-img-top rounded-0" alt="..."></a>
+                <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>                      </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">Red Valvet Dress</h6>
+                <div class="d-flex align-items-center justify-content-between">
+                  <h6 class="fw-semibold fs-4 mb-0">$150 <span class="ms-2 fw-normal text-muted fs-3"><del>$200</del></span></h6>
+                  <ul class="list-unstyled d-flex align-items-center mb-0">
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-xl-3">
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="../assets/images/products/s11.jpg" class="card-img-top rounded-0" alt="..."></a>
+                <a href="javascript:void(0)" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>                      </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4">Cute Soft Teddybear</h6>
+                <div class="d-flex align-items-center justify-content-between">
+                  <h6 class="fw-semibold fs-4 mb-0">$285 <span class="ms-2 fw-normal text-muted fs-3"><del>$345</del></span></h6>
+                  <ul class="list-unstyled d-flex align-items-center mb-0">
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                    <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
+        <div class="py-6 px-6 text-center">
+          <!-- <p class="mb-0 fs-4">Design and Developed by <a href="https://adminmart.com/" target="_blank" class="pe-1 text-primary text-decoration-underline">AdminMart.com</a></p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <script>
+    document.getElementById('logoutButton').addEventListener('click', () => {
+    fetch('admin/logout', {
+        method: 'POST',
+        credentials: 'include', // Include cookies in the request
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message === 'Logout successful') {
+            // Redirect to login page or update UI
+            window.location.href = 'admin/login';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+  </script> -->
+
+
+  <!-- reporttypw -->
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/sidebarmenu.js"></script>
+  <script src="../assets/js/app.min.js"></script>
+  <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+  <script src="../assets/js/dashboard.js"></script>
+
+<!-- chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.getElementById('logout-link').addEventListener('click', function(event) {
+    event.preventDefault();
+    Swal.fire({
+        title: 'Do you want to logout?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, logout',
+        cancelButtonText: 'No, stay logged in'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/admin/logout';
+        }
+    });
+});
+</script>
+
+<script>
+
+
+  function sendReportType(dataPoints) {
+    // Get the selected report type from the dropdown
+    const reportType = document.getElementById("reportSelect").value;
+    console.log(dataPoints,'dataPoints');
+
+  
+    window.location.href = `/admin?reportType=${reportType}`;
+}
+
+</script>
+
+<script>
+  const barColors = ["#e47297", "#e47297", "#e47297", "#e47297", "#e47297", "#e47297", "#e47297"];
+
+  // Extracting data from hidden table
+  const tableRows = document.querySelectorAll('table tbody tr');
+  let xValues = [];
+  let yValues = [];
+
+  tableRows[0].querySelectorAll('th').forEach(th => {
+      xValues.push(th.textContent.trim());
+  });
+
+  tableRows[1].querySelectorAll('td').forEach(td => {
+      yValues.push(parseInt(td.textContent.trim()));
+  });
+
+  new Chart("myChart", {
+      type: "bar",
+      data: {
+          labels: xValues,
+          datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+          }]
+      },
+      options: {
+          legend: { display: false },
+          scales: {
+              y: { beginAtZero: true }
+          }
+      }
+  });
+</script>
+
+
+<script>
+ const barColor = ["#e47297", "#e47297", "#e47297", "#e47297", "#e47297", "#e47297", "#e47297"];
+
+// Extracting data from hidden table
+const tableRow = document.querySelectorAll('table tbody tr');
+let xValue = [];
+let yValue = [];
+
+tableRow[0].querySelectorAll('th').forEach(th => {
+    xValue.push(th.textContent.trim());
+});
+
+tableRow[1].querySelectorAll('td').forEach(td => {
+    yValue.push(parseInt(td.textContent.trim()));
+});
+
+new Chart("myPieChart", {
+    type: "pie",
+    data: {
+        labels: xValue,
+        datasets: [{
+            backgroundColor: barColor,
+            data: yValue
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true
+            }
+        },
+        layout: {
+            padding: {
+                top: 20,
+                bottom: 0,
+              
+            }
+        },
+        cutout: '0%', // 0% for a full pie chart, increase for a doughnut effect
+        radius: '68%' // Adjust the overall size of the pie chart
+    }
+});
+
+</script>
+
+
+
+
+</body>
+
+</html>

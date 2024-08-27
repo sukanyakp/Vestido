@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- molla/dashboard.html  22 Nov 2019 10:03:13 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Molla - Bootstrap eCommerce Template</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="assets/images/icons/site.html">
+    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/admin/assets/css/snackbar/snackbar.css">
+
+       <!--  login profile -->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+    <style>
+
+        /* Ensure the button-container class makes the buttons stack vertically */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adjust the gap between buttons as needed */
+}
+
+.button-container .btn {
+    width: fit-content; /* Adjust the width to fit the content */
+    margin-top: 10px; /* Add top margin to ensure spacing below the input */
+}
+
+/* Additional styles for buttons if needed */
+.btn-outline-primary-2, .btn-outline-secondary-2 {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+
+#transaction-history {
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+#transaction-history h4 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+.transaction {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.transaction-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.transaction-label {
+    font-weight: bold;
+    color: #555;
+}
+
+.transaction-value {
+    color: #000;
+}
+
+    </style>
+</head>
+
+<body>
+    <div id="snackbar"></div>
+    <div class="page-wrapper">
+        <header class="header">
+            <div class="header-top">
+                <div class="container">
+                    <div class="header-left">
+                        <div class="header-dropdown">
+                            <!-- <a href="#"> </a> -->
+                            <div class="header-menu">
+                                <ul>
+                                   
+                                </ul>
+                            </div><!-- End .header-menu -->
+                        </div><!-- End .header-dropdown -->
+
+                        <div class="header-dropdown">
+                            <!-- <a href="#">Eng</a> -->
+                            <div class="header-menu">
+                                <ul>
+                                   
+                                </ul>
+                            </div><!-- End .header-menu -->
+                        </div><!-- End .header-dropdown -->
+                    </div><!-- End .header-left -->
+
+                    <div class="header-right">
+                        <ul class="top-menu">
+                            <li>
+                                <a href="#">Links</a>
+                                <ul>
+                                    <!-- <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li> -->
+                                    <!-- <li><a href="/wishlist"><i class="icon-heart-o"></i> <span>  </span></a></li> -->
+                                    <!-- <li><a href="about.html">About Us</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                    <li><a href="/login" data-toggle="modal"><i class="icon-user"></i>Login</a></li> -->
+                                </ul>
+                            </li>
+                        </ul><!-- End .top-menu -->
+                    </div><!-- End .header-right -->
+                </div><!-- End .container -->
+            </div><!-- End .header-top -->
+
+            <div class="header-middle sticky-header">
+                <div class="container">
+                    <div class="header-left">
+                        <button class="mobile-menu-toggler">
+                            <span class="sr-only">Toggle mobile menu</span>
+                            <i class="icon-bars"></i>
+                        </button>
+
+                        <a href="index.html" class="logo">
+                            <img src="assets/images/logo.png" alt="Molla Logo" width="180" height="45">
+                        </a>
+
+                        <nav class="main-nav">
+                            <ul class="menu sf-arrows">
+                                <li class="megamenu-container active">
+                                    <a href="/" class="sf-with-ul">Home</a>
+
+                                  
+                                </li>
+                                <li>
+                                    <a href="/shops" class="sf-with-ul">Shop</a>
+
+                                </li>
+                             
+                            
+                            </ul><!-- End .menu -->
+                        </nav><!-- End .main-nav -->
+                    </div><!-- End .header-left -->
+
+                    <div class="header-right">
+                        <div class="header-search">
+                            <!-- <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a> -->
+                            <form action="#" method="get">
+                                <div class="header-search-wrapper">
+                                    <label for="q" class="sr-only">Search</label>
+                                    <!-- <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required> -->
+                                </div><!-- End .header-search-wrapper -->
+                            </form>
+                        </div><!-- End .header-search -->
+
+                        <div class="dropdown cart-dropdown">
+                            <% if (locals.user) { %>
+                                <a href="/profile" class="profile-link">
+                                    <i class="fas fa-user"></i></a>
+                                <% }else{%>
+                                    <a href="/login" data-toggle="modal"><i class="icon-user"></i>Login</a>
+                            <%} %>                       
+                            </div>
+                   
+
+                        <div class="dropdown cart-dropdown">
+                            <a href="/wishlist" class="wishlist-link">
+                                <i class="icon-heart-o"></i> </a>
+                            </div>
+
+                        <div class="dropdown cart-dropdown">
+                            <a href="/cart" class="wishlist-link">
+                                <i   class="icon-shopping-cart"></i>
+                                <!-- <span class="cart-count">2</span> -->
+                                <!-- <span class="cart-txt">$ 164,00</span> -->
+                            </a>
+                        </div><!-- End .cart-dropdown -->
+
+                    </div><!-- End .header-right -->
+                </div><!-- End .container -->
+            </div><!-- End .header-middle -->
+        </header><!-- End .header -->
+
+        <main class="main">
+        	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">My Account<span>Shop</span></h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/shops">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="/profile">My Account</a></li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+
+      
+            <div class="page-content">
+            	<div class="dashboard">
+	                <div class="container">
+	                	<div class="row">
+	                		<aside class="col-md-4 col-lg-3">
+	                			<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+								    <li class="nav-item">
+								        <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+								    </li>
+                                    <li class="nav-item">
+								        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-wishlist" role="tab" aria-controls="tab-orders" aria-selected="false">Wishlist</a>
+								    </li>
+                                    <li class="nav-item">
+								        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-wallet" role="tab" aria-controls="tab-orders" aria-selected="false">Wallet</a>
+								    </li>
+                                   
+								    <li class="nav-item">
+								        <!-- <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-downloads" role="tab" aria-controls="tab-downloads" aria-selected="false">Downloads</a> -->
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Saved Adresses</a>
+								    </li>
+								    <li class="nav-item">
+								        <!-- <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a> -->
+								    </li>
+                                    <li class="nav-item">
+								        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-changepassword" role="tab" aria-controls="tab-account" aria-selected="false">change Password</a>
+								    </li>
+                                    
+								    <li class="nav-item">
+								        <a class="nav-link" href="#"  id="logout-link">Sign Out</a>
+								    </li>
+								</ul>
+	                		</aside><!-- End .col-lg-3 -->
+
+	                		<div class="col-md-8 col-lg-9">
+	                			<div class="tab-content">
+                                          
+                                  
+								    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+                                        <% if(user){%>  
+								    	<p>Hello <span class="font-weight-normal text-dark"></span> <span class="font-weight-normal text-dark"><%= user.name %></span> .. <a href="/logout"  id="logout-link">Log out</a>
+                                            <%  }else{%>
+                                                <p>Hello <span class="font-weight-normal text-dark"></span> (not <span class="font-weight-normal text-dark">User</span>? <a href="#">Log out</a>) 
+                                               <% } %>
+								    	<br>
+								    	From your account dashboard you can view your <a href="#tab-orders" class="tab-trigger-link link-underline">recent orders</a>, manage your <a href="#tab-address" class="tab-trigger-link">shipping and billing addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your password and account details</a>.</p>
+								    </div><!-- .End .tab-pane -->
+
+								    <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+								    	<!-- <p>No order has been made yet.</p> -->
+								    	<a href="/order-history" class="btn btn-outline-primary-2"><span>GO Order</span><i class="icon-long-arrow-right"></i></a>
+								    </div><!-- .End .tab-pane -->
+
+                                    <div class="tab-pane fade" id="tab-wishlist" role="tabpanel" aria-labelledby="tab-orders-link">
+								    	<!-- <p>No order has been made yet.</p> -->
+								    	<a href="/wishlist" class="btn btn-outline-primary-2"><span>GO wishlist</span></a>
+								    </div><!-- .End .tab-pane -->
+
+                                    <div class="tab-pane fade" id="tab-wallet" role="tabpanel" aria-labelledby="tab-orders-link">
+                                    <% if(user){%>
+                                         <p> <b> BALANCE</b> : <b><%= user.walletBalance %></b></p>
+                                        
+                                         <% } %>
+                                       
+                                        <p>Do you want to add money to your account?</p>
+                                        <input type="number" id="amount-input" placeholder="Enter amount">
+                                        <button id="rzp-button1" class="btn btn-outline-primary-2"><span>Add Money</span></button>
+                                        <div class="button-container">
+                                        
+                                            <button id="view-transaction-history" class="btn btn-outline-secondary-2"><span>View Transaction History</span></button>
+                                        </div>
+                                        <div id="transaction-history"></div>
+                                    </div><!-- .End .tab-pane -->
+                                    
+
+								    <div class="tab-pane fade" id="tab-downloads" role="tabpanel" aria-labelledby="tab-downloads-link">
+								    	<p>No downloads available yet.</p>
+								    	<a href="category.html" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
+								    </div><!-- .End .tab-pane -->
+                                    
+                                        
+								    <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+								    	<p>The following addresses will be used on the checkout page by default.</p>
+                                        <a class="nav-link" id="tab-dashboard-link" href="/address" role="tab" aria-controls="tab-dashboard" aria-selected="true">+ Add a new address</a>
+                                        <% if(addressDetails){ %>
+                                        <% addressDetails.addresses.forEach((x)=>{%>
+								    	<div class="row">
+                                            
+								    		<div class="col-lg-6">
+								    			<div class="card card-dashboard">
+								    				<div class="card-body">
+                                                       
+								    					<h3 class="card-title">Billing Address</h3><!-- End .card-title -->
+                                                        
+                                                        <input type="text" name="userId" id="userId"  value="" hidden> 
+
+														<p><%= x.name %> <br>
+                                                            <%= x.mobile %> <br>
+                                                            <%= x.address %> <br>
+                                                            <%= x.district %> <br>
+                                                            <%= x.state %> <br>
+                                                            <%= x.pincode %> <br>
+                                                            <%= x.landMark %> <br>
+                                                            <%= x.altMob %> <br>
+                                                            
+                                                            
+                                                            
+														<a href="#">Edit <i class="icon-edit"></i></a></p>
+								    				</div><!-- End .card-body -->
+                                                   
+								    			</div><!-- End .card-dashboard -->
+								    		</div><!-- End .col-lg-6 -->
+                                            
+								    		<div class="col-lg-6">
+								    			
+								    		</div><!-- End .col-lg-6 -->
+								    	</div><!-- End .row -->
+                                        <%}) %>
+
+                                        <% } %>
+								    </div><!-- .End .tab-pane -->
+                                    
+
+								    <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+								    	<form action="#">
+			                				<div class="row">
+			                					<div class="col-sm-6">
+			                						<label>First Name *</label>
+			                						<input type="text" class="form-control" required>
+			                					</div><!-- End .col-sm-6 -->
+
+			                					<div class="col-sm-6">
+			                						<label>Last Name *</label>
+			                						<input type="text" class="form-control" required>
+			                					</div><!-- End .col-sm-6 -->
+			                				</div><!-- End .row -->
+
+		            						<label>Display Name *</label>
+		            						<input type="text" class="form-control" required>
+		            						<small class="form-text">This will be how your name will be displayed in the account section and in reviews</small>
+
+		                					<label>Email address *</label>
+		        							<input type="email" class="form-control" required>
+
+		            						<label>Current password (leave blank to leave unchanged)</label>
+		            						<input type="password" class="form-control">
+
+		            						<label>New password (leave blank to leave unchanged)</label>
+		            						<input type="password" class="form-control">
+
+		            						<label>Confirm new password</label>
+		            						<input type="password" class="form-control mb-2">
+
+		                					<button type="submit" class="btn btn-outline-primary-2">
+			                					<span>SAVE CHANGES</span>
+			            						<i class="icon-long-arrow-right"></i>
+			                				</button>
+			                			</form>
+								    </div><!-- .End .tab-pane -->
+
+                                    <div class="tab-pane fade" id="tab-changepassword" role="tabpanel" aria-labelledby="tab-account-link">
+								    	<form action="" id="form"  onsubmit="return validateForm()"  novalidate>
+			                				<div class="row">
+			                					
+			                				</div><!-- End .row -->
+
+		            						<label>Current Password *</label>
+		            						<input type="text" id="currentp" name="currentp" class="form-control" required>
+		            						<p  id="currentErr" style="color: red;" ></p>
+
+		                					<label>New Password *</label>
+		        							<input type="email" id="newp" name="newp" class="form-control" required>
+                                            <p id="pErr"  style="color: red;"></p>
+
+		            						<label>Confirm new password *</label>
+		            						<input type="password" id="confirmp" name="confirmp" class="form-control" required>	 
+                                            <p id="cErr"  style="color: red;"></p>           						
+
+		                				    <a href="/profile"><button type="submit"  onclick="sendPassword()" class="btn btn-outline-primary-2">SAVE CHANGES</button></a>	
+                                            <br><p  id="message" style="color: green;" ></p>
+			                					
+			            						<i class="icon-long-arrow-right"></i>
+			                				</button>
+			                			</form>
+								    </div><!-- .End .tab-pane -->
+
+
+                                    
+								</div>
+	                		</div><!-- End .col-lg-9 -->
+	                	</div><!-- End .row -->
+	                </div><!-- End .container -->
+                </div><!-- End .dashboard -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+        <footer class="footer">
+        	<div class="footer-middle">
+	            <div class="container">
+	            	<div class="row">
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget widget-about">
+	            				<img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+
+	            				<div class="social-icons">
+	            					<a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+	            					<a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+	            					<a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+	            					<a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+	            					<a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
+	            				</div><!-- End .soial-icons -->
+	            			</div><!-- End .widget about-widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget">
+	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="about.html">About Molla</a></li>
+	            					<li><a href="#">How to shop on Molla</a></li>
+	            					<li><a href="#">FAQ</a></li>
+	            					<li><a href="contact.html">Contact us</a></li>
+	            					<li><a href="login.html">Log in</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget">
+	            				<h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="#">Payment Methods</a></li>
+	            					<li><a href="#">Money-back guarantee!</a></li>
+	            					<li><a href="#">Returns</a></li>
+	            					<li><a href="#">Shipping</a></li>
+	            					<li><a href="#">Terms and conditions</a></li>
+	            					<li><a href="#">Privacy Policy</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget">
+	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="#">Sign In</a></li>
+	            					<li><a href="cart.html">View Cart</a></li>
+	            					<li><a href="#">My Wishlist</a></li>
+	            					<li><a href="#">Track My Order</a></li>
+	            					<li><a href="#">Help</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+	            	</div><!-- End .row -->
+	            </div><!-- End .container -->
+	        </div><!-- End .footer-middle -->
+
+	        <div class="footer-bottom">
+	        	<div class="container">
+	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+	        		<figure class="footer-payments">
+	        			<img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+	        		</figure><!-- End .footer-payments -->
+	        	</div><!-- End .container -->
+	        </div><!-- End .footer-bottom -->
+        </footer><!-- End .footer -->
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+    <div class="mobile-menu-container">
+        <div class="mobile-menu-wrapper">
+            <span class="mobile-menu-close"><i class="icon-close"></i></span>
+
+            <form action="#" method="get" class="mobile-search">
+                <label for="mobile-search" class="sr-only">Search</label>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+            </form>
+            
+            <nav class="mobile-nav">
+                <ul class="mobile-menu">
+                    <li class="active">
+                        <a href="/">Home</a>
+
+                        <ul>
+                            <li><a href="index-1.html">01 - furniture store</a></li>
+                            <li><a href="index-2.html">02 - furniture store</a></li>
+                            <li><a href="index-3.html">03 - electronic store</a></li>
+                            <li><a href="index-4.html">04 - electronic store</a></li>
+                            <li><a href="index-5.html">05 - fashion store</a></li>
+                            <li><a href="index-6.html">06 - fashion store</a></li>
+                            <li><a href="index-7.html">07 - fashion store</a></li>
+                            <li><a href="index-8.html">08 - fashion store</a></li>
+                            <li><a href="index-9.html">09 - fashion store</a></li>
+                            <li><a href="index-10.html">10 - shoes store</a></li>
+                            <li><a href="index-11.html">11 - furniture simple store</a></li>
+                            <li><a href="index-12.html">12 - fashion simple store</a></li>
+                            <li><a href="index-13.html">13 - market</a></li>
+                            <li><a href="index-14.html">14 - market fullwidth</a></li>
+                            <li><a href="index-15.html">15 - lookbook 1</a></li>
+                            <li><a href="index-16.html">16 - lookbook 2</a></li>
+                            <li><a href="index-17.html">17 - fashion store</a></li>
+                            <li><a href="index-18.html">18 - fashion store (with sidebar)</a></li>
+                            <li><a href="index-19.html">19 - games store</a></li>
+                            <li><a href="index-20.html">20 - book store</a></li>
+                            <li><a href="index-21.html">21 - sport store</a></li>
+                            <li><a href="index-22.html">22 - tools store</a></li>
+                            <li><a href="index-23.html">23 - fashion left navigation store</a></li>
+                            <li><a href="index-24.html">24 - extreme sport store</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="category.html">Shop</a>
+                        <ul>
+                            <li><a href="category-list.html">Shop List</a></li>
+                            <li><a href="category-2cols.html">Shop Grid 2 Columns</a></li>
+                            <li><a href="category.html">Shop Grid 3 Columns</a></li>
+                            <li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>
+                            <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
+                            <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
+                            <li><a href="product-category-boxed.html">Product Category Boxed</a></li>
+                            <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
+                            <li><a href="cart.html">Cart</a></li>
+                            <li><a href="checkout.html">Checkout</a></li>
+                            <li><a href="wishlist.html">Wishlist</a></li>
+                            <li><a href="#">Lookbook</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="product.html" class="sf-with-ul">Product</a>
+                        <ul>
+                            <li><a href="product.html">Default</a></li>
+                            <li><a href="product-centered.html">Centered</a></li>
+                            <li><a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
+                            <li><a href="product-gallery.html">Gallery</a></li>
+                            <li><a href="product-sticky.html">Sticky Info</a></li>
+                            <li><a href="product-sidebar.html">Boxed With Sidebar</a></li>
+                            <li><a href="product-fullwidth.html">Full Width</a></li>
+                            <li><a href="product-masonry.html">Masonry Sticky Info</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Pages</a>
+                        <ul>
+                            <li>
+                                <a href="about.html">About</a>
+
+                                <ul>
+                                    <li><a href="about.html">About 01</a></li>
+                                    <li><a href="about-2.html">About 02</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="contact.html">Contact</a>
+
+                                <ul>
+                                    <li><a href="contact.html">Contact 01</a></li>
+                                    <li><a href="contact-2.html">Contact 02</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="login.html">Login</a></li>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="404.html">Error 404</a></li>
+                            <li><a href="coming-soon.html">Coming Soon</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="blog.html">Blog</a>
+
+                        <ul>
+                            <li><a href="blog.html">Classic</a></li>
+                            <li><a href="blog-listing.html">Listing</a></li>
+                            <li>
+                                <a href="#">Grid</a>
+                                <ul>
+                                    <li><a href="blog-grid-2cols.html">Grid 2 columns</a></li>
+                                    <li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>
+                                    <li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>
+                                    <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Masonry</a>
+                                <ul>
+                                    <li><a href="blog-masonry-2cols.html">Masonry 2 columns</a></li>
+                                    <li><a href="blog-masonry-3cols.html">Masonry 3 columns</a></li>
+                                    <li><a href="blog-masonry-4cols.html">Masonry 4 columns</a></li>
+                                    <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Mask</a>
+                                <ul>
+                                    <li><a href="blog-mask-grid.html">Blog mask grid</a></li>
+                                    <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Single Post</a>
+                                <ul>
+                                    <li><a href="single.html">Default with sidebar</a></li>
+                                    <li><a href="single-fullwidth.html">Fullwidth no sidebar</a></li>
+                                    <li><a href="single-fullwidth-sidebar.html">Fullwidth with sidebar</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="elements-list.html">Elements</a>
+                        <ul>
+                            <li><a href="elements-products.html">Products</a></li>
+                            <li><a href="elements-typography.html">Typography</a></li>
+                            <li><a href="elements-titles.html">Titles</a></li>
+                            <li><a href="elements-banners.html">Banners</a></li>
+                            <li><a href="elements-product-category.html">Product Category</a></li>
+                            <li><a href="elements-video-banners.html">Video Banners</a></li>
+                            <li><a href="elements-buttons.html">Buttons</a></li>
+                            <li><a href="elements-accordions.html">Accordions</a></li>
+                            <li><a href="elements-tabs.html">Tabs</a></li>
+                            <li><a href="elements-testimonials.html">Testimonials</a></li>
+                            <li><a href="elements-blog-posts.html">Blog Posts</a></li>
+                            <li><a href="elements-portfolio.html">Portfolio</a></li>
+                            <li><a href="elements-cta.html">Call to Action</a></li>
+                            <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav><!-- End .mobile-nav -->
+
+            <div class="social-icons">
+                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+            </div><!-- End .social-icons -->
+        </div><!-- End .mobile-menu-wrapper -->
+    </div><!-- End .mobile-menu-container -->
+
+    <!-- Sign in / Register Modal -->
+    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+
+                    <div class="form-box">
+                        <div class="form-tab">
+                            <ul class="nav nav-pills nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="tab-content-5">
+                                <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label for="singin-email">Username or email address *</label>
+                                            <input type="text" class="form-control" id="singin-email" name="singin-email" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="singin-password">Password *</label>
+                                            <input type="password" class="form-control" id="singin-password" name="singin-password" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>LOG IN</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                                <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                                            </div><!-- End .custom-checkbox -->
+
+                                            <a href="#" class="forgot-link">Forgot Your Password?</a>
+                                        </div><!-- End .form-footer -->
+                                    </form>
+                                    <div class="form-choice">
+                                        <p class="text-center">or sign in with</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-g">
+                                                    <i class="icon-google"></i>
+                                                    Login With Google
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-f">
+                                                    <i class="icon-facebook-f"></i>
+                                                    Login With Facebook
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                        </div><!-- End .row -->
+                                    </div><!-- End .form-choice -->
+                                </div><!-- .End .tab-pane -->
+                                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label for="register-email">Your email address *</label>
+                                            <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="register-password">Password *</label>
+                                            <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>SIGN UP</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                                <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                            </div><!-- End .custom-checkbox -->
+                                        </div><!-- End .form-footer -->
+                                    </form>
+                                    <div class="form-choice">
+                                        <p class="text-center">or sign in with</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-g">
+                                                    <i class="icon-google"></i>
+                                                    Login With Google
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login  btn-f">
+                                                    <i class="icon-facebook-f"></i>
+                                                    Login With Facebook
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                        </div><!-- End .row -->
+                                    </div><!-- End .form-choice -->
+                                </div><!-- .End .tab-pane -->
+                            </div><!-- End .tab-content -->
+                        </div><!-- End .form-tab -->
+                    </div><!-- End .form-box -->
+                </div><!-- End .modal-body -->
+            </div><!-- End .modal-content -->
+        </div><!-- End .modal-dialog -->
+    </div><!-- End .modal -->
+
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+
+<!-- molla/dashboard.html  22 Nov 2019 10:03:13 GMT -->
+</html>
+
+
+
+
+<script>
+
+
+
+
+function validateForm() {
+        let isValid = true;
+
+        // Name validation
+        const current = document.getElementById('currentp').value;
+        const currentErr = document.getElementById('currentErr');
+        if (current.trim() === "") {
+            currentErr.textContent = 'Please enter your password';
+            currentErr.style.color = 'red';
+            isValid = false;
+        } else {
+            currentErr.textContent = '';  
+
+        // Password validation
+        const password = document.getElementById('newp').value;
+        const passwordErr = document.getElementById('pErr');
+        if (password.trim() === "") {
+            passwordErr.textContent = 'Please enter a new password';
+            passwordErr.style.color = 'red';
+            isValid = false;
+        } else {
+            passwordErr.textContent = '';
+
+              // Confirm Password validation
+        const confirmPassword = document.getElementById('confirmp').value;
+        const confirmPasswordErr = document.getElementById('cErr');
+        if (confirmPassword.trim() === "") {
+            confirmPasswordErr.textContent = 'Please confirm your password';
+            confirmPasswordErr.style.color = 'red';
+            isValid = false;
+        } else if (password !== confirmPassword) {
+            confirmPasswordErr.textContent = 'Passwords do not match';
+            confirmPasswordErr.style.color = 'red';
+            isValid = false;
+        } else {
+            confirmPasswordErr.textContent = '';
+        }
+
+        }
+
+        }
+
+        return isValid;
+    }
+
+
+
+const form = document.getElementById('form')
+form.addEventListener('submit', (event)=>{
+    event.preventDefault();
+})
+
+function sendPassword(){
+    let currentp = document.getElementById('currentp').value;
+    let newp = document.getElementById('newp').value;
+    let confirmp = document.getElementById('confirmp').value;
+
+    console.log(currentp, newp, confirmp);
+
+    axios.post(`/password?cIp=${currentp}&nIp=${newp}&coIp=${confirmp}`)
+        .then((response) => {
+            if(response.status === 200){
+                document.getElementById('message').innerHTML = "Password changed successfully";
+                // Optionally redirect after a successful password change
+                setTimeout(() => {
+                    window.location.href = "/profile";
+                }, 3000);
+               
+            }
+        })
+        .catch((err) => {
+            if (err.response) {
+                // Server responded with a status other than 2xx
+                if(err.response.status === 401){
+                    document.getElementById('err').innerHTML = "Entered password is incorrect";
+                } else if (err.response.status === 400) {
+                    document.getElementById('err').innerHTML = err.response.data;
+                } else {
+                    document.getElementById('err').innerHTML = "An error occurred";
+                }
+            } else {
+                console.log(err);
+                document.getElementById('err').innerHTML = "An error occurred";
+            }
+        });
+}
+
+</script>
+
+
+<!--  adding money to wallet  -->
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+      document.getElementById('rzp-button1').onclick = function(e) {
+        e.preventDefault();
+        const amount = document.getElementById('amount-input').value;
+        if (!amount || amount <= 0) {
+            alert('Please enter a valid amount');
+            return;
+        }
+        fetch('/add-money', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ amount: amount }) // amount in paise
+        })
+        .then(response => response.json())
+        .then(data => {
+            let options = {
+                "key": 'rzp_test_CFupm2CPa5lLOi', // Enter the Key ID generated from the Dashboard
+                "amount": data.amount, // Amount in paise
+                "currency": "INR",
+                "name": 'VESTIDO',
+                "description": "Test Transaction",
+                "order_id": data.order_id, // Order ID from Razorpay
+                "handler": function (response){
+                    console.log(response);
+                    console.log(options.amount,'amount');
+                    fetch('/payment-success', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            razorpay_payment_id : response.razorpay_payment_id,
+                            razorpay_order_id:response.razorpay_order_id,
+                            razorpay_signature :response.razorpay_signature,
+                            amount:options.amount
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        showSnackBar('Payment successful')
+                        // alert('Payment successful');
+                        // You can redirect or update the UI
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                },
+                "prefill": {
+                    "name": "",
+                    "email": " ",
+                    "contact": "8976875667"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
+
+
+
+</script>
+
+
+<script>
+
+    // transaction history
+  const transactionButton =  document.getElementById('view-transaction-history')
+
+  transactionButton.addEventListener('click', async () => {
+    try {
+        const response = await fetch('/transaction-history', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+            // Display the transaction history
+            const transactionHistoryDiv = document.getElementById('transaction-history');
+            transactionButton.style.display = 'none'
+    transactionHistoryDiv.innerHTML = '<h4>Transaction History</h4>';
+    data.transaction_history.forEach(transaction => {
+    const transactionDiv = document.createElement('div');
+    transactionDiv.classList.add('transaction');
+    transactionDiv.innerHTML = `
+        <div class="transaction-details">
+            <div class="transaction-row">
+                <span class="transaction-label">Amount:</span>
+                <span class="transaction-value">${(transaction.amount)/100}</span>
+            </div>
+            <div class="transaction-row">
+                <span class="transaction-label">Type:</span>
+                <span class="transaction-value">${transaction.type}</span>
+            </div>
+            <div class="transaction-row">
+                <span class="transaction-label">Date:</span>
+                <span class="transaction-value">${new Date(transaction.dateTime).toLocaleString()}</span>
+            </div>
+            <div class="transaction-row">
+                <span class="transaction-label">Description:</span>
+                <span class="transaction-value">${transaction.description}</span>
+            </div>
+        </div>
+    `;
+    transactionHistoryDiv.appendChild(transactionDiv);
+});
+
+        } else {
+            showSnackBar(data.message || 'Failed to fetch transaction history' )
+            // alert(data.message || 'Failed to fetch transaction history');
+        }
+    } catch (error) {
+        console.error('Error fetching transaction history:', error);
+        alert('Error fetching transaction history');
+    }
+});
+
+
+
+
+function showSnackBar(text) {
+  var x = document.getElementById("snackbar");
+  x.innerHTML = text
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+
+<script>
+
+document.querySelector('#logout-link').addEventListener('click', function(event) {
+    event.preventDefault();
+    Swal.fire({
+        title: 'Do you want to logout?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, logout',
+        cancelButtonText: 'No, stay logged in'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/logout';
+        }
+    });
+});
+</script>

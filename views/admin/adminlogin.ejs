@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/admin/assets/css/login.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="main">
+        <div class="image">
+            <img class="logo" src="/user/img/logo.png" alt="Logo">
+        </div>
+
+        <div class="form">
+            <form action="/admin/login" method="post">
+                <label for="email"><b>Email</b></label>
+                <div class="form-group">
+                    <input type="email" name="email" class="inp" placeholder="Enter Your Email"  required>
+                </div>
+                <br>
+                <label for="password"><b>Password</b></label>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" class="inp" placeholder="Enter Your Password"   required>
+                    <a href="#" onclick="protectPass('password')">
+                        <img src="/user/img/icon/211661_eye_icon.png" class="icon" alt="Show/Hide Password">
+                    </a>
+                </div>
+                <!-- <a href="/admin/adminotplogin" class="otp">Login with OTP</a> -->
+                <button type="submit" class="loginbtn">LOGIN</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        function protectPass(inputId) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        }
+    </script>
+</body>
+</html>

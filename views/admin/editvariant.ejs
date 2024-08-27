@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/admin/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/admin/assets/css/users.css" />
+  <link rel="stylesheet" href="/admin/assets/css/snackbar/snackbar.css">
+  <title>Admin Dashboard</title>
+</head>
+
+<body>
+  <div id="snackbar"></div>
+  <!-- Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="/index.html" class="text-nowrap logo-img">
+            <img src="/admin/assets/images/logos/dark-logo.svg" width="180" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/category" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Category</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/brands" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Brands</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/products" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Products</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/users" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Users</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/orders" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Orders</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/coupons" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Coupon</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/offers" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Offer</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/salesreport" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Sales Report</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu"  id="logout-link" >Logout</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!-- Sidebar End -->
+    <!-- Main wrapper -->
+
+    <div class="col-lg-8 d-flex align-items-stretch main">
+      <div class="card w-100">
+        <div class="card-body p-4">
+          <div class="button w-100 d-flex justify-content-end">
+
+            <% if(variants) { %>
+              <a style="width: 200px;" href="/admin/products/productdetailedview/<%=variants.productId%>"
+                class="btn btn-success">Active Variants</a>
+
+              <% } %>
+          </div>
+          <h5 class="card-title fw-semibold mb-4" id="table">Edit Variants</h5>
+          <div class="table-responsive">
+            <table class="table text-nowrap mb-0 align-middle">
+
+              <tbody>
+                <% if (locals.err) { %>
+                  <tr>
+                    <td>
+                      <p style="color: red;">
+                        <%= err %>
+                      </p>
+                    </td>
+                  </tr>
+                  <% } %>
+                    <% if (locals.variants) { %>
+                      <form id="variantForm" action=""
+                        method="post"      onsubmit="return validateModal()"  novalidate> <!-- enctype="multipart/form-data" -->
+
+
+                        <div class="form-group">
+                          <label for="image1">Image 1:</label>
+                          <input type="file" class="form-control" id="image1" name="image1" accept="image/*"
+                            onchange="showCropper(event, 'imagePreview1', 'cropBtn1')">
+                          <!-- Display the existing image if it exists -->
+                          <% if (variants.images[0]) { %>
+                            <img id="imagePreview1" class="img-preview" src="<%= variants.images[0] %>" alt="Image Preview 1">
+                          <% } else { %>
+                            <img id="imagePreview1" class="img-preview" src="" alt="Image Preview 1" style="display: none;">
+                          <% } %>
+                          <button type="button" id="cropBtn1" style="display:none;"
+                            onclick="cropImage('image1', 'imagePreview1')">Crop</button>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="image2">Image 2:</label>
+                          <input type="file" class="form-control" id="image2" name="image2" accept="image/*"
+                            onchange="showCropper(event, 'imagePreview2', 'cropBtn2')">
+                          <!-- Display the existing image if it exists -->
+                          <% if (variants.images[1]) { %>
+                            <img id="imagePreview2" class="img-preview" src="<%= variants.images[1] %>" alt="Image Preview 2">
+                          <% } else { %>
+                            <img id="imagePreview2" class="img-preview" src="" alt="Image Preview 2" style="display: none;">
+                          <% } %>
+                          <button type="button" id="cropBtn2" style="display:none;"
+                            onclick="cropImage('image2', 'imagePreview2')">Crop</button>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="image3">Image 3:</label>
+                          <input type="file" class="form-control" id="image3" name="image3" accept="image/*"
+                            onchange="showCropper(event, 'imagePreview3', 'cropBtn3')">
+                          <!-- Display the existing image if it exists -->
+                          <% if (variants.images[2]) { %>
+                            <img id="imagePreview3" class="img-preview" src="<%= variants.images[2] %>" alt="Image Preview 3">
+                          <% } else { %>
+                            <img id="imagePreview3" class="img-preview" src="" alt="Image Preview 3" style="display: none;">
+                          <% } %>
+                          <button type="button" id="cropBtn3" style="display:none;"
+                            onclick="cropImage('image3', 'imagePreview3')">Crop</button>
+                        </div>
+                        <div id="errP" style="color: red;"></div>
+                        
+
+                        <tr>
+                          <td class="border-bottom-0">
+                            <label for="price">Price:</label>
+                            <input type="number" id="price" name="price" value="<%= variants.price %>" class="form-control"  />
+                            <p id="priceErr"></p>
+                          </td>
+                        </tr>
+
+
+                        <tr>
+                          <td class="border-bottom-0">
+                            <label for="price">color:</label>
+                            <input type="text" id="colors" name="colors" class="form-control"  value="<%= variants.colors %>"/>
+                            <p id="colorErr"></p>
+                               
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td class="border-bottom-0">
+                            <label for="stock" id="stock">Stock:</label>
+                            <% if (sizes && sizes.length > 0) { %>
+                              <input name="" id="size_length" value="<%= sizes.length %>" hidden>
+                              <% sizes.forEach((size, sizeIndex) => { %>
+                                <div>
+                                  <input type="text" id="size<%= sizeIndex %>" value="<%= size.sizeName %>"
+                                    placeholder="<%= size.sizeName %>" class="form-control" readonly>
+                        
+                                  <% const matchedStock = variants.stock.find(stock => stock.size === size.sizeName); %>
+                                  <% if (matchedStock) { %>
+                                    <input type="number" placeholder="Quantity" value="<%= matchedStock.quantity %>"
+                                      id="quantity<%= sizeIndex %>" class="form-control" required>
+                                    <p id="quantitysize<%= sizeIndex %>"></p>
+                                  <% } else { %>
+                                    <input type="number" placeholder="Quantity" value="0"
+                                      id="quantity<%= sizeIndex %>" class="form-control" required>
+                                    <p id="quantitysize<%= sizeIndex %>"></p>
+                                  <% } %>
+                                </div>
+                                <br>
+                              <% }); %>
+                            <% } %>
+                          </td>
+                        </tr>
+                              
+                        <input type="text" name="vId" id="vId" value="<%= variants._id %>"  hidden> 
+
+                        
+                        <tr>
+                          <td class="border-bottom-0">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                          </td>
+                        </tr>
+                      </form>
+
+
+
+                      <% } %>
+              </tbody>
+
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+document.getElementById('variantForm').addEventListener('submit', async function (event) {
+
+    event.preventDefault();
+
+    validateModal();
+
+    const variantData = {};
+
+    const vIdElement = document.getElementById("vId");
+    const colorElement = document.getElementById("colors");
+    const priceElement = document.getElementById("price");
+    const sizeLengthElement = document.getElementById("size_length");
+
+    if (!vIdElement || !colorElement || !priceElement || !sizeLengthElement) {
+        console.error("Required elements not found");
+        return;
+    }
+
+    variantData['vId'] = vIdElement.value;
+    variantData['color'] = colorElement.value;
+    variantData['price'] = priceElement.value;
+
+    const sizes = parseInt(sizeLengthElement.value, 10);
+    const stock = [];
+
+    for (let i = 0; i < sizes; i++) {
+        const sizeElement = document.getElementById("size" + i);
+        const quantityElement = document.getElementById("quantity" + i);
+
+        if (!sizeElement || !quantityElement) {
+            console.error(`Size or quantity element not found for index ${i}`);
+            continue;
+        }
+
+        stock.push({
+            size: sizeElement.value,
+            quantity: parseInt(quantityElement.value, 10)
+        });
+    }
+
+    variantData['stock'] = stock;
+
+    const imageInputs = ['image1', 'image2', 'image3'];
+    const croppedImages = [];
+
+    for (const id of imageInputs) {
+        const inputElement = document.getElementById(id);
+        if (!inputElement) {
+            console.error(`Image element not found for ${id}`);
+            continue;
+        }
+
+        if (inputElement.dataset.cropped) {
+            const blob = dataURLtoBlob(inputElement.dataset.cropped);
+            const fileObject = new File([blob], `image.jpg`, { type: blob.type });
+            const base64 = await convertToBase64(fileObject);
+            croppedImages.push(base64);
+        } else if (inputElement.files[0]) {
+            const base64 = await convertToBase64(inputElement.files[0]);
+            croppedImages.push(base64);
+        }
+    }
+
+    variantData['images'] = croppedImages;
+    console.log(variantData,'variantData');
+    
+
+    try {
+        const response = await axios.post('/admin/products/editvariants', variantData);
+
+        const data = await response.data;
+        if (data.type === "error") {
+            Swal.fire('Error', data.msg, 'error');
+        } else {
+            Swal.fire('Success', 'Variant updated successfully!', 'success');
+            setTimeout(() => {
+                window.location.href = '/admin/products';
+            }, 2000);
+        }
+    } catch (error) {
+      showSnackBar( 'Fill the form correctly');
+    }
+});
+
+
+    // new cropper added
+
+    function showCropper(event, previewId, cropBtnId) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const output = document.getElementById(previewId);
+        output.src = reader.result;
+        output.style.display = 'block';
+        const cropBtn = document.getElementById(cropBtnId);
+        cropBtn.style.display = 'block';
+
+        if (window.cropper) {
+          window.cropper.destroy();
+        }
+
+
+        window.cropper = new Cropper(output, {
+          aspectRatio: 1,
+          viewMode: 1,
+          autoCropArea: 1
+        });
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function cropImage(inputId, previewId) {
+      const canvas = window.cropper.getCroppedCanvas({
+        width: 600,
+        height: 600
+      });
+
+      const croppedImage = canvas.toDataURL('image/jpeg',1); // zooming
+      const inputElement = document.getElementById(inputId);
+      inputElement.dataset.cropped = croppedImage;
+      document.getElementById(previewId).src = croppedImage;
+
+      window.cropper.destroy();
+    }
+
+
+    // end of cropper side
+    function dataURLtoBlob(dataURL) {
+        const arr = dataURL.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], { type: mime });
+      }
+
+      async function convertToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const fileReader = new FileReader();
+          fileReader.readAsDataURL(file);
+          fileReader.onload = () => {
+              resolve(fileReader.result);
+          };
+          fileReader.onerror = (error) => {
+              reject(error);
+          };
+        });
+      }
+
+
+
+
+  </script>
+  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/sidebarmenu.js"></script>
+  <script src="../assets/js/app.min.js"></script>
+  <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+  <script src="../assets/js/dashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+
+  <!-- cropper -->
+  <script src="https://unpkg.com/cropperjs"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script> 
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.getElementById('logout-link').addEventListener('click', function(event) {
+    event.preventDefault();
+    Swal.fire({
+        title: 'Do you want to logout?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, logout',
+        cancelButtonText: 'No, stay logged in'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/admin/logout';
+        }
+    });
+});
+</script>
+
+
+<script>
+
+  
+function validateModal() {
+    let isValid = true;
+
+    // Validate Color
+    const color = document.getElementById('colors').value.trim();
+    const colorErr = document.getElementById('colorErr');
+    if (color === '') {
+        colorErr.textContent = 'Please select a color';
+        colorErr.style.color = 'red';
+        isValid = false;
+    } else {
+        colorErr.textContent = '';
+    // Validate Price
+    const price = document.getElementById('price').value.trim();
+    const priceErr = document.getElementById('priceErr');
+    if (price === '' || price <= 0) {
+        priceErr.textContent = 'Enter a positive value for the price';
+        priceErr.style.color = 'red';
+        isValid = false;
+    } else {
+        priceErr.textContent = '';
+
+         // Validate Quantity
+    const sizeLengthElement = document.getElementById("size_length");
+  
+
+    if (sizeLengthElement) {
+            const sizes = parseInt(sizeLengthElement.value, 10);
+        for (let i = 0; i < sizes; i++) {
+            const quantityElement = document.getElementById("quantity" + i);
+            const quantitysizeErr = document.getElementById('quantitysize' + i)
+            const quantityValue = quantityElement.value.trim();
+
+            if (quantityValue === '' || parseInt(quantityValue, 10) <= 0) {
+                quantityElement.style.borderColor = 'red';
+                quantitysizeErr.textContent = 'Enter a positive quantity';
+                quantityElement.nextElementSibling.style.color = 'red';
+                isValid = false;
+            } else {
+                quantityElement.style.borderColor = '';
+                quantityElement.nextElementSibling.textContent = '';
+
+                 
+    const imageInputs = ['image1', 'image2', 'image3'];
+    const imageErr = document.getElementById('errP');
+    imageErr.textContent = ''; 
+
+    imageInputs.forEach((id, index) => {
+        const inputElement = document.getElementById(id);
+        if (!inputElement || (!inputElement.files.length && !inputElement.dataset.cropped)) {
+            imageErr.textContent += `Please select an image ${index + 1}.\n`;
+            imageErr.style.color = 'red';
+            isValid = false;
+          
+        }
+    });
+                
+            }
+        }
+    }
+
+    }
+
+
+    }
+
+   
+    return isValid;
+}
+
+
+</script>
+
+<script>
+  function showSnackBar(text) {
+  var x = document.getElementById("snackbar");
+  x.innerHTML = text
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+</script>
+</body>
+</html>

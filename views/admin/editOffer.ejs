@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/admin/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/admin/assets/css/users.css" />
+  
+  <!-- <title>Admin Dashboard</title> -->
+
+  <link rel="stylesheet" href="/admin/assets/css/coupon/coupon.css">
+  <link rel="stylesheet" href="/admin/assets/css/offer/offer.css">
+  <link rel="stylesheet" href="/admin/assets/css/snackbar/snackbar.css">
+
+  <title>Admin - Offers</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+ 
+</head>
+<body>
+  <div id="snackbar"></div>
+  <!-- Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between hello">
+        
+            <img src="/admin/assets/images/logos/dark-logo.svg" width="180" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/category" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Category</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/admin/brands" aria-expanded="false">
+                  <span></span>
+                  <span class="hide-menu">Brands</span>
+                </a>
+              </li>
+
+              
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/products" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Products</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/users" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Users</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/orders" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Orders</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/coupons" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Coupon</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/offers" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Offer</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/salesreport" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Sales Report</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu"  id="logout-link"  >Logout</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!-- Sidebar End -->
+    <!-- Main wrapper -->
+    
+<body>
+  <link rel="stylesheet" href="/admin//assets/css/styles.min.css" />
+<!--  Body Wrapper -->
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+  data-sidebar-position="fixed" data-header-position="fixed">
+  <!-- Sidebar Start -->
+ 
+  <!--  Sidebar End -->
+  <!--  Main wrapper -->
+
+
+
+
+
+
+
+
+
+
+  <!-- List of coupons -->
+  <h2>Offers</h2>
+  <ul id="coupon-list">
+
+    <!-- <li>
+
+        <span> offerName</span>
+        <span> redeemAmount</span>
+        <span> category</span>
+        <span> product</span>
+        <span> isActive</span>
+        <span> date</span>
+     
+    </li> -->
+    <% if(offer) { %>
+    <li>
+      <span><%= offer.offerName %>-</span>
+      <!-- <span><%= offer.discount %></span> -->
+      <span>redeemAmount : <%= offer.redeemAmount %></span>
+      <span><%= offer.offerType %> : <b><%= offer.categoryName%><%= offer.productName %></b></span>
+      <span></span>
+   
+      <span>isActive : <%= offer.isActive %></span>
+      <!-- <span><%= offer.addedDateTime %></span> -->
+      <span class="validUntil" data-date="<%= offer.validUntil %>"></span>
+      
+     
+      <!-- <button class="delete-coupon-btn" data-id="<%= offer._id %>">Delete</button> -->
+      <input type="hidden" id="offerId" value="<%= offer._id %>">
+    </li>
+    <% } %>
+    <button id="add-coupon-button">Edit Offer</button>
+  </ul>
+  
+
+
+
+
+  <% if(offer) { %>
+ 
+ <!-- Form to create a new coupon -->
+<div id="coupon-form-container" style="display: none;">
+  <form id="create-coupon-form"   onsubmit=" return validateForm()"  novalidate>
+    <h4>Manage Offers</h4>
+    <input type="text" name="offerName" id="offerName" placeholder="Offer Name  :  <%= offer.offerName %> "   value="<%= offer.offerName %>" required>
+    <p id="offerNameErr"></p>
+    <input type="number" name="discount" id="discount" placeholder="Discount Percentage  :  <%= offer.discount %>"   value="<%= offer.discount %>" required>
+    <p id="discountErr"></p>
+    <input type="number" name="redeemAmount" id="redeemAmount" placeholder="Redeem Amount  :  <%= offer.redeemAmount %>"  value="<%= offer.redeemAmount %>" required>
+    <p id="redeemAmountErr"></p>
+
+    <select name="offerType" id="offerType">
+      <option value="">Offer Type</option>
+      <option value="categoryWise">Category Wise</option>
+      <option value="productWise">Product Wise</option>
+    </select>
+
+    <select name="categoryName" id="categorySelect" class="hidden" onchange="setCategoryId(this)">
+      <option value="">Select a category</option>
+      <% if (category) { %>
+        <% category.forEach((category) => { %>
+          <option value="<%= category.categoryName %>" data-id="<%= category._id %>"><%= category.categoryName %></option>
+        <% }) %>
+      <% } %>
+    </select>
+
+    <select name="productName" id="productSelect" class="hidden" onchange="setProductId(this)">
+      <option value="">Select a product</option>
+      <% if (product) { %>
+        <% product.forEach((product) => { %>
+          <option value="<%= product.productName %>" data-id="<%= product._id %>"><%= product.productName %></option>
+        <% }) %>
+      <% } %>
+    </select>
+
+    <input type="hidden" name="categoryId" id="categoryId">
+    <input type="hidden" name="productId" id="productId">
+
+    <input type="date" name="validUntil" id="validUntil" placeholder="Valid Until" required>
+
+    <button type="submit">Edit Offer</button>
+  </form>
+</div>
+
+<% } %>
+
+
+
+
+
+
+</div>
+
+<script>
+      document.getElementById('offerType').addEventListener('change', function() {
+    let categorySelect = document.querySelector('#categorySelect');
+    let productSelect = document.querySelector('#productSelect');
+
+    if (this.value === 'categoryWise') {
+      categorySelect.classList.remove('hidden');
+      productSelect.classList.add('hidden');
+    } else if (this.value === 'productWise') {
+      categorySelect.classList.add('hidden');
+      productSelect.classList.remove('hidden');
+    } else {
+      categorySelect.classList.add('hidden');
+      productSelect.classList.add('hidden');
+    }
+  });
+</script>
+
+  <!-- Bootstrap and jQuery Scripts -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/sidebarmenu.js"></script>
+<script src="../assets/js/app.min.js"></script>
+<script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+<script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.getElementById('logout-link').addEventListener('click', function(event) {
+    event.preventDefault();
+    Swal.fire({
+        title: 'Do you want to logout?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, logout',
+        cancelButtonText: 'No, stay logged in'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/admin/logout';
+        }
+    });
+});
+</script>
+
+<script>
+
+
+    document.getElementById('add-coupon-button').addEventListener('click',function(){
+
+    const createCoupon = document.getElementById('coupon-form-container')  
+    const addOffer = document.getElementById('add-coupon-button')
+    if(createCoupon.style.display ==='none'){
+      createCoupon.style.display = 'block'  
+      addOffer.style.display = 'none'
+    }else{
+      createCoupon.style.display = 'none'
+      addOffer.style.display = 'block'
+    }
+  })
+
+
+
+
+function setCategoryId(selectElement) {
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const categoryId = selectedOption.getAttribute('data-id');
+    document.getElementById('categoryId').value = categoryId;
+  }
+
+  function setProductId(selectElement) {
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const productId = selectedOption.getAttribute('data-id');
+    document.getElementById('productId').value = productId;
+  }
+
+  // Your existing form submission logic
+  const createCouponForm = document.getElementById('create-coupon-form');
+
+  createCouponForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const isValid = validateForm()
+
+    if(!isValid)  return
+    
+    const couponIdInput = document.getElementById('offerId');
+    const couponId = couponIdInput.value;
+
+    const formData = new FormData(createCouponForm);
+    const couponData = {};
+    formData.forEach((value, key) => couponData[key] = value);
+
+    try {
+      const response = await fetch(`/admin/editoffers?oId=${couponId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(couponData)
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        showSnackBar(result.message);
+        setTimeout(() => {
+          window.location.href = `/admin/editoffers?oId=${couponId}`;
+        }, 4000);
+      } else {
+        alert('Error creating coupon: ' + result.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  });
+
+    function showSnackBar(text) {
+    var x = document.getElementById("snackbar");
+    x.innerHTML = text
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  }
+</script>
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const dateElements = document.querySelectorAll('.validUntil');
+  
+    dateElements.forEach(function(element) {
+      const rawDate = element.getAttribute('data-date');
+      const date = new Date(rawDate);
+      
+      // Options for the formatted date
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const formattedDate = date.toLocaleDateString(undefined, options);
+      
+      // Set the formatted date as the element's text content
+      element.textContent = formattedDate;
+    });
+  });
+  
+    </script>
+
+    
+<script>
+
+   
+  function validateForm() {
+        let isValid = true;
+    
+        const offerName = document.getElementById('offerName').value.trim();
+        const offerNameErr = document.getElementById('offerNameErr')
+        if( offerName == ''){
+          offerNameErr.textContent = 'Enter a code'
+          offerNameErr.style.color = 'red'
+          isValid = false;
+        }else{
+          offerNameErr.textContent = ''
+  
+        const discountPercentage = document.getElementById('discount').value.trim();
+        const discountErr = document.getElementById('discountErr');
+        if (discountPercentage === '' || discountPercentage <= 0 || discountPercentage >50 ) {
+          discountErr.textContent = 'Enter a positive value between 0% and 50%';
+          discountErr.style.color = 'red';
+            isValid = false;
+        } else {
+          discountErr.textContent = '';
+            
+  
+        const redeemAmount = document.getElementById('redeemAmount').value.trim();
+        const redeemAmountErr = document.getElementById('redeemAmountErr');
+        if (redeemAmount === '' || redeemAmount <= 0) {
+          redeemAmountErr.textContent = 'Enter a positive value for redeemAmount';
+          redeemAmountErr.style.color = 'red';
+            isValid = false;
+        } else {
+          redeemAmountErr.textContent = '';
+            
+        }
+  
+        }
+        
+    
+        }
+    
+       
+        return isValid;
+    }
+  </script>

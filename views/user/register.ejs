@@ -1,0 +1,257 @@
+<link rel="stylesheet" href="/user/css/register.css">
+
+<body>
+    <div class="main">
+        <div class="image">
+            <img class="logo" src="/user/img/logo.png" alt>
+        </div>
+
+        <div class="form">
+            <!-- novalidate -->
+            <form id="form" action="/register" method="post" onsubmit="return validateForm()"  novalidate> 
+                <label for="name"><b>Full Name</b></label>
+                <div class="form-group">
+                    <input type="text" id="name" name="name" class="inp" placeholder="Enter Your Full Name"  >
+                </div>
+                <p class="err" id="nameErr"></p>
+                <br>
+        
+                <label for="email"><b>Email</b></label>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" class="inp" placeholder="Enter Your Email">
+                </div>
+                <p class="err" id="emailErr"></p>
+                <%if(locals.errE){%>
+                    <p class="err"><%= locals.errE%></p>
+                <%}%>
+                <br>
+        
+                <label for="phone"><b>Mobile Number</b></label>
+                <div class="form-group">
+                    <input type="number" id="phone" name="phone" class="inp" placeholder="Enter Your Mobile Number" required>
+                </div>
+                <p class="err" id="phoneErr"></p>
+                <%if(locals.errP){%>
+                    <p class="err"><%= locals.errP%></p>
+                <%}%>
+                <br>
+        
+                <label for="password"><b>Password</b></label>
+                <div class="form-group">
+                    <input id="password" type="password" name="password" class="inp" placeholder="Enter Your Password" required>
+                    <a href="#" onclick="protectPass('password')"><img src="/user/img/icon/211661_eye_icon.png" class="icon" alt></a>
+                </div>
+                <p class="err" id="passwordErr"></p>
+                <br>
+        
+                <label for="confirm-password"><b>Confirm Password</b></label>
+                <div class="form-group">
+                    <input id="confirm-password" type="password" class="inp" placeholder="Confirm Your Password" required>
+                    <a href="#" onclick="protectPass('confirm-password')"><img src="/user/img/icon/211661_eye_icon.png" class="icon" alt></a>
+                </div>
+                <p class="err" id="confirm-passwordErr"></p>
+                <br>
+        
+                <button type="submit" class="register">Get OTP</button>
+            </form>
+        
+            <p class="or">OR</p>
+            <button class="gsignin">
+                <img class="google" src="user/img/icon/google-icon-2048x2048-pks9lbdv.png" alt width="25px" height="25px">
+                <a href="/auth/google" class="btntxt">Continue with Google</a>
+            </button>
+            <div class="dlogin">
+                <a href="/login" class="login"><p>Already have an account? Login here</p></a>
+            </div>
+        </div>
+
+
+        <div class="footer">
+            <p>Contact Us</p>
+            <p>Terms & Conditions</p>
+            <p>Privacy Policy</p>
+        </div>
+    </div>
+
+    <!--
+    <div class="footer">
+        <p>Contact Us</p>
+        <p>Terms & Conditions</p>
+        <p>Privacy Policy</p>
+    </div>-->
+</body>
+
+<script>
+    function protectPass(inputId) {
+        const input = document.getElementById(inputId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            
+        } else {
+            input.type = 'password';
+        }
+    }
+
+
+
+
+
+
+    // const form = document.getElementById("form")
+    // let err
+    // let emailErr = document.getElementById("emailErr");
+    // let phoneErr = document.getElementById("phoneErr")
+    // let passwordErr = document.getElementById("passwordErr")
+    // let confirmPasswordErr = document.getElementById("confirm-password")
+
+    // form.addEventListener('submit',(e)=>{
+    //     let email = document.getElementById('email').value
+    //     let phone = document.getElementById("phone").value
+    //     let password = document.getElementById("password").value
+    //     let repassword = document.getElementById("confirm-password").value
+    //     err = false
+    //     emailValidate(email)
+    //     phoneValidation(phone)
+    //     passwordValidate(password);
+    //     conformPass(password,repassword)
+
+    //     if(err){
+    //         e.preventDefault()
+    //     }
+
+    // })
+    // function emailValidate(email){
+    //     let emailreg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    //     const result = emailreg.test(email)
+    //     if(!result){
+    //         err = true
+    //         emailErr.innerHTML = "Entered Email is invalid "
+    //     }
+    // }
+
+    // function phoneValidation(phone){
+       
+    //     let phoneReg = /^[6789]\d{9}$/
+    //     let result = phoneReg.test(phone)
+    //     if(!result){
+    //         err = true
+    //         phoneErr.innerHTML = "Entered mobile number is invalid"
+    //     }
+    // }
+    
+    // function passwordValidate(password){
+    //     let lengthReg = /^.{8,}$/;
+    //     let lowercaseReg = /[a-z]/;
+    //     let uppercaseReg = /[A-Z]/;
+    //     let digitReg = /\d/;
+    //     let specialCharReg = /[@$!%*?&]/;
+
+    //     let result = lengthReg.test(password);
+    //     let result1 = lowercaseReg.test(password);
+    //     let result2 = uppercaseReg.test(password);
+    //     let result3 = digitReg.test(password);
+    //     let result4 = specialCharReg.test(password)
+
+    //     if(!result){
+    //         err = true;
+    //         passwordErr.innerHTML = "Password Must Conatin 8 Charecters";
+    //     }else if(!result1){
+    //         err = true;
+    //         passwordErr.innerHTML = "Password Must Conatin minimum one lowerCase";
+    //     }else if(!result2){
+    //         err = true;
+    //         passwordErr.innerHTML = "Password Must Conatin minimum one Uppercase";
+    //     }else if(!result3){
+    //         err = true;
+    //         passwordErr.innerHTML = "Password Must Conatin minimum one Digit";
+    //     }else if(!result4){
+    //         err = true;
+    //         passwordErr.innerHTML = "Password Must Conatin minimum one Speacial Charecter";
+    //     }
+    // }
+
+    // function conformPass(password,repassword){
+    //     if(password!==repassword){
+    //         err =true;
+    //         confirmPasswordErr.innerHTML = "Check entered password is correct"
+    //     }
+    // }
+
+
+
+    function validateForm() {
+        let isValid = true;
+
+        // Name validation
+        const name = document.getElementById('name').value;
+        const nameErr = document.getElementById('nameErr');
+        if (name.trim() === "") {
+            nameErr.textContent = 'Please enter your name';
+            nameErr.style.color = 'red';
+            isValid = false;
+        } else {
+            nameErr.textContent = '';
+
+        // Email validation
+        const email = document.getElementById('email').value;
+        const emailErr = document.getElementById('emailErr');
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            emailErr.textContent = 'Please enter a valid email address';
+            emailErr.style.color = 'red';
+            isValid = false;
+        } else {
+            emailErr.textContent = '';
+
+         // Phone number validation
+        const phone = document.getElementById('phone').value;
+        const phoneErr = document.getElementById('phoneErr');
+        const phoneReg = /^[6789]\d{9}$/;
+        if (!phoneReg.test(phone)) {
+            phoneErr.textContent = 'Please enter a valid mobile number ';
+            phoneErr.style.color = 'red';
+            isValid = false;
+        } else {
+            phoneErr.textContent = '';
+
+        // Password validation
+        const password = document.getElementById('password').value;
+        const passwordErr = document.getElementById('passwordErr');
+        if (password.trim() === "") {
+            passwordErr.textContent = 'Please enter a password';
+            passwordErr.style.color = 'red';
+            isValid = false;
+        } else {
+            passwordErr.textContent = '';
+
+              // Confirm Password validation
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const confirmPasswordErr = document.getElementById('confirm-passwordErr');
+        if (confirmPassword.trim() === "") {
+            confirmPasswordErr.textContent = 'Please confirm your password';
+            confirmPasswordErr.style.color = 'red';
+            isValid = false;
+        } else if (password !== confirmPassword) {
+            confirmPasswordErr.textContent = 'Passwords do not match';
+            confirmPasswordErr.style.color = 'red';
+            isValid = false;
+        } else {
+            confirmPasswordErr.textContent = '';
+        }
+
+        }
+   
+        }
+
+        }
+
+        }
+
+        return isValid;
+    }
+
+    
+
+
+    
+</script>

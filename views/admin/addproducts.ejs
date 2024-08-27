@@ -1,0 +1,1002 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/admin/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/admin/assets/css/add-product.css" />
+  <!-- cropper -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+
+  <title>Admin Dashboard</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+
+    form {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    form label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+      margin-top: 16px;
+    }
+
+    form input[type="text"],
+    form select,
+    form textarea {
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    form textarea {
+      resize: vertical;
+    }
+
+    form button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    form button[type="submit"] {
+      background-color: #007bff;
+      color: #ffffff;
+    }
+
+    form button[type="reset"] {
+      background-color: #6c757d;
+      color: #ffffff;
+      margin-left: 10px;
+    }
+
+    form button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    form button[type="reset"]:hover {
+      background-color: #5a6268;
+    }
+
+
+
+    /* modal */
+
+    /* The Modal (background) */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    /* The Modal (background) */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    /* Modal Content */
+    /* The Modal (background) */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+
+    .img-preview {
+      max-width: 100%;
+      max-height: 300px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+
+
+<style>
+  /* The snackbar - position it at the bottom and in the middle of the screen */
+  #snackbar {
+      visibility:hidden;
+      /* Hidden by default. Visible on click */
+      min-width: 250px;
+      /* Set a default minimum width */
+      margin-left: -125px;
+      /* Divide value of min-width by 2 */
+      background-color: #333;
+      /* Black background color */
+      color: #fff;
+      /* White text color */
+      text-align: center;
+      /* Centered text */
+      border-radius: 2px;
+      /* Rounded borders */
+      padding: 16px;
+      /* Padding */
+      position: fixed;
+      /* Sit on top of the screen */
+      z-index: 1;
+      /* Add a z-index if needed */
+      left: 50%;
+      /* Center the snackbar */
+      bottom: 30px;
+      /* 30px from the bottom */
+  }
+
+  /* Show the snackbar when clicking on a button (class added with JavaScript) */
+  #snackbar.show {
+      visibility: visible;
+      /* Show the snackbar */
+      /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+However, delay the fade out process for 2.5 seconds */
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+
+  /* Animations to fade the snackbar in and out */
+  @-webkit-keyframes fadein {
+      from {
+          bottom: 0;
+          opacity: 0;
+      }
+
+      to {
+          bottom: 30px;
+          opacity: 1;
+      }
+  }
+
+  @keyframes fadein {
+      from {
+          bottom: 0;
+          opacity: 0;
+      }
+
+      to {
+          bottom: 30px;
+          opacity: 1;
+      }
+  }
+
+  @-webkit-keyframes fadeout {
+      from {
+          bottom: 30px;
+          opacity: 1;
+      }
+
+      to {
+          bottom: 0;
+          opacity: 0;
+      }
+  }
+
+  @keyframes fadeout {
+      from {
+          bottom: 30px;
+          opacity: 1;
+      }
+
+      to {
+          bottom: 0;
+          opacity: 0;
+      }
+  }
+</style>
+</head>
+
+<body>
+  <div id="snackbar"></div>
+
+  <!-- Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between hello">
+
+          <img src="/admin/assets/images/logos/dark-logo.svg" width="180" alt />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar>
+          <ul id="sidebarnav">
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/category" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Category</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/brands" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Brands</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/products" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Products</span>
+              </a>
+            </li>
+
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/products/colors" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">colors</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/products/sizes" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">sizes</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/users" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Users</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/orders" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Orders</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/coupons" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Coupon</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/offers" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Offer</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/salesreport" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Sales Report</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu" id="logout-link">Logout</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!-- Sidebar End -->
+    <!-- Main wrapper -->
+
+    <link rel="stylesheet" href="/admin//assets/css/styles.min.css" />
+
+    <form id="product-form" method="POST"  onsubmit="return validateForm()"  novalidate>
+      <label for="productName">Product Name:</label>
+      <input type="text" id="productName" name="productName" value required>
+      <p  id="productErr"></p>
+      <%if(locals.err){%>
+        <p style="color: red;">
+          <%= err%>
+        </p>
+        <%}%>
+
+          <!-- gender -->
+
+          <label for="gender">Gender:</label>
+          <select id="gender" name="gender" required>
+            <option value>Select Gender</option>
+            <option value="Women">Women</option>
+            <option value="Male" id="male">Men</option>
+            <option value="Kids">Kids</option>
+          </select>
+          <p  id="genderErr"></p>
+
+          <!-- category -->
+
+          <label for="category">Category:</label>
+          <select id="category" name="category" required>
+            <option value>Select a category</option>
+            <% if (categories) { %>
+              <% categories.forEach((category)=> { %>
+                <option value="<%= category.categoryName %>">
+                  <%= category.categoryName%>
+                </option>
+                <% }); %>
+                  <% } %>
+          </select>
+          <p id="categoryErr"></p>
+
+          <!-- brands -->
+          <label for="brands">Brands:</label>
+          <select id="brands" name="brands" required>
+            <option value>Select a brands</option>
+            <% if (brands) { %>
+              <% brands.forEach((brands)=> { %>
+                <option value="<%= brands.brandname %>">
+                  <%= brands.brandname %>
+                </option>
+                <% }); %>
+                  <% } %>
+          </select>
+          <p id="brandsErr"></p>
+
+          <!--  sizes   -->
+
+
+          <!-- description -->
+
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" rows="4" cols="50"></textarea>
+          <p id="descriptionErr"></p>
+
+          <!-- Button for Add Product and View Dress Variants -->
+          <button type="submit" onclick="sendpData()" id="addProductBtn" data-toggle="modal"
+            data-target="#exampleModal">Add Product </button>
+
+    </form>
+
+
+    <!-- modal 1 -->
+    <div class="modal fade" id="variantModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel"  > <!-- inert  :  aria-hidden="true"-->
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Variant</h5>
+            <p id="demo"></p>
+            <button type="button" onclick="deleteData()" class="btn-close" data-bs-dismiss="modal" id="close_btn"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="variantForm" onsubmit="return validateModal()" novalidate>
+              <!-- Color -->
+              <label for="color">Color:</label>
+              <select id="color" name="color" required>
+                <option value="">Select a color</option>
+                <% if (colors) { %>
+                  <% colors.forEach((col)=>{ %>
+                    <option value="<%= col.color_name %>">
+                      <%= col.color_name%>
+                    </option>
+                    <% }); %>
+                      <% } %>
+              </select>
+              <p id="colorErr"></p>
+              <!-- hidden-->
+
+
+              <label for="price">Price:</label>
+              <input type="number" id="price" name="price" value="" required>
+              <p id="priceErr"></p>
+              <label for="stock" id="stock">Stock:</label>
+              <% if (sizes && sizes.length> 0) { %>
+                <input  name="" id="size_length" value=<%=sizes.length %> hidden>
+                <% sizes.forEach((size, index)=> { %>
+                  <div>
+                    <input type="text" id="size<%= index %>" value="<%= size.sizeName %>"
+                      placeholder="<%= size.sizeName %>" readonly>
+                    
+                    <input type="number" placeholder="Quantity" id="quantity<%= index %>" required>
+                    <p id="quantityErr<%= index %>"></p>
+                    <p class="error-message"></p>
+                  </div>
+                  <br>
+                  <% }); %>
+                    <% } %>
+
+                      <!-- Image Upload and Crop -->
+                      <div class="form-group">
+                        <label for="image1">Image 1:</label>
+                        <input type="file" class="form-control" id="image1" name="image1" accept="image/*"
+                          onchange="showCropper(event, 'imagePreview1', 'cropBtn1')">
+                        <img id="imagePreview1" class="img-preview" src="" alt="Image Preview 1">
+                        <button type="button" id="cropBtn1" style="display:none;"
+                          onclick="cropImage('image1', 'imagePreview1')">Crop</button>
+                      </div>
+                      <div class="form-group">
+                        <label for="image2">Image 2:</label>
+                        <input type="file" class="form-control" id="image2" name="image2" accept="image/*"
+                          onchange="showCropper(event, 'imagePreview2', 'cropBtn2')">
+                        <img id="imagePreview2" class="img-preview" src="" alt="Image Preview 2">
+                        <button type="button" id="cropBtn2" style="display:none;"
+                          onclick="cropImage('image2', 'imagePreview2')">Crop</button>
+                      </div>
+                      <div class="form-group">
+                        <label for="image3">Image 3:</label>
+                        <input type="file" class="form-control" id="image3" name="image3" accept="image/*"
+                          onchange="showCropper(event, 'imagePreview3', 'cropBtn3')">
+                        <img id="imagePreview3" class="img-preview" src="" alt="Image Preview 3">
+                        <button type="button" id="cropBtn3" style="display:none;"
+                          onclick="cropImage('image3', 'imagePreview3')">Crop</button>
+                      </div>
+                      <div id="errP" style="color: red;"></div>
+                      <!-- <div id="errP" style="color: red;"></div> -->
+
+                      <div class="modal-footer">
+                        <button type="submit" aria-label="Close" id="close-btn"  onclick='addVariant(event)' class="btn btn-primary">Save
+                          Variant</button>
+                      </div>
+            </form>
+            <input type="text" name="productId" id="productId" hidden>
+            <input type="text" name="categoryName" id="categoryName" hidden>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      let form = document.getElementById('product-form');
+      form.addEventListener('submit', (e) => {
+        console.log('preventDefault');
+        e.preventDefault();
+      });
+
+
+      async function sendpData() {
+    let pname = document.getElementById('productName').value;
+    let gender = document.getElementById('gender').value;
+    let category = document.getElementById('category').value;
+
+    let brand = document.getElementById('brands').value;
+    let desc = document.getElementById('description').value;
+
+    const obj = {
+        pname: pname,
+        gender: gender,
+        category: category,
+        brand: brand,
+        desc: desc
+    };
+// console.log(obj,'obj');
+
+    let productJson = JSON.stringify(obj);
+
+    try {
+        const response = await fetch(`/admin/products/addproducts`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: productJson
+        });
+
+        // Ensure you await the JSON parsing
+        const data = await response.json();
+
+        if (response.status === 200) {
+            document.getElementById("productId").value = data.productId; 
+            document.getElementById('categoryName').value = data.categoryName;
+            $('#variantModal').modal('show');
+        } else {
+            
+            console.error('Failed to add product:', data);
+            if (data.message) {
+              
+              showSnackBar(data.message); 
+
+            } else {
+                alert('Failed to add product due to an unknown error.');
+            }
+        }
+    } catch (error) {
+        // Handle network errors
+        console.error('Error:', error);
+    }
+}
+
+
+      // variantModal
+      document.getElementById('variantForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        
+        validateModal();
+
+        variantAlert();
+      });
+
+
+
+
+
+
+
+      // new cropper added
+      function showCropper(event, previewId, cropBtnId) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          const output = document.getElementById(previewId);
+          output.src = reader.result;
+          output.style.display = 'block';
+          const cropBtn = document.getElementById(cropBtnId);
+          cropBtn.style.display = 'block';
+
+          if (window.cropper) {
+            window.cropper.destroy();
+          }
+
+          window.cropper = new Cropper(output, {
+            aspectRatio: 1,
+            viewMode: 1,
+            autoCropArea: 1
+          });
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      }
+
+      function cropImage(inputId, previewId) {
+        const canvas = window.cropper.getCroppedCanvas({
+          width: 600,
+          height: 600
+        });
+
+        const croppedImage = canvas.toDataURL('image/jpeg', 1);                                    // for image zooming 
+        const inputElement = document.getElementById(inputId);
+        inputElement.dataset.cropped = croppedImage;
+        document.getElementById(previewId).src = croppedImage;
+
+        window.cropper.destroy();
+      }
+
+
+      // end of cropper side
+
+
+
+
+
+      function variantAlert() {
+        Swal.fire({
+          title: "variant added successfully",
+          text: "Do you want to add another variant?",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, add another"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reset all the form fields
+            resetForms();
+            $('#variantModal').modal('show');
+
+
+          } else {
+            window.location.href = "/admin/products"; // Redirect to the products page
+          }
+        });
+      }
+
+
+
+      function resetForms() {
+        // Select all forms within the modal and reset them
+        $('#variantModal form').each(function () {
+          this.reset();
+
+
+        })
+
+        // Reset the preview elements
+
+        $('#imagePreview1').innerHTML = " ";
+        $('#imagePreview2').innerHTML = " ";
+        $('#imagePreview3').innerHTML = " ";
+        $('#imagePreview1').attr('src', '');
+        $('#imagePreview2').attr('src', '');
+        $('#imagePreview3').attr('src', '');
+
+      }
+
+
+    async function addVariant(event) {
+
+event.preventDefault(); 
+
+// Validate the form first
+if (!validateModal()) {
+    return; 
+}
+    const formData = new FormData();
+    const variantData = {}
+
+    const productIdElement = document.getElementById("productId");
+    const categoryElement = document.getElementById('category')
+    // const categoryElement = document.getElementById('categoryName')
+
+    if (!productIdElement) {
+        console.error("Product ID element not found");
+        return;
+    }
+     formData.append("pId", productIdElement.value); // key value pair
+     formData.append('cName',categoryElement.value);
+
+     variantData['pId'] = productIdElement.value;
+     variantData['cName'] = categoryElement.value;  
+
+    const colorElement = document.getElementById("color");
+    if (!colorElement) {
+        console.error("Color element not found");
+        return;
+    }
+    console.log(colorElement.value);
+     formData.append("color", colorElement.value);
+     variantData['color'] = colorElement.value;
+    console.log(formData);
+
+    const priceElement = document.getElementById("price");
+    if (!priceElement) {
+        console.error("Price element not found");
+        return;
+    }
+     formData.append("price", priceElement.value);
+     variantData['price'] = priceElement.value;
+
+    const sizeLengthElement = document.getElementById("size_length");
+    if (!sizeLengthElement) {
+        console.error("Size length element not found");
+        return;
+    }
+    const sizes = parseInt(sizeLengthElement.value, 10);
+    const stock = [];
+
+    for (let i = 0; i < sizes; i++) {
+        const sizeElement = document.getElementById("size" + i);
+        const quantityElement = document.getElementById("quantity" + i);
+
+        if (!sizeElement || !quantityElement) {
+            console.error(`Size or quantity element not found for index ${i}`);
+            continue;
+        }
+
+        stock.push({
+            size: sizeElement.value,
+            quantity: parseInt(quantityElement.value, 10)
+        });
+    }
+
+    // Convert stock array to JSON string
+    formData.append("stock", JSON.stringify(stock)); // stock
+    variantData['stock'] = stock;
+
+    const imageInputs = ['image1', 'image2', 'image3'];
+
+    const cropedImages = [];
+
+    for(const id of imageInputs) { 
+      const inputElement = document.getElementById(id);
+      if (!inputElement) {
+        console.error(`Image element not found for ${imageId}`);
+        continue;
+      }
+      if (inputElement.dataset.cropped) {
+            const blob = dataURLtoBlob(inputElement.dataset.cropped);
+            const fileObject = new File([blob], `image.jpg`, { type: blob.type });
+            const base64 = await convertToBase64(fileObject);
+            cropedImages.push(base64);
+        } else if (inputElement.files[0]) {
+          const base64 = await convertToBase64(inputElement.files[0]);
+          cropedImages.push(base64);
+        }
+    }
+
+  
+
+    variantData['images'] = cropedImages;
+    console.log(variantData, 'dkhdksfjkdshf');
+    try {
+
+      
+        const response = await axios.post('/admin/products/addproductvariant', variantData);
+        const data = await response.data;
+
+        if (data.type === "error") {
+            showSnackBar(data.msg);
+        } else {
+            variantAlert(); 
+        }
+    } catch (err) {
+        console.log(err);
+        document.getElementById("errP").innerHTML = "Network Error";
+    }
+}
+
+      // cropper
+
+      function dataURLtoBlob(dataURL) {
+        const arr = dataURL.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], { type: mime });
+      }
+
+      async function convertToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const fileReader = new FileReader();
+          fileReader.readAsDataURL(file);
+          fileReader.onload = () => {
+              resolve(fileReader.result);
+          };
+          fileReader.onerror = (error) => {
+              reject(error);
+          };
+        });
+      }
+
+
+
+  function showSnackBar(text) {
+  var x = document.getElementById("snackbar");
+  x.innerHTML = text
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+      
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- cropper -->
+    <script src="https://unpkg.com/cropperjs"></script>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      document.getElementById('logout-link').addEventListener('click', function (event) {
+        event.preventDefault();
+        Swal.fire({
+          title: 'Do you want to logout?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, logout',
+          cancelButtonText: 'No, stay logged in'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = '/admin/logout';
+          }
+        });
+      });
+    </script>
+
+
+<script>
+
+function validateForm() {
+    let isValid = true;
+
+    const productName = document.getElementById('productName').value.trim();
+    const productErr = document.getElementById('productErr');
+
+    if (productName === '') {
+        productErr.textContent = 'Please enter a product name';
+        productErr.style.color = 'red';
+        isValid = false;
+    } else {
+        productErr.textContent = '';
+
+        const gender = document.getElementById('gender').value.trim();
+        const genderErr = document.getElementById('genderErr')
+
+        if(gender === ''){
+          genderErr.textContent = ' Please select a gender'
+          genderErr.style.color = 'red'
+          isValid = false;
+        }else {
+          genderErr.textContent = ''
+
+
+          const category = document.getElementById('category').value.trim();
+          const categoryErr = document.getElementById('categoryErr')
+
+          if( category === ''){
+            categoryErr.textContent = ' Please select a category'
+            categoryErr.style.color = 'red'
+            isValid = false
+
+          }else {
+            categoryErr.textContent = ''
+
+            const brands = document.getElementById('brands').value.trim()
+            const brandsErr = document.getElementById('brandsErr')
+
+            if(brands === ''){
+              brandsErr.textContent = 'Please select a brand name'
+              brandsErr.style.color = 'red'
+              isValid = false
+
+            }else {
+              brandsErr.textContent = ''
+
+              const description = document.getElementById('description').value.trim()
+              const descriptionErr = document.getElementById('descriptionErr')
+
+              if( description === ''){
+                descriptionErr.textContent = 'Please enter the description ' 
+                descriptionErr.style.color ='red'
+                isValid = false
+              }else {
+                descriptionErr.textContent = ''
+              }
+            }
+          }
+        }
+    }
+
+    return isValid;
+}
+
+
+
+
+function validateModal() {
+    let isValid = true;
+
+    // Validate Color
+    const color = document.getElementById('color').value.trim();
+    const colorErr = document.getElementById('colorErr');
+    if (color === '') {
+        colorErr.textContent = 'Please select a color';
+        colorErr.style.color = 'red';
+        isValid = false;
+    } else {
+        colorErr.textContent = '';
+    // Validate Price
+    const price = document.getElementById('price').value.trim();
+    const priceErr = document.getElementById('priceErr');
+    if (price === '' || price <= 0) {
+        priceErr.textContent = 'Enter a positive value for the price';
+        priceErr.style.color = 'red';
+        isValid = false;
+    } else {
+        priceErr.textContent = '';
+
+         // Validate Quantity
+    const sizeLengthElement = document.getElementById("size_length");
+    const quantitysizeErr = document.getElementById('quantityErr')
+    if (sizeLengthElement) {
+            const sizes = parseInt(sizeLengthElement.value, 10);
+        for (let i = 0; i < sizes; i++) {
+            const quantityElement = document.getElementById("quantity" + i);
+            const quantitysizeErr = document.getElementById('quantityErr'+i)
+            const quantityValue = quantityElement.value.trim();
+
+            if (quantityValue === '' || parseInt(quantityValue, 10) <= 0) {
+                quantityElement.style.borderColor = 'red';
+                quantitysizeErr.textContent = 'Enter a positive quantity';
+                quantityElement.nextElementSibling.style.color = 'red';
+                isValid = false;
+            } else {
+                quantityElement.style.borderColor = '';
+                quantityElement.nextElementSibling.textContent = '';
+
+                 
+    const imageInputs = ['image1', 'image2', 'image3'];
+    const imageErr = document.getElementById('errP');
+    imageErr.textContent = ''; 
+
+    imageInputs.forEach((id, index) => {
+        const inputElement = document.getElementById(id);
+        if (!inputElement || (!inputElement.files.length && !inputElement.dataset.cropped)) {
+            imageErr.textContent += `Please select an image ${index + 1}.\n`;
+            imageErr.style.color = 'red';
+            isValid = false;
+          
+        }
+    });
+                
+            }
+        }
+    }
+
+    }
+
+
+    }
+
+   
+    return isValid;
+}
+
+</script>
+</body>

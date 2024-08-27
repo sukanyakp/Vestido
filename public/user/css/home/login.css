@@ -1,0 +1,26 @@
+.custom-dropdown-menu {
+    right: 0 !important;
+    /* left: auto !important; */
+    margin-right: 20px; /* Add additional margin adjustments if needed */
+}
+.header-right {
+    position: relative;
+    text-align: right; /* Adjust alignment as needed */
+    margin-right: 20px; /* Adjust spacing from right edge */
+}
+.profile-container {
+    position: relative;
+    display: inline-block;
+}
+.profile-link {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+}
+.dropdown-content a:hover {
+    background-color: #f9f9f9;
+}
+.profile-container:hover .dropdown-content {
+    display: block;
+}

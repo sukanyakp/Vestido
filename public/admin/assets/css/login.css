@@ -1,0 +1,87 @@
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.main {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 350px;
+}
+
+.image .logo {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.inp {
+    width: 100%;
+    padding: 10px;
+    padding-right: 40px; /* Extra padding for the icon */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px; /* Set the desired width */
+    height: 24px; /* Set the desired height */
+    cursor: pointer;
+}
+
+.loginbtn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.loginbtn:hover {
+    background-color: #0056b3;
+}
+
+.otp {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.otp:hover {
+    text-decoration: underline;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}

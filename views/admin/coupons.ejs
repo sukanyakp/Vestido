@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/admin/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/admin/assets/css/users.css" />
+  
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/admin/assets/css/coupon/coupon.css">
+  <link rel="stylesheet" href="/admin/assets/css/snackbar/snackbar.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+ 
+</head>
+<body>
+  <div id="snackbar"></div>
+  <!-- Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between hello">
+        
+            <img src="/admin/assets/images/logos/dark-logo.svg" width="180" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/category" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Category</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/admin/brands" aria-expanded="false">
+                  <span></span>
+                  <span class="hide-menu">Brands</span>
+                </a>
+              </li>
+
+              
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/products" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Products</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/users" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Users</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/orders" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Orders</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/coupons" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Coupon</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/offers" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Offer</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/salesreport" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu">Sales Report</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <span></span>
+                <span class="hide-menu"  id="logout-link"  >Logout</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!-- Sidebar End -->
+    <!-- Main wrapper -->
+    
+<body>
+  <link rel="stylesheet" href="/admin//assets/css/styles.min.css" />
+<!--  Body Wrapper -->
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+  data-sidebar-position="fixed" data-header-position="fixed">
+  <!-- Sidebar Start -->
+ 
+  <!--  Sidebar End -->
+  <!--  Main wrapper -->
+
+  
+
+
+
+  <div class="coupon-container">
+    <!-- List of coupons -->
+    <h2>Coupons</h2>
+    <ul id="coupon-list">
+        <% coupons.forEach(coupon => { %>
+        <li>
+            <span><%= coupon.code %> - <%= coupon.description %> </span>
+            <a href="/admin/editcoupons?oId=<%= coupon._id %>">
+                <button class="edit-coupon-btn" data-id="<%= coupon._id %>">Edit</button>
+            </a>
+            <button class="delete-coupon-btn" data-id="<%= coupon._id %>">Delete</button>
+        </li>
+        <% }) %>
+        <button id="add-coupon-button">Add Coupon</button>
+    </ul>
+
+
+    <!-- Form to create a new coupon -->
+    <div id="coupon-form-container" style="display: none;">
+        <form id="create-coupon-form"   onsubmit=" return validateModal()" novalidate>
+            <h4>Manage Coupons</h4>
+            <input type="text" name="code" id="code" placeholder="Code" required>
+            <p id="codeErr"></p>
+            <input type="text" name="description" id="description" placeholder="Description" required>
+            <p id="descriptionErr"></p>
+            <input type="number" name="discountPercentage" id="discountPercentage" placeholder="Discount Percentage" required>
+            <p id="discountErr"></p>
+            <input type="number" name="minPurchase" id="minPurchase" placeholder="Minimum Purchase" required>
+            <p id="minPurchaseErr"></p>
+            <input type="number" name="redeemAmount"  id="redeemAmount" placeholder="Redeem Amount" required>
+            <p id="redeemAmountErr"></p>
+            <input type="date" name="expirationDate" id="expirationDate" placeholder="Expiration Date" required>
+            <button type="submit">Create Coupon</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+    <!-- Pagination -->
+    <div class="pagination-container">
+      <ul class="pagination">
+          <% if (currentPage > 1) { %>
+          <li class="page-item">
+              <a class="page-link" href="/admin/coupons?page=<%= currentPage - 1 %>&limit=<%= limit %>">Previous</a>
+          </li>
+          <% } else { %>
+          <li class="page-item disabled">
+              <a class="page-link" href="#">Previous</a>
+          </li>
+          <% } %>
+
+          <% for (let i = 1; i <= totalPages; i++) { %>
+          <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+              <a class="page-link" href="/admin/coupons?page=<%= i %>&limit=<%= limit %>"><%= i %></a>
+          </li>
+          <% } %>
+
+          <% if (currentPage < totalPages) { %>
+          <li class="page-item">
+              <a class="page-link" href="/admin/coupons?page=<%= currentPage + 1 %>&limit=<%= limit %>">Next</a>
+          </li>
+          <% } else { %>
+          <li class="page-item disabled">
+              <a class="page-link" href="#">Next</a>
+          </li>
+          <% } %>
+      </ul>
+  </div><!-- End .pagination-container -->
+  
+</div>
+
+ <!-- Bootstrap and jQuery Scripts -->
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/sidebarmenu.js"></script>
+<script src="../assets/js/app.min.js"></script>
+<script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+<script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.getElementById('logout-link').addEventListener('click', function(event) {
+    event.preventDefault();
+    Swal.fire({
+        title: 'Do you want to logout?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, logout',
+        cancelButtonText: 'No, stay logged in'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/admin/logout';
+        }
+    });
+});
+</script>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createCouponForm = document.getElementById('create-coupon-form');
+    const couponList = document.getElementById('coupon-list');
+    console.log(createCouponForm,"createCouponForm");
+    console.log(couponList,"couponList");
+
+    createCouponForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+    
+        const isValid = validateModal();
+
+        // If validation fails, stop execution
+        if (!isValid) return;
+
+        const formData = new FormData(createCouponForm);
+        const couponData = {};
+        formData.forEach((value, key) => couponData[key] = value);
+// console.log(couponData,"couponData");
+        try {
+            const response = await fetch('/admin/coupons', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(couponData)
+            });
+
+            const result = await response.json();
+            if (result.success) {
+
+              showSnackBar(result.message);
+
+             setTimeout(() => {
+              window.location.reload()
+             }, 4000);
+
+          
+                   
+                // Optionally, refresh the coupon list
+            } else {
+              showSnackBar(result.message)
+                // alert('Error creating coupon: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+
+    couponList.addEventListener('click', async (e) => {
+        if (e.target.classList.contains('delete-coupon-btn')) {
+            const couponId = e.target.getAttribute('data-id');
+
+            // Show confirmation dialog
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you really want to delete this coupon?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const response = await fetch(`/admin/coupons/${couponId}`, {
+                            method: 'DELETE'
+                        });
+                        const result = await response.json();
+                        if (result.success) {
+                            showSnackBar(result.message);
+
+                            setTimeout(() => {
+                               window.location.reload()
+                            }, 4000);
+                        } else {
+                            alert('Error deleting coupon: ' + result.message);
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+            });
+        }
+    });
+});
+
+
+
+document.getElementById('add-coupon-button').addEventListener('click',function(){
+  const createCoupon = document.getElementById('coupon-form-container')
+  const addCoupon = document.getElementById('add-coupon-button')
+  if(createCoupon.style.display ==='none'){
+    createCoupon.style.display = 'block'
+    addCoupon.style.display = 'none'
+  }else{
+    createCoupon.style.display = 'none'
+     addCoupon.style.display = 'block'
+  }
+})
+
+function showSnackBar(text) {
+  var x = document.getElementById("snackbar");
+  x.innerHTML = text
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+</script>
+
+
+<script>
+
+  
+  function validateModal() {
+      let isValid = true;
+  
+      const code = document.getElementById('code').value.trim();
+      const codeErr = document.getElementById('codeErr')
+      if( code == ''){
+        codeErr.textContent = 'Enter a code'
+        codeErr.style.color = 'red'
+      }else{
+        codeErr.textContent = ''
+
+        const description = document.getElementById('description').value.trim();
+        const descriptionErr = document.getElementById('descriptionErr')
+        if(description == ''){
+          descriptionErr.textContent = 'Enter a description'
+          descriptionErr.style.color = 'red'
+        }else{
+          descriptionErr.textContent = ''
+        }
+
+      const discountPercentage = document.getElementById('discountPercentage').value.trim();
+      const discountErr = document.getElementById('discountErr');
+      if (discountPercentage === '' || discountPercentage <= 0 || discountPercentage > 50) {
+        discountErr.textContent = 'Enter a positive value between 0% and 50%';
+        discountErr.style.color = 'red';
+          isValid = false;
+      } else {
+        discountErr.textContent = '';
+     
+      const minPurchase = document.getElementById('minPurchase').value.trim();
+      const minPurchaseErr = document.getElementById('minPurchaseErr');
+      if (minPurchase === '' ||  minPurchase <= 0) {
+        minPurchaseErr.textContent = 'Enter a positive value for minPurchase';
+        minPurchaseErr.style.color = 'red';
+          isValid = false;
+      } else {
+        minPurchaseErr.textContent = '';
+
+          const redeemAmount = document.getElementById('redeemAmount').value.trim();
+      const redeemAmountErr = document.getElementById('redeemAmountErr');
+      if (redeemAmount === '' || redeemAmount <= 0) {
+        redeemAmountErr.textContent = 'Enter a positive value for redeemAmount';
+        redeemAmountErr.style.color = 'red';
+          isValid = false;
+      } else {
+        redeemAmountErr.textContent = '';
+          
+      }
+  
+          
+      }
+
+      }
+      
+     
+  
+  
+      }
+  
+     
+      return isValid;
+  }
+  </script>
+
+
+</body> 

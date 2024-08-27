@@ -1,0 +1,68 @@
+.hidden {
+    display: none;
+  }
+
+  ul#coupon-list {
+    max-width: 1150px;
+    margin: 40px auto;
+    margin-right: 15px; 
+    padding: 0;
+    list-style-type: none;
+}
+
+/* pagination */
+.pagination-container-offer{ 
+  max-width: 600px;
+  margin: 10px auto;
+  margin-left: 335px;
+  /* margin-top: 450px; */
+  margin-bottom: 100px;
+  padding: 0;
+  list-style-type: none;
+
+}
+
+form#create-coupon-form {
+    max-width: 1150px;
+    margin: 20px auto;
+    margin-right: 15px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Styling for select elements */
+select {
+padding: 0.5rem;
+font-size: 2rem;
+border: 1px solid #ccc;
+border-radius: 4px;
+background-color: #fff;
+transition: border-color 0.3s;
+width: 49%; /* Adjust width here */
+max-width: 600px; /* Adjust this value as needed */
+}
+
+/* Focus state for better accessibility */
+select:focus {
+border-color: #39e809;
+outline: none;
+}
+
+/* Disabled state styling */
+select:disabled {
+background-color: #e9ecef;
+cursor: not-allowed;
+}
+
+/* Optional - Custom arrow for select elements */
+select {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23000000" d="M2 0L0 2h4z"/></svg>') no-repeat right 0.75rem center;
+background-size: 0.65rem auto;
+}

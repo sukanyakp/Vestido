@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="/user/css/login.css">
+
+<body>
+    <div class="main">
+        <div class="image">
+            <img class="logo" src="/user/img/logo.png" alt="">
+        </div>
+
+        <div class="form">
+            <form action="/login" method="post"  onsubmit="return validateForm()"  novalidate>
+                <label for=""><b>Email</b></label>
+                
+                <div class="form-group"> 
+                    <input type="email" name="email" id="email" class="inp" placeholder="Enter Your Email">
+                    <p class="err" id="emailErr"></p>
+                    <% if(locals.errE) { %>
+                        <p style="color: red;"><%= locals.errE%></p>
+                    <% } %>
+                </div>
+                    <br>
+                <label for=""><b>Password</b></label>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" class="inp" placeholder="Enter Your Password">
+                    <p class="err" id="passwordErr"></p>
+                    <% if(locals.errP) { %>
+                        <p style="color: red;"><%= locals.errP%></p>
+                    <% } %>
+                    <a href="#" onclick="protectPass('password')"><img src="/user/img/icon/211661_eye_icon.png" class="icon" alt=""></a>
+                    
+                </div>
+                <a href="/otplogin" class="otp">Login with otp</a>
+
+                <button type="submit" class="loginbtn">LOGIN</button>
+                <% if(locals.err) { %>
+                    <p style="color: red;"><%= locals.err%></p>
+                <% } %>
+                <p> </p>
+            </form>
+        </div>
+        <p class="or">OR</p>
+        <button class="gsignin">
+            <img class="google" src="/user/img/icon/google-icon-2048x2048-pks9lbdv.png" alt="" width="25px" height="25px">
+            <a href="/auth/google"  class="btntxt">Continue with google </a>  
+        </button>
+        <a href="/register" class="register"><p>New to Vestido ? Create an account here</p></a>
+    </div>
+
+    <div class="footer">
+        <p>Contact Us</p>
+        <p>Terms & Conditions</p>
+        <p>Privacy Policy</p>
+    </div>
+</body>
+
+<script>
+    function protectPass(inputId) {
+        const input = document.getElementById(inputId);
+        if (input.type === 'password') {
+            input.type = 'text';
+        } else {
+            input.type = 'password';
+        }
+    }
+
+    
+</script>
+
+<script>
+
+    
+function validateForm() {
+    let isValid = true;
+
+    // Email validation
+    const email = document.getElementById('email').value;
+    const emailErr = document.getElementById('emailErr');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        emailErr.textContent = 'Please enter a valid email address';
+        emailErr.style.color = 'red';
+        isValid = false;
+    } else {
+        emailErr.textContent = '';
+
+          // Password validation
+    const password = document.getElementById('password').value;
+    const passwordErr = document.getElementById('passwordErr');
+    if (password.trim() === "") {
+        passwordErr.textContent = 'Please enter a password';
+        passwordErr.style.color = 'red';
+        isValid = false;
+    } else {
+        passwordErr.textContent = '';
+    }
+    }
+
+  
+
+    return isValid;
+}
+
+</script>

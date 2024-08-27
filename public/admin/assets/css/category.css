@@ -1,0 +1,27 @@
+
+.mainsection{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+.main{
+    width: 500px;
+    height: 500px;
+    display: flex;
+    background-color: antiquewhite;
+    justify-content: center;
+}
+
+.table{
+    background: #D9D9D9;
+    text-align: center;
+}
+
+.buttons{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn1{
+    margin-right: 10px;
+}
