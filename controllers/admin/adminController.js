@@ -139,10 +139,10 @@ const checkOTPEmail = async (req, res) => {
                 sendOTP(registeredEmail, OTP);
                 res.redirect("/");
             } else {
-                res.render('user/otpEmail', { err: "Invalid Email address" });
+                res.render('user/otpemail', { err: "Invalid Email address" });
             }
         } else {
-            res.render('user/otpEmail', { err: "Invalid Email address" });
+            res.render('user/otpemail', { err: "Invalid Email address" });
         }
     } catch (error) {
         console.error('Error during OTP email check:', error);
@@ -278,7 +278,7 @@ const getAdmin = async (req, res) => {
         console.log(reportType,dataPoints,labels);
         
 
-        res.render("admin/adminDash", { 
+        res.render("admin/admindash", { 
             labels, 
             dataPoints, 
             reportType, 
