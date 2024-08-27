@@ -89,7 +89,7 @@ const getSalesReport = async (req, res) => {
         // console.log(totalCount, deliveredOrders, 'deliveredOrders');
 
 
-        res.render('admin/salesReport', {
+        res.render('admin/salesreport', {
             orders: deliveredOrders,
             currentPage: page,
             limit,

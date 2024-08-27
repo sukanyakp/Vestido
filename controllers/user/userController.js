@@ -212,11 +212,11 @@ const checkOTPEmail = async (req, res) => {
             sendOTP(registerdEmail, OTP);
             res.redirect("/otp")
         } else {
-            res.render('user/otpEmail', { err: "invalid Email address" })
+            res.render('user/otpemail', { err: "invalid Email address" })
 
         }
     } else {
-        res.render('user/otpEmail', { err: "invalid Email address" })
+        res.render('user/otpemail', { err: "invalid Email address" })
 
     }
 }

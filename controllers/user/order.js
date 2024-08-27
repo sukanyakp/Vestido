@@ -387,10 +387,10 @@ const orderHistory = async (req, res) => {
         ]);
 
         if (!orders) {
-            return res.render('user/orderHistory', { orders: null });
+            return res.render('user/orderhistory', { orders: null });
         }
 
-        res.render('user/orderHistory', { orders });
+        res.render('user/orderhistory', { orders });
 
     } catch (err) {
         console.log(err);

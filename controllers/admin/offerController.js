@@ -30,7 +30,7 @@ const matchCriteria = {}
 const totalCount = await Offer.countDocuments(matchCriteria);
 const totalPages = Math.ceil(totalCount / limit);
 
-    res.render('admin/addOffer',{offer,category,product, currentPage: page, limit,totalCount,totalPages})
+    res.render('admin/addoffer',{offer,category,product, currentPage: page, limit,totalCount,totalPages})
 
 }
 
@@ -128,7 +128,7 @@ const getEditOffer = async(req,res)=>{
     const category = await Category.find()
     const product = await Products.find()
 
-    res.render('admin/editOffer',{offer,category,product})
+    res.render('admin/editoffer',{offer,category,product})
 }
 // Update a coupon  
 const editOffer =   async (req, res) => {

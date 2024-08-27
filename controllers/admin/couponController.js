@@ -71,7 +71,7 @@ console.log(page,limit,startIndex);
         const product = await Product.find()
         
 
-        res.render('admin/editCoupon',{coupon,category,product})
+        res.render('admin/editcoupon',{coupon,category,product})
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }

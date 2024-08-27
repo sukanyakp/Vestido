@@ -365,11 +365,11 @@ const getAdminLogin = (req,res)=>{
 }
 
 const getAdminOtp =(req,res)=>{
-    res.render("admin/adminOtp")
+    res.render("admin/adminotp")
 }
 
 const getAdminOtpEmail = (req,res) =>{
-    res.render("admin/adminOtpEmail")
+    res.render("admin/adminotpemail")
 }
 
 
