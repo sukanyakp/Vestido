@@ -361,7 +361,7 @@ async function getTopBrands() {
 }
 
 const getAdminLogin = (req,res)=>{
-    res.render("admin/adminLogin")
+    res.render("admin/adminlogin")
 }
 
 const getAdminOtp =(req,res)=>{
