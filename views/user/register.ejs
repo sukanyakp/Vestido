@@ -101,7 +101,7 @@
     // let err
     // let emailErr = document.getElementById("emailErr");
     // let phoneErr = document.getElementById("phoneErr")
-    // let passwordErr = document.getElementById("passwordErr")
+    let passwordErr = document.getElementById("passwordErr")
     // let confirmPasswordErr = document.getElementById("confirm-password")
 
     // form.addEventListener('submit',(e)=>{
@@ -139,36 +139,36 @@
     //     }
     // }
     
-    // function passwordValidate(password){
-    //     let lengthReg = /^.{8,}$/;
-    //     let lowercaseReg = /[a-z]/;
-    //     let uppercaseReg = /[A-Z]/;
-    //     let digitReg = /\d/;
-    //     let specialCharReg = /[@$!%*?&]/;
+    function passwordValidate(password){
+        let lengthReg = /^.{8,}$/;
+        let lowercaseReg = /[a-z]/;
+        let uppercaseReg = /[A-Z]/;
+        let digitReg = /\d/;
+        let specialCharReg = /[@$!%*?&]/;
 
-    //     let result = lengthReg.test(password);
-    //     let result1 = lowercaseReg.test(password);
-    //     let result2 = uppercaseReg.test(password);
-    //     let result3 = digitReg.test(password);
-    //     let result4 = specialCharReg.test(password)
+        let result = lengthReg.test(password);
+        let result1 = lowercaseReg.test(password);
+        let result2 = uppercaseReg.test(password);
+        let result3 = digitReg.test(password);
+        let result4 = specialCharReg.test(password)
 
-    //     if(!result){
-    //         err = true;
-    //         passwordErr.innerHTML = "Password Must Conatin 8 Charecters";
-    //     }else if(!result1){
-    //         err = true;
-    //         passwordErr.innerHTML = "Password Must Conatin minimum one lowerCase";
-    //     }else if(!result2){
-    //         err = true;
-    //         passwordErr.innerHTML = "Password Must Conatin minimum one Uppercase";
-    //     }else if(!result3){
-    //         err = true;
-    //         passwordErr.innerHTML = "Password Must Conatin minimum one Digit";
-    //     }else if(!result4){
-    //         err = true;
-    //         passwordErr.innerHTML = "Password Must Conatin minimum one Speacial Charecter";
-    //     }
-    // }
+        if(!result){
+            err = true;
+            passwordErr.innerHTML = "Password Must Conatin 8 Charecters";
+        }else if(!result1){
+            err = true;
+            passwordErr.innerHTML = "Password Must Conatin minimum one lowerCase";
+        }else if(!result2){
+            err = true;
+            passwordErr.innerHTML = "Password Must Conatin minimum one Uppercase";
+        }else if(!result3){
+            err = true;
+            passwordErr.innerHTML = "Password Must Conatin minimum one Digit";
+        }else if(!result4){
+            err = true;
+            passwordErr.innerHTML = "Password Must Conatin minimum one Speacial Charecter";
+        }
+    }
 
     // function conformPass(password,repassword){
     //     if(password!==repassword){
@@ -223,6 +223,14 @@
             isValid = false;
         } else {
             passwordErr.textContent = '';
+
+
+            // Call the passwordValidate function
+        passwordValidate(password);
+
+   if (err) {
+    isValid = false;
+    }
 
               // Confirm Password validation
         const confirmPassword = document.getElementById('confirm-password').value;
