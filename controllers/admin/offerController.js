@@ -30,7 +30,7 @@ const matchCriteria = {}
 const totalCount = await Offer.countDocuments(matchCriteria);
 const totalPages = Math.ceil(totalCount / limit);
 
-    res.render('admin/addoffer',{offer,category,product, currentPage: page, limit,totalCount,totalPages})
+    res.render('admin/add-offer',{offer,category,product, currentPage: page, limit,totalCount,totalPages})
 
 }
 
