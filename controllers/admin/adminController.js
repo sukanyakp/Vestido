@@ -423,7 +423,7 @@ const getDeletedCategories = async (req, res) => {
 
 
 
-
+// get admin logout
 const adminLogOut = (req, res) => {
     res.clearCookie('admintoken', { httpOnly: true, secure: true, sameSite: 'Strict', path: '/' });
     res.redirect('/admin/login'); 
