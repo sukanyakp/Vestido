@@ -38,7 +38,7 @@ router.post('/addlogin')
 
 router.get("/shops" ,userController.getShops)
 
-router.get('/product',userMiddleware.isToken,userMiddleware.isUser,userController.getProductDetail)
+router.get('/product',userController.getProductDetail)
 
 router.get('/logout',userMiddleware.isToken,userMiddleware.isUser,userController.userLogout)
 

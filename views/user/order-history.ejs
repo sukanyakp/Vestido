@@ -2,13 +2,13 @@
 <html lang="en">
 
 
-<!-- molla/checkout.html  22 Nov 2019 09:55:06 GMT -->
+<!-- Vestido/checkout.html  22 Nov 2019 09:55:06 GMT -->
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
+    <title>Vestido - Bootstrap eCommerce Template</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
@@ -29,6 +29,9 @@
     <!-- Main CSS File -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="/user/css/order/order.css">
+
+      <!--  login profile -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
       <style>
@@ -182,6 +185,11 @@
                         </div> -->
 
                         <div class="dropdown cart-dropdown">
+                            <a href="/profile" class="profile-link">
+                                <i class="fas fa-user"></i> </a>
+                        </div>
+
+                        <div class="dropdown cart-dropdown">
                             <a href="/wishlist" class="wishlist-link">
                                 <i class="icon-heart-o"></i> </a>
                             </div>
@@ -242,7 +250,7 @@
 
 
             <div class="orders-container">
-                <% if(orders){ %>
+                <% if(orders && orders.length >0 ){ %>
                     <% orders.forEach((order) => { %>
             
                         <p name="ordrId" value="<%= order._id %>" hidden> <%= order._id %></p>
@@ -305,20 +313,17 @@
                                 <div class="widget widget-about">
                                     <img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105"
                                         height="25">
-                                    <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
-                                        magna eros eu erat. </p>
+                                    	<p>Explore the latest fashion trends at Vestido, your premier online boutique for high-quality, stylish dresses. From casual chic to elegant evening wear, our curated collection combines comfort and sophistication. Shop now and elevate your wardrobe!</p>
     
                                     <div class="social-icons">
-                                        <a href="#" class="social-icon" target="_blank" title="Facebook"><i
+                                        <!-- <a href="#" class="social-icon" target="_blank" title="Facebook"><i
                                                 class="icon-facebook-f"></i></a>
                                         <a href="#" class="social-icon" target="_blank" title="Twitter"><i
-                                                class="icon-twitter"></i></a>
-                                        <a href="#" class="social-icon" target="_blank" title="Instagram"><i
-                                                class="icon-instagram"></i></a>
-                                        <a href="#" class="social-icon" target="_blank" title="Youtube"><i
-                                                class="icon-youtube"></i></a>
-                                        <a href="#" class="social-icon" target="_blank" title="Pinterest"><i
-                                                class="icon-pinterest"></i></a>
+                                                class="icon-twitter"></i></a> -->
+                                                <a href="https://www.instagram.com/s_uk_a_nya_kp/" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                                                <a href="https://www.youtube.com/channel/UCHEWFY7Hi-BzM_Q9IatRg3w" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+                                        <!-- <a href="#" class="social-icon" target="_blank" title="Pinterest"><i
+                                                class="icon-pinterest"></i></a> -->
                                     </div><!-- End .soial-icons -->
                                 </div><!-- End .widget about-widget -->
                             </div><!-- End .col-sm-6 col-lg-3 -->
@@ -328,11 +333,11 @@
                                     <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
     
                                     <ul class="widget-list">
-                                        <li><a href="about.html">About Molla</a></li>
-                                        <li><a href="#">How to shop on Molla</a></li>
+                                        <li><a href="#">About Vestido</a></li>
+                                        <li><a href="#">How to shop on Vestido</a></li>
                                         <li><a href="#">FAQ</a></li>
-                                        <li><a href="contact.html">Contact us</a></li>
-                                        <li><a href="login.html">Log in</a></li>
+                                        <li><a href="#">Contact us</a></li>
+                                        <li><a href="/login">Log in</a></li>
                                     </ul><!-- End .widget-list -->
                                 </div><!-- End .widget -->
                             </div><!-- End .col-sm-6 col-lg-3 -->
@@ -354,13 +359,16 @@
     
                             <div class="col-sm-6 col-lg-3">
                                 <div class="widget">
-                                    <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+                                    <a href="/profile"> <h4 class="widget-title">My Account</h4></a>
     
                                     <ul class="widget-list">
-                                        <li><a href="#">Sign In</a></li>
-                                        <li><a href="cart.html">View Cart</a></li>
-                                        <li><a href="#">My Wishlist</a></li>
-                                        <li><a href="#">Track My Order</a></li>
+                                        <li><a href="/login">Sign In</a></li>
+                                      
+                                            <li><a href="/cart">View Cart</a></li>
+                                            <li><a href="/wishlist">My Wishlist</a></li>
+                                            <li><a href="/order-history">Track My Order</a></li>
+    
+                                          
                                         <li><a href="#">Help</a></li>
                                     </ul><!-- End .widget-list -->
                                 </div><!-- End .widget -->
@@ -371,7 +379,7 @@
     
                 <div class="footer-bottom">
                     <div class="container">
-                        <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
+                        <p class="footer-copyright">Copyright © 2019 Vestido Store. All Rights Reserved.</p>
                         <!-- End .footer-copyright -->
                         <figure class="footer-payments">
                             <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">

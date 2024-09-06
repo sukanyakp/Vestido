@@ -77,6 +77,8 @@ const addAddress = async (req, res) => {
         let addressId
         let userId
         console.log('hey address');
+        console.log('hey addjdjf');
+        
 
         let token = req.cookies.token
         console.log(token);
@@ -282,7 +284,6 @@ const paymentSuccess = async (req, res) => {
 
 
 // transaction history 
-
 const transactionHistory= async (req, res) => {
     console.log('transaction history..');
     let userId;

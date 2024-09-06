@@ -91,7 +91,7 @@ const getCart = async (req, res) => {
             return v;
         });
 
-        res.render("user/cart", { cartWithVariants: updatedCartWithVariants, user:user._id });
+        res.render("user/cart", { cartWithVariants: updatedCartWithVariants, user });
 
     } catch (err) {
         console.log(err);
@@ -580,9 +580,10 @@ const increment = async (req, res) => {
                 withoutDiscount: withoutDiscount,
                 discountAmount: discountAmount
             });
-        } else {
-            return res.status(400).json({ message: 'Cart update failed' });
         }
+        //  else {
+        //     return res.status(400).json({ message: 'Cart update failed' });
+        // }
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: err.message });

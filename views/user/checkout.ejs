@@ -2,13 +2,13 @@
 <html lang="en">
 
 
-<!-- molla/checkout.html  22 Nov 2019 09:55:06 GMT -->
+<!-- Vestido/checkout.html  22 Nov 2019 09:55:06 GMT -->
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
+    <title>Vestido - Bootstrap eCommerce Template</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
@@ -33,9 +33,304 @@
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
        <link rel="stylesheet" href="/user/css/sweetalert/sweetalert.css">
    
-   
+   <!--  login profile -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+    
+
+    <style>
+
+        /* Modal Body */
+.modal-body {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Form */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Form Labels */
+.form-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Form Controls */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Error Messages */
+.err {
+  margin-top: 5px;
+  font-size: 12px;
+  color: red;
+}
+
+p[id$="Err"] {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Save Address Button */
+.btn-primary {
+  background-color: #333;
+  border-color: #333;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  background-color: #000;
+  border-color: #000;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .form-control {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
+
+    </style>
+
+<!--   coupon -->
+    <style>
+        .coupon-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        .coupon-details {
+            max-width: 70%;
+        }
+    
+        .coupon-action {
+            text-align: right;
+        }
+    
+        .apply-coupon-btn {
+            padding: 5px 10px;
+            background-color:#333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+        .apply-coupon-btn:hover {
+            background-color:  #000;
+        }
+    
+        .no-coupons {
+            padding: 10px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+    
+
+
+    <style>
+/* Container for the checkout process */
+.container2 {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+}
+
+/* Steps in the checkout process */
+.checkout-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.checkout-steps li {
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* .checkout-steps li::before {
+    content: " ";
+    display: block;
+    height: 3px;
+    background-color: #ddd;
+    margin: 0 10px;
+} */
+
+.checkout-steps li.active::before {
+    background-color: #90EE90;
+}
+
+.checkout-steps li.active .step-number {
+    color: #90EE90;
+}
+
+.step-number {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.step-title {
+    font-size: 1em;
+}
+
+/* Section styling */
+.section {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.section h3 {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+/* Cart total styling */
+.cart-total {
+    float: right;
+    text-align: right;
+}
+
+.cart-total p {
+    margin: 5px 0;
+}
+
+/* Button styling */
+.btn-dark {
+    background-color: #333;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.view-coupons-btn{
+    background-color: #333; 
+}
+
+
+
+/* Input field styling */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+/* Modal title styling */
+.modal-title {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Additional styles if needed */
+.modal-header {
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #dee2e6;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+
+
+/* Button styling */
+.nextAddress {
+    background-color: #333; /* Dark background color */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Padding for the button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    text-align: center; /* Center the text */
+    font-size: 1em; /* Font size */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.nextAddress:hover {
+    background-color: #555; /* Slightly lighter background on hover */
+}
+
+.nextAddress:focus {
+    outline: none; /* Remove the default outline on focus */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on focus */
+}
+
+.nextAddress:active {
+    background-color: #222; /* Darker background when the button is clicked */
+}
+
+    </style>
 
     
  <!-- razorpay-->
@@ -269,6 +564,14 @@ However, delay the fade out process for 2.5 seconds */
                         </div> -->
                         <!-- End .header-search -->
 
+                       
+
+                            <div class="dropdown cart-dropdown">
+                                <a href="/profile" class="profile-link">
+                                    <i class="fas fa-user"></i> </a>
+                            </div>
+                            
+
                         <div class="dropdown cart-dropdown">
                             <a href="/wishlist" class="wishlist-link">
                                 <i class="icon-heart-o"></i> </a>
@@ -290,11 +593,13 @@ However, delay the fade out process for 2.5 seconds */
         </header><!-- End .header -->
 
         <main class="main">
-            <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
-                <div class="container">
-                    <h1 class="page-title">Checkout<span>Shop</span></h1>
-                </div><!-- End .container -->
-            </div><!-- End .page-header -->
+            <!-- <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')"> -->
+                <!-- <div class="container">
+                  
+
+                </div> -->
+                  <!-- <h1 class="page-title">Checkout<span>Shop</span></h1> -->
+            <!-- </div> -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <div class="container">
                     <ol class="breadcrumb">
@@ -307,61 +612,240 @@ However, delay the fade out process for 2.5 seconds */
 
             <div class="page-content">
                 <div class="checkout">
+
                     <div class="container">
+                        <ul class="checkout-steps">
+                            <li class="active">
+                                <div class="step-number">01</div>
+                                <div class="step-title">Shopping Cart</div>
+                            </li>
+                            <li class="active">
+                                <div class="step-number">02</div>
+                                <div class="step-title">Checkout</div>
+                            </li>
+                            <li>
+                                <div class="step-number">03</div>
+                                <div class="step-title">Order Complete</div>
+                            </li>
+                        </ul>
 
 
                         <div class="row">
+                            
 
 
                             <div class="col-lg-9">
-
+                            
+                                <br><br><br>
                                 
-                        <!-- Address Button -->
-                        <div class="checkout-discount">
-                            <!-- Display Available Coupons -->
-                            <div class="cart-discount">
-                                <br> <button id="view-coupons-btn">View Coupons</button>
-                                <ul id="coupons-list" style="display: none;">
-                                    <% if (coupons && coupons.length > 0) { %>
-                                    <% coupons.forEach((coupon) => { %>
-                                        <li>
-                                            <span><%= coupon.code %> (<%= coupon.description %>)</span>
-                                            <span> discount for purchase above ₹<%= coupon.minPurchase %></span>
-                                            <button type="button" class="apply-coupon-btn" data-code="<%= coupon.code %>">Apply</button>
-                                        </li>
-                                    <% }); %>
-                                    <% } else { %>
-                                        <li>No coupons available</li>
-                                    <% } %>
-                                </ul>
-                            </div>
-                            <br>
-                            <button class="btn btn-primary" id="showAddressBtn">Show Addresses </button>
-                        </div><!-- End .checkout-discount -->
+                                <div class="container2">                               
+                                
+                                    <div class="section">
+                                        <h3>Delivery Address</h3>
 
-                                <h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
-                                <% if (address) { %>
-                                    <form action="#" id="userAddressForm" style="display: none;">
-                                        <% address.addresses.forEach((address, index)=> { %>
-                                            <div>
-                                                <input type="radio" id="address<%= index %>" name="selectedAddress"
-                                                    value="<%= address._id %>">
-                                                <label for="address<%= index %>">
-                                                    <p>
-                                                        <%= address.name %> <br>
-                                                            <%= address.mobile %> <br>
-                                                                <%= address.address %> <br>
-                                                                    <%= address.district %> <br>
-                                                                        <%= address.state %> <br>
-                                                                            <%= address.pincode %> <br>
-                                                                                <%= address.landMark %> <br>
-                                                                                    <%= address.altMob %> <br>
-                                                    </p>
-                                                </label>
+
+                                        <% if (address && address.addresses.length > 0) { %>
+                                            <form action="#" id="userAddressForm">
+                                                <div id="addressContainer">
+                                                    <% address.addresses.forEach((address, index) => { %>
+                                                        <div class="address" id="address<%= index %>" style="display: none;">
+                                                            <input type="radio" name="selectedAddress" value="<%= address._id %>">
+                                                            <label for="address<%= index %>">
+                                                                <p>
+                                                                    <%= address.name %> <br>
+                                                                    <%= address.address %> 
+                                                                    <%= address.district %>                                                                                       
+                                                                    <%= address.state %>
+                                                                    <%= address.pincode %> <br>                                                                                      
+                                                                    <%= address.mobile %> <br>
+                                                                </p>
+                                                            </label>
+                                                        </div>
+                                                    <% }) %>
+                                                </div>
+                                                <% if (address.addresses.length > 1) { %>
+                                                    <button type="button" id="nextAddress" class="nextAddress">Show another address</button>
+                                                <% } %>
+                                            </form>
+                                        <% } else { %>
+                                            <p>No address found!</p>
+                                        <% } %>
+                                        
+                                      
+                                        <!-- Add new address button -->
+                                         <br>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addressModal">
+                                            Add New Address
+                                        </button>
+
+                                    
+                                
+                                        <!-- Modal for adding new address -->
+                                        <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="addressModalLabel">Add New Address</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                
+                                                    <div class="modal-body">
+                                                        <form id="addressform" onsubmit="return validateForm()" novalidate>
+                                                            <div class="mb-3">
+                                                                <label for="name" class="form-label">Name</label>
+                                                                <input type="text" class="form-control" id="name" name="name" required>
+                                                                <p id="nameErr"></p>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="mobile" class="form-label">Mobile</label>
+                                                                <input type="number" class="form-control" id="mobile" name="mobile" required>
+                                                                <p id="mobileErr"></p>
+                                                            </div>
+                                                            <p class="err" style="color: red;" id="phoneErr"></p>
+                                                            <div class="mb-3">
+                                                                <label for="address" class="form-label">Address</label>
+                                                                <input type="text" class="form-control" id="address" name="address" required>
+                                                                <p id="addressErr"></p>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="district" class="form-label">District</label>
+                                                                <input type="text" class="form-control" id="district" name="district" required>
+                                                                <p id="districtErr"></p>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="state" class="form-label">State</label>
+                                                                <input type="text" class="form-control" id="state" name="state" required>
+                                                                <p id="stateErr"></p>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="pincode" class="form-label">Pincode</label>
+                                                                <input type="number" class="form-control" id="pincode" name="pincode" required>
+                                                                <p id="pincodeErr"></p>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="landmark" class="form-label">Landmark</label>
+                                                                <input type="text" class="form-control" id="landmark" name="landmark" required>
+                                                                <p id="landmarkErr"></p>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="altMob" class="form-label">Alternate Mobile</label>
+                                                                <input type="text" class="form-control" id="altMob" name="altMob" required>
+                                                                <p id="altMobErr"></p>
+                                                            </div>
+                                                            <p class="err" style="color: red;" id="phoneErr2"></p>
+                                                            <button type="submit" class="btn btn-primary">Save Address</button>
+                                                            
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <% }) %>
-                                    </form>
-                                    <% } %>
+                                        </div>
+                                        <!-- End of add new address modal -->
+                                    </div>
+
+
+                                    <div  class="section"> 
+
+                                        <table class="table table-cart table-mobile">
+                                            <thead>
+                                                <!-- <tr>
+                                                    <th>Product</th>
+                                                    <th>Price</th>
+                                                    <th>Quantity</th>
+                                                    <th>Total</th>
+                                                    <th>Status</th>
+                                                    <th></th>
+                                                </tr> -->
+                                            </thead> <!-- cartDetails-->
+                                            <tbody>
+                                                <% if(cartDetails && cartDetails.length > 0){%>
+        
+                                                    <% cartDetails[0].items.forEach(( item)=>{ %>
+        
+                                                        <tr id="item-row-<%=item._id %>">
+                                                            <td class="product-col">
+                                                                <div class="product">
+                                                                    <figure class="product-media">
+                                                                        <a href="#">
+                                                                            <img src="<%=item.variantDetails.images[0] %>"
+                                                                                alt="Product image">
+                                                                            <!--cart.variantDetails.images[0]-->
+                                                                        </a>
+                                                                    </figure>
+                                                                   
+                                                                </div>
+                                                            </td>
+                                                            <td class="price-col" id="price-col-<%=item._id %>">₹<%=item.price %>
+                                                            </td><!--cart.price-->
+        
+                                                            <td class="quantity-col">
+                                                                <div class="cart-product-quantity">
+                                                                    <button
+                                                                        onclick="decrementQuantity('<%=item.variantId %>', '<%=item._id %>','<%=item.size %>')"
+                                                                        id="decrement" class="quantity-btn">
+                                                                        <span class="material-symbols-outlined"> - </span>
+                                                                    </button>
+                                                                    <input type="text" id="quantity<%= item._id %>"
+                                                                        class=" quantity-input" value=" <%= item.quantity %>"
+                                                                        min="1" max="4" step="1" data-decimals="0" readonly
+                                                                        required>
+                                                                    <button
+                                                                        onclick="incrementQuantity('<%=item.variantId %>', '<%=item._id %>', '<%=item.size %>')"
+                                                                        id="increment" class="quantity-btn">
+                                                                        <span class="material-symbols-outlined"> + </span>
+                                                                    </button>
+                                                                </div>
+        
+        
+                                                                <p id="itemId" value="<%=item._id %>"></p>
+                                                                <p id="pId" value="<%=item.variantDetails.productId %>"></p>
+                                                                <p id="vId" value="<%=item.variantId %>"></p>
+        
+                                                                <p id="max<%= item._id %>" style="color: red; display: none;">
+                                                                    Reached the maximum quantity</p>
+                                                                <p id="min<%= item._id %>" style="color: red; display: none;">
+                                                                    Reached the minimum quantity</p>
+                                                                <p id="error<%= item._id %>" style=" color: red; "></p>
+        
+                                                            <td id="stock_quantity<%= item._id %>"
+                                                                value=" <%= item.variantDetails.stock[0].quantity %>" hidden>
+                                                            </td>
+                                                            </td>
+        
+                                                            <td class="total-col" id="total-col-<%=item._id %>">₹<%=
+                                                                    (item.quantity * item.price).toFixed(2) %>
+                                                            </td>
+        
+                                                            <td class="status-col">
+                                                              
+                                                                    <!-- if(cart.variantDetails.productDetails.stock > 0) -->
+                                                                    <span class="badge badge-success badge-double">In Stock</span>
+                                                                  
+        
+                                                                            <!-- <span class="badge badge-success badge-double">Out of Stock</span> -->
+        
+                                                            </td>
+                                                            <td class="remove-col"><button class="btn-remove"
+                                                                    onclick="confirmRemoveItem('<%=item.variantId %>', '<%=item._id %>')"><i
+                                                                        class="icon-close"></i></button></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                            <% } %>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+
+                                    <!-- <button class="btn btn-primary" id="showAddressBtn">Show Addresses </button> -->
+                                
+            
+                                </div>
+                                
+
+
+
+                             
+                              
 
 
                                         <div class="custom-control custom-checkbox">
@@ -370,98 +854,61 @@ However, delay the fade out process for 2.5 seconds */
                                             <!-- <label class="custom-control-label" for="checkout-diff-address">Ship to a
                                                 different address?</label> -->
                                         </div><!-- End .custom-checkbox -->
-                                        <button id="change-address-button" class="btn btn-primary">Add New
-                                            Address</button>
-                                        <div id="address-form" style="display: none;">
+                                        <!-- <button id="change-address-button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addressModal">Add New Address</button> -->
+                                        <div id="address-form" > <!-- style="display: none;"-->
 
                                             <!-- Your address form HTML here -->
                                             <div class="row">
                                                 <div class="col-lg-9">
-                                                    <h2 class="checkout-title">Billing Details</h2>
-                                                    <!-- Form fields for address details -->
-                                                    <form id="addressform"   onsubmit=" return validateForm()"  novalidate>  
-                                                        <div class="">
-                                                            <label for="name">Name</label>
-                                                            <input type="text" class="form-control" id="name"
-                                                                name="name" required>
 
-                                                                <p id="nameErr"></p>
-                                                        </div>
-                                                        <div class="">
-                                                            <label for="mobile">Mobile</label>
-                                                            <input type="number" class="form-control" id="mobile"
-                                                                name="mobile" required>
-                                                                <p id="mobileErr"></p>
-                                                        </div>
-                                                        <p class="err" style="color: red;" id="phoneErr"></p>
 
-                                                        <div class="">
-                                                            <label for="address">Address</label>
-                                                            <input type="text" class="form-control" id="address"
-                                                                name="address" required>
-                                                                <p id="addressErr"></p>
-                                                        </div>
-                                                        <div class="">
-                                                            <label for="district">District</label>
-                                                            <input type="text" class="form-control" id="district"
-                                                                name="district" required>
-                                                                <p id="districtErr"></p>
-                                                        </div>
-                                                        <div class="">
-                                                            <label for="state">State</label>
-                                                            <input type="text" class="form-control" id="state"
-                                                                name="state" required>
-                                                                <p id="stateErr"></p>
-                                                        </div>
-                                                        <div class="">
-                                                            <label for="pincode">Pincode</label>
-                                                            <input type="number" class="form-control" id="pincode"
-                                                                name="pincode" required>
-                                                                <p id="pincodeErr"></p>
-                                                        </div>
-                                                        <div class="">
-                                                            <label for="landmark">Landmark</label>
-                                                            <input type="text" class="form-control" id="landmark"
-                                                                name="landmark" required>
-                                                                <p id="landmarkErr"></p>
-                                                        </div>
-                                                        <div class="">
-                                                            <label for="altMob">Alternate Mobile</label>
-                                                            <input type="text" class="form-control" id="altMob"
-                                                                name="altMob" required>
-
-                                                                <p id="altMobErr"></p>
-                                                        </div>
-                                                        <p class="err" style="color: red;" id="phoneErr2"></p>
-                                                        <button type="submit" class="btn btn-primary">Save
-                                                            Address</button>
-                                                    </form>
+                                                   
                                                 </div>
                                                 <p id="message" style="color: green;"></p>
                                             </div>
                                         </div><!-- End .address-form -->
                                         <!-- End .row -->
 
-                                        <!-- <label>Email address *</label> -->
-                                        <!-- <input type="email" class="form-control" required> -->
+                                     
 
-                                        <div class="custom-control custom-checkbox">
-                                            <!-- <input type="checkbox" class="custom-control-input" id="checkout-create-acc"> -->
-                                            <!-- <label class="custom-control-label" for="checkout-create-acc">Create an account?</label> -->
-                                        </div><!-- End .custom-checkbox -->
+                                                                 
 
-
-
-                                        <!-- 
-										<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" id="checkout-diff-address">
-											<label class="custom-control-label" for="checkout-diff-address">Ship to a different address?</label>
-										</div>End .custom-checkbox -->
-
-                                        <!-- <label>Order notes (optional)</label> -->
-                                        <!-- <textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea> -->
                             </div><!-- End .col-lg-9 -->
+
+                          
                             <aside class="col-lg-3">
+                                <br><br><br><br>
+
+
+                                <div class="section">
+                                    <h3>Apply Coupon</h3>
+                                    <div class="cart-discount">
+                                        <br>
+                                        <button id="view-coupons-btn">View Coupons</button>
+                                        <div id="coupons-list" style="display: none;">
+                                            <% if (coupons && coupons.length > 0) { %>
+                                                <% coupons.forEach((coupon) => { %>
+                                                    <div class="coupon-item">
+                                                        <div class="coupon-details">
+                                                            <strong>Code:</strong> <%= coupon.code %> <br>
+                                                            <strong>Description:</strong> <%= coupon.description %> <br>
+                                                            <strong>Minimum Purchase:</strong> ₹<%= coupon.minPurchase %> <br>
+                                                        </div>
+                                                        <div class="coupon-action">
+                                                            <button type="button" class="apply-coupon-btn" data-code="<%= coupon.code %>">Apply</button>
+                                                        </div>
+                                                    </div>
+                                                <% }); %>
+                                            <% } else { %>
+                                                <div class="no-coupons">
+                                                    <p>No coupons available</p>
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="summary">
                                     <h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
 
@@ -515,7 +962,7 @@ However, delay the fade out process for 2.5 seconds */
                                                             <% if(locals.cartDetails[0].couponApplied ){ %>
                                                             <td  id="discount-cart-price">₹<%= (locals.cartDetails[0].discountAmount).toFixed(2) %></td> 
                                                             <% }else{%>       
-                                                                <td  id="discount-cart-price">₹ 0 %></td> 
+                                                                <td  id="discount-cart-price">₹ 0.00 %></td> 
                                                                 <% } %>              
                              
                                                             </tr>
@@ -577,8 +1024,8 @@ However, delay the fade out process for 2.5 seconds */
                                                     <input type="radio" name="paymentMethod" value="wallet" id="wallet"
                                                         onclick="setSelectedPaymentMethod('wallet')">
                                                     <label for="wallet">Wallet <small
-                                                            class="float-right paypal-link">What is
-                                                            Wallet?</small></label>
+                                                            class="float-right paypal-link"> 
+                                                            </small></label>
                                                 </h2>
                                             </div><!-- End .card-header -->
                                             <div id="collapse-4" class="collapse" aria-labelledby="heading-4"
@@ -643,6 +1090,8 @@ However, delay the fade out process for 2.5 seconds */
 
                                                 <% } %>
                                 </div><!-- End .summary -->
+                                <a href="/cart" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i
+                                    class="icon-refresh"></i></a>
                             </aside><!-- End .col-lg-3 -->
                         </div><!-- End .row -->
 
@@ -656,97 +1105,8 @@ However, delay the fade out process for 2.5 seconds */
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-9">
-                                <table class="table table-cart table-mobile">
-                                    <thead>
-                                        <!-- <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th>Status</th>
-                                            <th></th>
-                                        </tr> -->
-                                    </thead> <!-- cartDetails-->
-                                    <tbody>
-                                        <% if(cartDetails && cartDetails.length > 0){%>
-
-                                            <% cartDetails[0].items.forEach(( item)=>{ %>
-
-                                                <tr id="item-row-<%=item._id %>">
-                                                    <td class="product-col">
-                                                        <div class="product">
-                                                            <figure class="product-media">
-                                                                <a href="#">
-                                                                    <img src="<%=item.variantDetails.images[0] %>"
-                                                                        alt="Product image">
-                                                                    <!--cart.variantDetails.images[0]-->
-                                                                </a>
-                                                            </figure>
-                                                            <h3 class="product-title">
-                                                                <a href="#">
-                                                                    <%=item.variantDetails.productDetails.productName %>
-                                                                </a><!--cart.variantDetails.productDetails.productName-->
-                                                            </h3>
-                                                        </div>
-                                                    </td>
-                                                    <td class="price-col" id="price-col-<%=item._id %>">₹<%=item.price %>
-                                                    </td><!--cart.price-->
-
-                                                    <td class="quantity-col">
-                                                        <div class="cart-product-quantity">
-                                                            <button
-                                                                onclick="decrementQuantity('<%=item.variantId %>', '<%=item._id %>','<%=item.size %>')"
-                                                                id="decrement" class="quantity-btn">
-                                                                <span class="material-symbols-outlined"> - </span>
-                                                            </button>
-                                                            <input type="text" id="quantity<%= item._id %>"
-                                                                class=" quantity-input" value=" <%= item.quantity %>"
-                                                                min="1" max="4" step="1" data-decimals="0" readonly
-                                                                required>
-                                                            <button
-                                                                onclick="incrementQuantity('<%=item.variantId %>', '<%=item._id %>', '<%=item.size %>')"
-                                                                id="increment" class="quantity-btn">
-                                                                <span class="material-symbols-outlined"> + </span>
-                                                            </button>
-                                                        </div>
-
-
-                                                        <p id="itemId" value="<%=item._id %>"></p>
-                                                        <p id="pId" value="<%=item.variantDetails.productId %>"></p>
-                                                        <p id="vId" value="<%=item.variantId %>"></p>
-
-                                                        <p id="max<%= item._id %>" style="color: red; display: none;">
-                                                            Reached the maximum quantity</p>
-                                                        <p id="min<%= item._id %>" style="color: red; display: none;">
-                                                            Reached the minimum quantity</p>
-                                                        <p id="error<%= item._id %>" style=" color: red; "></p>
-
-                                                    <td id="stock_quantity<%= item._id %>"
-                                                        value=" <%= item.variantDetails.stock[0].quantity %>" hidden>
-                                                    </td>
-                                                    </td>
-
-                                                    <td class="total-col" id="total-col-<%=item._id %>">₹<%=
-                                                            (item.quantity * item.price).toFixed(2) %>
-                                                    </td>
-
-                                                    <td class="status-col">
-                                                      
-                                                            <!-- if(cart.variantDetails.productDetails.stock > 0) -->
-                                                            <span class="badge badge-success badge-double">In Stock</span>
-                                                          
-
-                                                                    <!-- <span class="badge badge-success badge-double">Out of Stock</span> -->
-
-                                                    </td>
-                                                    <td class="remove-col"><button class="btn-remove"
-                                                            onclick="confirmRemoveItem('<%=item.variantId %>', '<%=item._id %>')"><i
-                                                                class="icon-close"></i></button></td>
-                                                </tr>
-                                                <% }) %>
-                                                    <% } %>
-                                    </tbody>
-                                </table>
+                                
+                               
                                 <div class="cart-bottom">
 <!-- 
                                     <div class="cart-discount">
@@ -763,8 +1123,6 @@ However, delay the fade out process for 2.5 seconds */
                                     </div> -->
 
 
-                                    <a href="/cart" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i
-                                            class="icon-refresh"></i></a>
                                 </div>
                             </div>
                             <!-- <aside class="col-lg-3">
@@ -836,20 +1194,17 @@ However, delay the fade out process for 2.5 seconds */
                             <div class="widget widget-about">
                                 <img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105"
                                     height="25">
-                                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
-                                    magna eros eu erat. </p>
+                                    <p>Explore the latest fashion trends at Vestido, your premier online boutique for high-quality, stylish dresses. From casual chic to elegant evening wear, our curated collection combines comfort and sophistication. Shop now and elevate your wardrobe!</p>
 
                                 <div class="social-icons">
-                                    <a href="#" class="social-icon" target="_blank" title="Facebook"><i
+                                    <!-- <a href="#" class="social-icon" target="_blank" title="Facebook"><i
                                             class="icon-facebook-f"></i></a>
                                     <a href="#" class="social-icon" target="_blank" title="Twitter"><i
-                                            class="icon-twitter"></i></a>
-                                    <a href="#" class="social-icon" target="_blank" title="Instagram"><i
-                                            class="icon-instagram"></i></a>
-                                    <a href="#" class="social-icon" target="_blank" title="Youtube"><i
-                                            class="icon-youtube"></i></a>
-                                    <a href="#" class="social-icon" target="_blank" title="Pinterest"><i
-                                            class="icon-pinterest"></i></a>
+                                            class="icon-twitter"></i></a> -->
+                                            <a href="https://www.instagram.com/s_uk_a_nya_kp/" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                                            <a href="https://www.youtube.com/channel/UCHEWFY7Hi-BzM_Q9IatRg3w" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+                                    <!-- <a href="#" class="social-icon" target="_blank" title="Pinterest"><i
+                                            class="icon-pinterest"></i></a> -->
                                 </div><!-- End .soial-icons -->
                             </div><!-- End .widget about-widget -->
                         </div><!-- End .col-sm-6 col-lg-3 -->
@@ -859,11 +1214,11 @@ However, delay the fade out process for 2.5 seconds */
                                 <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
                                 <ul class="widget-list">
-                                    <li><a href="about.html">About Molla</a></li>
-                                    <li><a href="#">How to shop on Molla</a></li>
+                                    <li><a href="#">About Vestido</a></li>
+                                    <li><a href="#">How to shop on Vestido</a></li>
                                     <li><a href="#">FAQ</a></li>
-                                    <li><a href="contact.html">Contact us</a></li>
-                                    <li><a href="login.html">Log in</a></li>
+                                    <li><a href="#">Contact us</a></li>
+                                    <li><a href="/login">Log in</a></li>
                                 </ul><!-- End .widget-list -->
                             </div><!-- End .widget -->
                         </div><!-- End .col-sm-6 col-lg-3 -->
@@ -885,13 +1240,20 @@ However, delay the fade out process for 2.5 seconds */
 
                         <div class="col-sm-6 col-lg-3">
                             <div class="widget">
-                                <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+                                <a href="/profile"> <h4 class="widget-title">My Account</h4></a>
 
                                 <ul class="widget-list">
-                                    <li><a href="#">Sign In</a></li>
-                                    <li><a href="cart.html">View Cart</a></li>
-                                    <li><a href="#">My Wishlist</a></li>
-                                    <li><a href="#">Track My Order</a></li>
+                                    <li><a href="/login">Sign In</a></li>
+                                    <% if(locals.user){%>
+                                        <li><a href="/cart">View Cart</a></li>
+                                        <li><a href="/wishlist">My Wishlist</a></li>
+                                        <li><a href="/order-history">Track My Order</a></li>
+
+                                        <%}else{%>
+                                            <li><a href="/login">View Cart</a></li>
+                                            <li><a href="/login">My Wishlist</a></li>
+                                            <li><a href="/login">Track My Order</a></li>
+                                            <%  } %>
                                     <li><a href="#">Help</a></li>
                                 </ul><!-- End .widget-list -->
                             </div><!-- End .widget -->
@@ -902,7 +1264,7 @@ However, delay the fade out process for 2.5 seconds */
 
             <div class="footer-bottom">
                 <div class="container">
-                    <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
+                    <p class="footer-copyright">Copyright © 2019 Vestido Store. All Rights Reserved.</p>
                     <!-- End .footer-copyright -->
                     <figure class="footer-payments">
                         <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
@@ -1081,10 +1443,10 @@ However, delay the fade out process for 2.5 seconds */
             </nav><!-- End .mobile-nav -->
 
             <div class="social-icons">
-                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+                <!-- <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a> -->
+                <a href="https://www.instagram.com/s_uk_a_nya_kp/" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                <a href="https://www.youtube.com/channel/UCHEWFY7Hi-BzM_Q9IatRg3w" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
             </div><!-- End .social-icons -->
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->
@@ -1239,23 +1601,23 @@ However, delay the fade out process for 2.5 seconds */
 
 let appliedCouponCode = localStorage.getItem('appliedCoupon') || null;
 
-        document.getElementById('change-address-button').addEventListener('click', function () {
-            let addressForm = document.getElementById('address-form');
-            if (addressForm.style.display === 'none') {
-                addressForm.style.display = 'block';
-            } else {
-                addressForm.style.display = 'none';
-            }
-        });
+        // document.getElementById('change-address-button').addEventListener('click', function () {
+        //     let addressForm = document.getElementById('address-form');
+        //     if (addressForm.style.display === 'none') {
+        //         addressForm.style.display = 'block';
+        //     } else {
+        //         addressForm.style.display = 'none';
+        //     }
+        // });
 
-        document.getElementById('showAddressBtn').addEventListener('click', function () {
-            let form = document.getElementById('userAddressForm');
-            if (form.style.display === 'none' || form.style.display === '') {
-                form.style.display = 'block';
-            } else {
-                form.style.display = 'none';
-            }
-        });
+        // document.getElementById('showAddressBtn').addEventListener('click', function () {
+        //     let form = document.getElementById('userAddressForm');
+        //     if (form.style.display === 'none' || form.style.display === '') {
+        //         form.style.display = 'block';
+        //     } else {
+        //         form.style.display = 'none';
+        //     }
+        // });
 
 
 
@@ -1458,7 +1820,7 @@ async function decrementQuantity(variantId, cartId, size) {
             });
 
               const totaldiscount = document.querySelector('#discount-cart-price')
-              totaldiscount.textContent = `₹ ${ data.discountAmount}`
+              totaldiscount.textContent = `₹ ${ data.discountAmount.toFixed(2)}`
 
         } else {
             const errorData = await response.json();
@@ -1597,7 +1959,8 @@ async function confirmRemoveItem(variantId, cartId) {
                 rzp.on('payment.failed', async function (response) {
                     console.error(response.error);
 
-                    // Send a request to update the order status as "payment pending" on payment failure
+                    // Send a request to update the order status as "payment pending" on payment failure 
+                    // I think the fetch is an unneccessary thing
                     await fetch('/updateOrderStatus', {
                         method: 'POST',
                         headers: {
@@ -1621,11 +1984,10 @@ async function confirmRemoveItem(variantId, cartId) {
                     }
 
                     setTimeout(() => {
-                         window.location.href = `/order?orderId=${orderId}`                       
+                         window.location.href = `/order?orderId=${orderId}`      //payment failure                    
                     }, 3000);
 
                    
-
                 });
 
                 rzp.open();
@@ -1649,6 +2011,7 @@ async function confirmRemoveItem(variantId, cartId) {
         }
     } catch (err) {
         console.log(err);
+        
         showSnackBar("Please select an address");
     }
 }
@@ -1696,7 +2059,7 @@ async function verifyPayment(paymentDetails, orderId) {
             }, 3000);
         } else {
             showSnackBar(data.msg);
-            window.location.href = `/order?orderId=${orderId}`; 
+            // window.location.href = `/order?orderId=${orderId}`; 
 
         }
     } catch (err) {
@@ -1908,7 +2271,7 @@ function updateTotalCartPrice(totalCartPrice,discount) {
     totalCartPriceCol.textContent = `₹ ${totalCartPrice.toFixed(2)}`;
 
     const totaldiscount = document.querySelector('#discount-cart-price')
-    totaldiscount.textContent = `₹ ${ discount}` ;
+    totaldiscount.textContent = `₹ ${ discount.toFixed(2)}` ;
 }
 
 
@@ -1998,30 +2361,6 @@ function validateForm() {
     } else {
         pincodeErr.textContent = '';
 
-
-        const landmark = document.getElementById('landmark').value.trim();
-        const landmarkErr = document.getElementById('landmarkErr');
-     if (landmark === '') {
-        landmarkErr.textContent = 'Please enter a landmark';
-        landmarkErr.style.color = 'red';
-        isValid = false;
-    } else {
-        landmarkErr.textContent = '';
-
-
-        const altMob = document.getElementById('altMob').value.trim();
-        const altMobErr = document.getElementById('altMobErr');
-        const phoneReg = /^[6789]\d{9}$/;
-     if (!phoneReg.test(phone) ) {
-        altMobErr.textContent = 'Please enter a phone number';
-        altMobErr.style.color = 'red';
-        isValid = false;
-    } else {
-        altMobErr.textContent = '';
-
-       }
- }
-
     } 
 
 }
@@ -2043,6 +2382,34 @@ function validateForm() {
 </script>
 
 
-<!-- molla/checkout.html  22 Nov 2019 09:55:06 GMT -->
+
+<script>
+    let currentIndex = 0;
+    const addresses = document.querySelectorAll('.address');
+    const nextButton = document.getElementById('nextAddress');
+
+    // On page load, check for the selected address ID in localStorage
+    const selectedAddressId = localStorage.getItem('selectedAddressId') || addresses[0].querySelector('input').value;
+    addresses.forEach((address, index) => {
+        if (address.querySelector('input').value === selectedAddressId) {
+            address.style.display = 'block';
+            currentIndex = index;
+        } else {
+            address.style.display = 'none';
+        }
+    });
+
+    if (nextButton) {
+        nextButton.addEventListener('click', () => {
+            addresses[currentIndex].style.display = 'none';
+            currentIndex = (currentIndex + 1) % addresses.length;
+            addresses[currentIndex].style.display = 'block';
+            // Save the selected address ID in localStorage
+            localStorage.setItem('selectedAddressId', addresses[currentIndex].querySelector('input').value);
+        });
+    }
+</script>
+
+<!-- Vestido/checkout.html  22 Nov 2019 09:55:06 GMT -->
 
 </html>

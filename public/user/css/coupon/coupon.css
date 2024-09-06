@@ -12,7 +12,7 @@
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
-    background-color:#c96;
+    background-color:#333;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -20,7 +20,7 @@
 }
 
 #view-coupons-btn:hover {
-    background-color: #316b1f;
+    background-color: #000;
 }
 
 /* List of coupons */

@@ -2,12 +2,12 @@
 <html lang="en">
 
 
-<!-- molla/category-boxed.html  22 Nov 2019 10:03:00 GMT -->
+<!-- Vestido/category-boxed.html  22 Nov 2019 10:03:00 GMT -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
+    <title>Vestido - shops</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
@@ -121,10 +121,10 @@
                     <div class="header-right">
                         <div class="header-search">
                             <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                            <form action="/shops" method="get">
+                            <form action="/shops" method="get" id="searchForm">
                                 <div class="header-search-wrapper">
                                     <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..."   required>
+                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
                                 </div>
                             </form>
                         </div>
@@ -136,7 +136,7 @@
                                 <a href="/profile" class="profile-link">
                                     <i class="fas fa-user"></i></a>
                                 <% }else{%>
-                                    <a href="/login" data-toggle="modal"><i class="icon-user"></i>Login</a>
+                                    <a href="/login" ><i class="icon-user"></i>Login</a>
                             <%} %>                       
                             </div>
 
@@ -200,17 +200,18 @@
                                 <label for="sortby">Sort by:</label>
                                 <div class="select-custom">
                                     <select name="sortby" id="sortby" class="form-control">
-                                        <option value="popularity" selected="selected">Most Popular</option>
-                                        <option value="rating">Most Rated</option>
-                                        <option value="date">New Arrivals</option>
-                                        <option value="a-to-z">A to Z</option>
-                                        <option value="z-to-a">Z to A</option>
-                                        <option value="lowPrice-to-highPrice">lowPrice to highPrice</option>
-                                        <option value="highPrice-to-lowPrice">highPrice to lowPrice</option>
+                                        <option value="popularity" <%= (sortby === 'popularity') ? 'selected' : '' %>>Most Popular</option>
+                                        <option value="rating" <%= (sortby === 'rating') ? 'selected' : '' %>>Most Rated</option>
+                                        <option value="date" <%= (sortby === 'date') ? 'selected' : '' %>>New Arrivals</option>
+                                        <option value="a-to-z" <%= (sortby === 'a-to-z') ? 'selected' : '' %>>A to Z</option>
+                                        <option value="z-to-a" <%= (sortby === 'z-to-a') ? 'selected' : '' %>>Z to A</option>
+                                        <option value="lowPrice-to-highPrice" <%= (sortby === 'lowPrice-to-highPrice') ? 'selected' : '' %>>Low Price to High Price</option>
+                                        <option value="highPrice-to-lowPrice" <%= (sortby === 'highPrice-to-lowPrice') ? 'selected' : '' %>>High Price to Low Price</option>
                                     </select>
                                 </div>
                             </div><!-- End .toolbox-sort -->
                         </div><!-- End .toolbox-right -->
+                        
                         
         			</div><!-- End .toolbox -->
 
@@ -272,37 +273,43 @@
                            
 
                             <div class="pagination-container">
-                                <ul class="pagination">
-                                    <% if (currentPage > 1) { %>
-                                        <li class="page-item">
-                                            <a class="page-link" href="/shops?page=<%=currentPage - 1 %>&limit=<%= limit %>">Previous</a>
-                                        </li>
-                                    <% } else { %>
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#">Previous</a>
-                                        </li>
-                                    <% } %>
-                                    
-                                    <% for (let i = 1; i <= totalPages; i++) { %>
-                                        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
-                                            <a class="page-link" href="/shops?page=<%= i %>&limit=<%= limit %>"><%= i %></a>
-                                        </li>
-                                    <% } %>
-                                    
-                                    <% if (currentPage < totalPages) { %>
-                                        <li class="page-item">
-                                            <a class="page-link" href="/shops?page=<%= currentPage + 1 %>&limit=<%= limit %>">Next</a>
-                                        </li>
-                                    <% } else { %>
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    <% } %>
-                                </ul>
+
+                             <ul class="pagination">
+    <% if (currentPage > 1) { %>
+        <li class="page-item">
+            <a class="page-link" href="/shops?page=<%= currentPage - 1 %>&limit=<%= limit %>&sortby=<%= sortby %>&categories=<%= selectedCategories %>&sizes=<%= selectedSizes %>&color=<%= selectedColors %><%= q ? '&q=' + q : '' %>">Previous</a>
+        </li>
+    <% } else { %>
+        <li class="page-item disabled">
+            <a class="page-link" href="#">Previous</a>
+        </li>
+    <% } %>
+
+    <% for (let i = 1; i <= totalPages; i++) { %>
+        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+            <a class="page-link" href="/shops?page=<%= i %>&limit=<%= limit %>&sortby=<%= sortby %>&categories=<%= selectedCategories %>&sizes=<%= selectedSizes %>&color=<%= selectedColors %><%= q ? '&q=' + q : '' %>"><%= i %></a>
+        </li>
+    <% } %>
+
+    <% if (currentPage < totalPages) { %>
+        <li class="page-item">
+            <a class="page-link" href="/shops?page=<%= currentPage + 1 %>&limit=<%= limit %>&sortby=<%= sortby %>&categories=<%= selectedCategories %>&sizes=<%= selectedSizes %>&color=<%= selectedColors %><%= q ? '&q=' + q : '' %>">Next</a>
+        </li>
+    <% } else { %>
+        <li class="page-item disabled">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    <% } %>
+</ul>
+
                             </div><!-- End .pagination-container -->
                                  
                         </div><!-- End .products -->
-                    <% } %>
+                    <% } else {%>
+
+                        <h5>There is no product  </h5>
+
+                        <%} %>
                     
                     <div class="sidebar-filter-overlay"></div><!-- End .sidebar-filter-overlay -->
                     <aside class="sidebar-shop sidebar-filter">
@@ -326,7 +333,8 @@
                                                 <% category.forEach((cat) => { %>
                                                     <div class="filter-item">
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" name="category" id="cat-<%= cat._id %>" value="<%= cat.categoryName %>" onchange="updateFilters()">
+                                                            <input type="checkbox" class="custom-control-input" name="category" id="cat-<%= cat._id %>" value="<%= cat.categoryName %>"
+                                                                <%= selectedCategories && selectedCategories.includes(cat.categoryName) ? 'checked' : '' %> >
                                                             <label class="custom-control-label" for="cat-<%= cat._id %>">
                                                                 <%= cat.categoryName %>
                                                             </label>
@@ -337,33 +345,34 @@
                                         </div><!-- End .widget-body -->
                                     </div><!-- End .collapse -->
                                 <% } %>
+                                
                             </div><!-- End .widget-collapsible -->
                     
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
-                                    <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
+                                    <!-- <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
                                         Sizes
-                                    </a>
+                                    </a> -->
                                 </h3><!-- End .widget-title -->
                     
-                                <% if (sizes) { %>
-                                    <div class="collapse show" id="widget-2">
+                                <!-- <% if (sizes) { %> -->
+                                    <!-- <div class="collapse show" id="widget-2">
                                         <div class="widget-body">
                                             <div class="filter-items filter-items-count">
                                                 <% sizes.forEach((size) => { %>
                                                     <div class="filter-item">
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" name="size" id="size-<%= size._id %>" value="<%= size.sizeName %>" onchange="updateFilters()">
+                                                            <input type="checkbox" class="custom-control-input" name="size" id="size-<%= size._id %>" value="<%= size.sizeName %>" >
                                                             <label class="custom-control-label" for="size-<%= size._id %>">
                                                                 <%= size.sizeName %>
                                                             </label>
-                                                        </div><!-- End .custom-checkbox -->
-                                                    </div><!-- End .filter-item -->
+                                                        </div>
+                                                    </div>
                                                 <% }) %>
-                                            </div><!-- End .filter-items -->
-                                        </div><!-- End .widget-body -->
-                                    </div><!-- End .collapse -->
-                                <% } %>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                <!-- <% } %> -->
                             </div><!-- End .widget-collapsible -->
 
 
@@ -382,7 +391,7 @@
                                                 <% colors.forEach((color) => { %>
                                                     <div class="filter-item">
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" name="color" id="color-<%= color._id %>" value="<%= color.color_name %>" onchange="updateFilters()">
+                                                            <input type="checkbox" class="custom-control-input" name="color" id="color-<%= color._id %>" value="<%= color.color_name %>"   <%= selectedColors && selectedColors.includes( color.color_name) ? 'checked' : '' %> >
                                                             <label class="custom-control-label" for="color-<%= color._id %>">
                                                                 <%= color.color_name %>
                                                             </label>
@@ -396,12 +405,15 @@
                             </div><!-- End .widget-collapsible -->
                     
                             <div class="button-container">
-                                <form id="filterForm" action="/shops" method="GET">
+                                <!-- <form id="filterForm" action="#" >
                                     <input type="hidden" name="categories" id="selectedCategories" value="">
-                                    <input type="hidden" name="sizes" id="selectedSizes" value="">
+                                    <input type="hidden" name="size" id="selectedSizes" value="">
                                     <input type="hidden" name="color" id="selectedColors" value="">
+                                    <input type="hidden" name="sortby" id="selectedSortby" value="popularity">
                                     <button type="submit" class="view-details-button">Show results</button>
-                                </form>
+                                </form>  -->
+                                <button type="button" class="view-details-button" onclick="updateFilters()">Show results</button>
+                              
                             </div><!-- End .button-container -->
                         </div><!-- End .sidebar-filter-wrapper -->
                     </aside><!-- End .sidebar-filter -->
@@ -420,7 +432,7 @@
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget widget-about">
 	            				<img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="205" height="65">
-	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+                                <p>Explore the latest fashion trends at Vestido, your premier online boutique for high-quality, stylish dresses. From casual chic to elegant evening wear, our curated collection combines comfort and sophistication. Shop now and elevate your wardrobe!</p>
 
 	            				<div class="social-icons">
 	            					<!-- <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
@@ -437,12 +449,12 @@
 	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
 	            				<ul class="widget-list">
-	            					<li><a href="about.html">About Molla</a></li>
-	            					<li><a href="#">How to shop on Molla</a></li>
+	            					<li><a href="#">About Vestido</a></li>
+	            					<li><a href="#">How to shop on Vestido</a></li>
 	            					<li><a href="#">FAQ</a></li>
-	            					<li><a href="contact.html">Contact us</a></li>
+	            					<li><a href="#">Contact us</a></li>
                                     
-	            					<li><a href="login.html">Log in</a></li>
+	            					<li><a href="/login">Log in</a></li>
 	            				</ul><!-- End .widget-list -->
 	            			</div><!-- End .widget -->
 	            		</div><!-- End .col-sm-6 col-lg-3 -->
@@ -464,13 +476,20 @@
 
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget">
-	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+                                <a href="/profile"> <h4 class="widget-title">My Account</h4></a>
 
 	            				<ul class="widget-list">
-	            					<li><a href="#">Sign In</a></li>
-	            					<li><a href="/cart">View Cart</a></li>
-	            					<li><a href="/wishlist">My Wishlist</a></li>
-	            					<li><a href="#">Track My Order</a></li>
+                                    <li><a href="/login">Sign In</a></li>
+                                    <% if(locals.user){%>
+                                        <li><a href="/cart">View Cart</a></li>
+                                        <li><a href="/wishlist">My Wishlist</a></li>
+                                        <li><a href="/order-history">Track My Order</a></li>
+
+                                        <%}else{%>
+                                            <li><a href="/login">View Cart</a></li>
+                                            <li><a href="/login">My Wishlist</a></li>
+                                            <li><a href="/login">Track My Order</a></li>
+                                            <%  } %>
 	            					<li><a href="#">Help</a></li>
 	            				</ul><!-- End .widget-list -->
 	            			</div><!-- End .widget -->
@@ -481,7 +500,7 @@
 
 	        <div class="footer-bottom">
 	        	<div class="container">
-	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+	        		<p class="footer-copyright">Copyright © 2019 Vestido Store. All Rights Reserved.</p><!-- End .footer-copyright -->
 	        		<figure class="footer-payments">
 	        			<img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
 	        		</figure><!-- End .footer-payments -->
@@ -655,8 +674,8 @@
             </nav><!-- End .mobile-nav -->
 
             <div class="social-icons">
-                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+                <!-- <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a> -->
                 <a href="https://www.instagram.com/s_uk_a_nya_kp/" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
                 <a href="https://www.youtube.com/channel/UCHEWFY7Hi-BzM_Q9IatRg3w" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
             </div><!-- End .social-icons -->
@@ -791,26 +810,25 @@
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
 
+    <!--  filter + sort -->
 
-<!-- filter -->
-    <script>
-        function updateFilters() {
-            const selectedCategories = [];
-            document.querySelectorAll('input[name="category"]:checked').forEach((checkbox) => {
-                selectedCategories.push(checkbox.value);
-            });    
-            const selectedSizes = [];
-            document.querySelectorAll('input[name="size"]:checked').forEach((checkbox) => {
-                selectedSizes.push(checkbox.value);
-            });   
-            const selectedColors = [];
-            document.querySelectorAll('input[name="color"]:checked').forEach((checkbox) => {
-                selectedColors.push(checkbox.value);
-            });  
-            document.getElementById('selectedCategories').value = selectedCategories.join(',');
-            document.getElementById('selectedSizes').value = selectedSizes.join(',');
-            document.getElementById('selectedColors').value = selectedColors.join(',');
-        }  
+ 
+
+    <!-- <script>
+         
+           
+           
+            const queryString = new URLSearchParams({
+                categories: selectedCategories.join(','),
+                sizes: selectedSizes.join(','),
+                colors: selectedColors.join(','),
+                sortby: sortValue
+            }).toString();
+    
+            // Redirect to the updated URL with filters and sort applied
+            window.location.href = `/shops?${queryString}`;
+        }
+    
         function clearFilters() {
             document.querySelectorAll('input[name="category"]').forEach((checkbox) => {
                 checkbox.checked = false;
@@ -821,23 +839,192 @@
             document.querySelectorAll('input[name="color"]:checked').forEach((checkbox) => {
                 checkbox.checked = false;
             });  
-    
+        
             updateFilters();
         }
+    
+        document.getElementById('sortby').addEventListener('change', updateFilters);
     
         document.addEventListener('DOMContentLoaded', () => {
             updateFilters();
         });
-    </script>
+    </script> -->
+    
+
+
+<!-- filter -->
+    <!-- <script>
+  function updateFilters() {
+    const selectedCategories = [];
+    document.querySelectorAll('input[name="category"]:checked').forEach((checkbox) => {
+        selectedCategories.push(checkbox.value);
+    });
+
+    const selectedSizes = [];
+    document.querySelectorAll('input[name="size"]:checked').forEach((checkbox) => {
+        selectedSizes.push(checkbox.value);
+    });
+
+    const selectedColors = [];
+    document.querySelectorAll('input[name="color"]:checked').forEach((checkbox) => {
+        selectedColors.push(checkbox.value);
+    });
+
+    const sortValue = document.getElementById('sortby').value;
+
+    const queryParams = new URLSearchParams({
+        categories: selectedCategories.join(','),
+        size: selectedSizes.join(','),
+        color: selectedColors.join(','),
+        sortby: sortValue,
+    });
+
+    fetch(`/shops?${queryParams.toString()}`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+    }
+    return response.json();
+})
+.then(data => {
+    // Process the returned data
+    console.log(data);
+})
+.catch(error => {
+    console.error('Fetch error:', error);
+});
+
+}
+
+
+function clearFilters() {
+    document.querySelectorAll('input[name="category"]').forEach((checkbox) => {
+        checkbox.checked = false;
+    });
+    document.querySelectorAll('input[name="size"]').forEach((checkbox) => {
+        checkbox.checked = false;
+    });
+    document.querySelectorAll('input[name="color"]:checked').forEach((checkbox) => {
+        checkbox.checked = false;
+    });
+
+    updateFilters();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateFilters();
+});
+
+// document.getElementById('filterForm').addEventListener('submit', (e) => {
+//     const sortValue = document.getElementById('sortby').value;
+//     const sortInput = document.createElement('input');
+//     sortInput.type = 'hidden';
+//     sortInput.name = 'sortby';
+//     sortInput.value = sortValue;
+//     e.target.appendChild(sortInput);
+// });
+
+
+    </script> -->
+
+<!-- <script>
+    document.getElementById('sortby').addEventListener('change', function() {
+        document.getElementById('selectedSortby').value = this.value;
+    });
+</script> -->
+
     
 
 <!--  sort -->
 <script> 
-    document.getElementById('sortby').addEventListener('change', function() {
-        const sortValue = this.value;
-        window.location.href = `/shops?sortby=${sortValue}`;
-    });
-    </script>
+
+document.getElementById('sortby').addEventListener('change', function() {
+    const sortValue = this.value;
+
+   
+    const urlParams = new URLSearchParams(window.location.search);
+
+
+    urlParams.set('sortby', sortValue);
+
+   
+    const newUrl = `/shops?${urlParams.toString()}`;
+    window.location.href = newUrl;
+});
+
+    
+</script>
+
+<script>
+
+class ShopFilter {
+    constructor() {
+        this.baseUrl = '/shops';
+    }
+
+    updateFiltersAndRedirect() {
+        const selectedCategories = [];
+        document.querySelectorAll('input[name="category"]:checked').forEach((checkbox) => {
+            selectedCategories.push(checkbox.value);
+        });
+
+        const selectedSizes = [];
+        document.querySelectorAll('input[name="size"]:checked').forEach((checkbox) => {
+            selectedSizes.push(checkbox.value);
+        });
+
+        const selectedColors = [];
+        document.querySelectorAll('input[name="color"]:checked').forEach((checkbox) => {
+            selectedColors.push(checkbox.value);
+        });
+
+        const sortValue = document.getElementById('sortby').value;
+
+        // Manually construct the query string to avoid encoding issues
+        let queryParams = `?page=1&limit=4&sortby=${encodeURIComponent(sortValue)}`;
+
+        if (selectedCategories.length > 0) {
+            queryParams += `&categories=${selectedCategories.join(',')}`;
+        }
+
+        if (selectedSizes.length > 0) {
+            queryParams += `&sizes=${selectedSizes.join(',')}`;
+        }
+
+        if (selectedColors.length > 0) {
+            queryParams += `&color=${selectedColors.join(',')}`;
+        }
+
+       
+        if (selectedSizes.length === 0) {
+            queryParams += `&sizes=`;
+        }
+        if (selectedColors.length === 0) {
+            queryParams += `&color=`;
+        }
+
+        // Construct the full URL
+        const redirectUrl = `${this.baseUrl}${queryParams}`;
+
+
+        window.location.href = redirectUrl;
+    }
+}
+
+// Example usage:
+// Assume this method is triggered by a button click or form submission
+const shopFilter = new ShopFilter();
+document.querySelector('.view-details-button').addEventListener('click', function (e) {
+    e.preventDefault();
+    shopFilter.updateFiltersAndRedirect();
+});
+
+</script>
 
     <script>
 
@@ -937,9 +1124,30 @@ async function sendCartData(variantId) {
 }
 
     </script>
+
+
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+       
+        e.preventDefault();
+
+  
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const searchQuery = document.getElementById('q').value;
+
+        // Add or update the 'q' parameter with the search query
+        urlParams.set('q', searchQuery);
+
+        const newUrl = `/shops?${urlParams.toString()}`;
+
+   
+        window.location.href = newUrl;
+    });
+</script>
     
 </body>
 
 
-<!-- molla/category-boxed.html  22 Nov 2019 10:03:02 GMT -->
+<!-- Vestido/category-boxed.html  22 Nov 2019 10:03:02 GMT -->
 </html>

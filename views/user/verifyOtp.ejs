@@ -9,7 +9,7 @@
         </div>
        
         <p id="timer"></p>
-        <p id="txt">Seconds left</p>
+        <p id="txt">seconds </p>
         <div class="form">
             <form action="/otpverify" method="post"  id="form">
                 <div class="form-group">
@@ -37,11 +37,11 @@
         const txt = document.getElementById("txt");
         const resendLink = document.querySelector(".resend");
         let i = 60; // Timer duration in seconds
-        timer.innerHTML = i;
+        timer.innerHTML = 'Resend OTP available in ' + i;
 
         function* generator() {
             while (true) {
-                timer.innerHTML = i;
+                timer.innerHTML =  'Resend OTP available in '+ i;
                 yield;
                 i--;
             }

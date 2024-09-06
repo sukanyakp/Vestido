@@ -67,77 +67,82 @@ const sendOTP = async (email, otp) => {
 
 
 
+
 // register
 const register = async (req, res) => {
-    console.log(req.body)
-    const { name, email, phone, password } = req.body
+    console.log(req.body);
+    const { name, email, phone, password } = req.body;
 
     // check if email already exists
     let user = await User.findOne({ email: email });
-    registerdEmail = email;
-
     if (user) {
-        console.log("email already exist")
-        return res.render('user/register', { errE: "entered Email is already exist" })
+        console.log("email already exists");
+        return res.render('user/register', { errE: "Entered Email already exists" });
     }
+
+    registerdEmail = email
 
     // Check if phone number already exists
     let checkPhone = await User.findOne({ phone: phone });
     if (checkPhone) {
         console.log("phone already exists");
-        return res.render('user/register', { errP: "Entered phone number is already exist" });
+        return res.render('user/register', { errP: "Entered phone number already exists" });
     }
-    let hashedPasword = await bcrypt.hash(password, 10)
 
-    let date = new Date();
-    const options = { day: 'numeric', month: 'short', year: 'numeric' };
-    let localdate = date.toLocaleDateString('en-GB', options);
-
-    const newUser = await User.create({
+    // Store user details temporarily (e.g., in session or a temp collection)
+    req.session.tempUser = {
         name: name,
         email: email,
         phone: phone,
-        password: hashedPasword,
-        jointDate: localdate
+        password: password // hashed in the verify function
+    };
 
-    })
-    console.log(newUser)
+    OTP = generateOTP(); // Assuming generateOTP generates a code
+    sendOTP(email, OTP);
 
-    if (newUser) {
-        OTP = generateOTP();
-        sendOTP(registerdEmail, OTP);
-        res.redirect('/otp')
-    }
-}
+    res.redirect('/otp'); // Redirect to OTP verification page
+};
 
 
 
 const verifyOTP = async (req, res) => {
     try {
         console.log(req.query.data);
-        console.log(`registered email ${registerdEmail}`);
 
         if (OTP == req.query.data) {
-            let user = await User.findOneAndUpdate(
-                { email: registerdEmail },
-                {
-                    $set: {
-                        OTPVerification: true
-                    }
-                }
-            );
-            console.log(`registered user is ${user}`);
+            // Hash the password here
+            let hashedPassword = await bcrypt.hash(req.session.tempUser.password, 10);
+            let date = new Date();
+            const options = { day: 'numeric', month: 'short', year: 'numeric' };
+            let localDate = date.toLocaleDateString('en-GB', options);
+
+            // Create the user after OTP verification
+            const newUser = await User.create({
+                name: req.session.tempUser.name,
+                email: req.session.tempUser.email,
+                phone: req.session.tempUser.phone,
+                password: hashedPassword,
+                jointDate: localDate,
+                OTPVerification: true
+            });
+
+            console.log(`Registered user: ${newUser}`);
+
             const payload = {
-                name: user.name,
-                userId: user._id
+                name: newUser.name,
+                userId: newUser._id
             };
 
             const token = generateToken(payload);
 
             res.cookie("token", token, {
                 maxAge: 100 * 60 * 60 * 1000,
-                httpOnly: true,
+                httpOnly: true
             });
+
+            // Clear session data after successful registration
+            req.session.tempUser = null;
+
             res.status(200).json({ msg: 'Registered successfully', type: 'success' });
         } else {
             res.status(404).json({ msg: "Invalid OTP", type: 'error' });
@@ -147,6 +152,7 @@ const verifyOTP = async (req, res) => {
         res.status(500).json({ msg: "Internal Server Error", type: 'error' });
     }
 };
+
 
 
 //resend otp
@@ -171,6 +177,10 @@ const userLogin = async (req, res) => {
     // Check if the user is blocked
     if (user.isListed) {
         return res.render('user/login', { err: 'User is blocked' });
+    }
+
+    if(!user.OTPVerification){
+        return res.redirect('/otp')
     }
 
     // Check if the password is correct
@@ -424,55 +434,40 @@ const getEmail = (req, res) => {
 
 
 // getShops
-const getShops = async (req, res) => {
-    const { sortby, categories, sizes,color, q } = req.query;
-    console.log(sortby, categories, sizes,color,'filter' );
-    
 
-    let userId;
+const getShops = async (req, res) => {
+    console.log('hey');
+    
+    const { sortby, categories, sizes, color, q, page = 1 , limit = 4 } = req.query;
+
+    let userId = null;
     let token = req.cookies.token;
 
-    jwt.verify(token, process.env.SECRET_KEY, (err, decode) => {
-        if (err) {
-            
-            return res.redirect('/login')     
-            // status(401).json({ msg: 'Token not found or invalid' });
-        } else {
-            userId = decode.userId;
-        }
-    });
+    // Verify JWT token if it exists
+    if (token) {
+        jwt.verify(token, process.env.SECRET_KEY, (err, decode) => {
+            if (!err) {
+                userId = decode.userId;
+            }
+        });
+    }
 
-    const user = await User.findById(userId);
+    // Find the user if logged in
+    let user = null;
+    if (userId) {
+        user = await User.findById(userId);
+    }
 
     const categoryFilter = categories ? categories.split(',') : [];
     const sizeFilter = sizes ? sizes.split(',') : [];
-
     const colorFilter = color ? color.split(',') : [];
 
+    // Default match criteria
     let matchCriteria = { isDeleted: false };
 
-    let sortCriteria = {};
-    switch (sortby) {
-        case 'date':
-            sortCriteria = { createdAt: -1 };
-            break;
-        case 'a-to-z':
-            sortCriteria = { 'products.productName': 1 };
-            break;
-        case 'z-to-a':
-            sortCriteria = { 'products.productName': -1 };
-            break;
-        case 'lowPrice-to-highPrice':
-            sortCriteria = { price: 1 };
-            break;
-        case 'highPrice-to-lowPrice':
-            sortCriteria = { price: -1 };   // here I want to put the criteria based on price 
-        default:
-            break;
-    }
-
+    // Build the aggregation pipeline
     let pipeline = [
-        { $match: { isDeleted: false } },
+        { $match: matchCriteria },
         {
             $lookup: {
                 from: 'products',
@@ -491,104 +486,143 @@ const getShops = async (req, res) => {
         }
     ];
 
+    // Apply category filter
     if (categoryFilter.length > 0) {
         pipeline.push({
             $match: { 'products.category': { $in: categoryFilter } }
         });
     }
 
-    if(colorFilter.length > 0){
+    // Apply size filter
+    if (sizeFilter.length > 0) {
         pipeline.push({
-            $match: {  colors : { $in : colorFilter} }
-        })
+            $match: { 'products.size': { $in: sizeFilter } }
+        });
     }
 
-    if (Object.keys(sortCriteria).length > 0) {
-        pipeline.push({ $sort: sortCriteria });
+    // Apply color filter
+    if (colorFilter.length > 0) {
+        pipeline.push({
+            $match: { colors: { $in: colorFilter } }
+        });
     }
 
+    // Apply search filter
     if (q) {
         pipeline.push({
             $match: { 'products.productName': { $regex: q, $options: 'i' } }
         });
     }
-// pagination 
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 4;
-    const startIndex = (page - 1) * limit;
 
-    pipeline.push({ $skip: startIndex });
-    pipeline.push({ $limit: limit });
-
-
-    let variants = await Variant.aggregate(pipeline);
-
-    let category = await Category.find({ isDeleted: false });
-    let sizes2 = await Sizes.find({ isDeleted: false });
-    let colors = await Colors.find({ isDeleted:false})
-
-    console.log(colors,'colors');
-
-    const offers = await Offer.find();
-
-    // Determine the best offer price
-    variants = variants.map(v => {
-        
-        
-        let bestOfferPrice = v.price;
-        let bestOffer = 0
-        let offerApplied = false;
-        console.log('abc');
-        // console.log(v.products[0].offerApplied,'v.products[0].offerApplied');
-        // console.log(v.products[0].offerPrice,'v.products[0].offerPrice');
-        // console.log(v.products[0].offer,'offer');
-        
-        
-        
-        if (v.products[0].offerApplied && v.products[0].offerPrice < bestOfferPrice) {
-         
-            bestOfferPrice = v.products[0].offerPrice;
-            bestOffer = v.products[0].offer
-            console.log(v.products[0].offerPrice,'v.products[0].offerPrice');
- 
-            
-            offerApplied = true;
-        }
-        
-        v.bestOfferPrice = bestOfferPrice;
-        v.offerApplied = offerApplied;
-        v.offer = bestOffer
-        // console.log( v.bestOfferPrice,' v.bestOfferPrice');
-        
-        // console.log(v.offerApplied,'v.offerApplied');
-        // console.log(v,'vOfferApplied');
-        
-        return v;
-    });
-
-    const cart = await Cart.findOne({ userId });
-
-    if (cart && cart.items.length > 0) {
-        cart.items.forEach(item => {
-            const variant = variants.find(v => v._id.equals(item.variantId));
-            if (variant) {
-                item.offer = variant.bestOfferPrice;
-            }
-        });
-
-        // Save the updated cart
-      const c =  await cart.save();
-    //   console.log(c,'cart');
-      
+    // Sorting criteria
+    let sortCriteria = {};
+    switch (sortby) {
+        case 'date':
+            sortCriteria = { createdAt: -1 };
+            break;
+        case 'a-to-z':
+            sortCriteria = { 'products.productName': 1 };
+            break;
+        case 'z-to-a':
+            sortCriteria = { 'products.productName': -1 };
+            break;
+        case 'lowPrice-to-highPrice':
+            sortCriteria = { price: 1 };
+            break;
+        case 'highPrice-to-lowPrice':
+            sortCriteria = { price: -1 };
+            break;
+        default:
+            break;
     }
 
+    // Apply sorting
+    if (Object.keys(sortCriteria).length > 0) {
+        pipeline.push({ $sort: sortCriteria });
+    }
+
+    // Pagination
+    const startIndex = (parseInt(page) - 1) * parseInt(limit);
+    pipeline.push({ $skip: startIndex });
+    pipeline.push({ $limit: parseInt(limit) });
+
     try {
-        const totalCount = await Variant.countDocuments(matchCriteria).exec();
+        // Count total documents considering the same filtering criteria
+        const countPipeline = [...pipeline];
+        countPipeline.pop(); // Remove the last stage $limit for counting total documents
+        countPipeline.pop(); // Remove the second last stage $skip for counting total documents
+        countPipeline.push({ $count: "totalCount" });
+
+        const countResult = await Variant.aggregate(countPipeline);
+        const totalCount = countResult.length > 0 ? countResult[0].totalCount : 0;
         const totalPages = Math.ceil(totalCount / limit);
-        res.render("user/shops", { variants, currentPage: page, limit, totalPages,totalCount, category, sizes: sizes2, user, offers ,colors});
+
+        // Aggregate the results
+        let variants = await Variant.aggregate(pipeline);
+
+        // Apply offers to variants
+        const offers = await Offer.find();
+        variants = variants.map(v => {
+            let bestOfferPrice = v.price;
+            let bestOffer = 0;
+            let offerApplied = false;
+
+            if (v.products[0].offerApplied && v.products[0].offerPrice < bestOfferPrice) {
+                bestOfferPrice = v.products[0].offerPrice;
+                bestOffer = v.products[0].offer;
+                offerApplied = true;
+            }
+
+            v.bestOfferPrice = bestOfferPrice;
+            v.offerApplied = offerApplied;
+            v.offer = bestOffer;
+
+            return v;
+        });
+
+        // If the user is logged in, check their cart and apply the best offer prices
+        if (user) {
+            const cart = await Cart.findOne({ userId });
+
+            if (cart && cart.items.length > 0) {
+                cart.items.forEach(item => {
+                    const variant = variants.find(v => v._id.equals(item.variantId));
+                    if (variant) {
+                        item.offer = variant.bestOfferPrice;
+                    }
+                });
+
+                // Save the updated cart
+                await cart.save();
+            }
+        }
+
+        // Fetch related data
+        let category = await Category.find({ isDeleted: false });
+        let sizes2 = await Sizes.find({ isDeleted: false });
+        let colors = await Colors.find({ isDeleted: false });
+
+        // Render the response
+        res.render("user/shops", {
+            variants,
+            currentPage: page,
+            limit,
+            totalPages,
+            totalCount,
+            category,
+            sizes: sizes2,
+            user,
+            offers,
+            colors,
+            sortby,
+            selectedCategories: categories,
+            selectedColors: color,
+            selectedSizes: sizes,
+            q,q
+        });
     } catch (err) {
         console.log(err);
-        res.status(500).json({ msg: 'Error in pagination' });
+        res.status(500).json({ msg: 'Error in pagination or filtering' });
     }
 };
 
@@ -597,6 +631,25 @@ const getShops = async (req, res) => {
 
 
 const getProductDetail = async (req, res) => {
+
+    let userId = null;
+    let token = req.cookies.token;
+
+    // Check if the token exists and is valid
+    if (token) {
+        jwt.verify(token, process.env.SECRET_KEY, (err, decode) => {
+            if (!err) {
+                userId = decode.userId;
+            }
+        });
+    }
+
+    // Find the user if logged in
+    let user = null;
+    if (userId) {
+        user = await User.findById(userId);
+    }
+
     const pId = req.query.pId
     const vId = req.query.vId
     console.log(pId);
@@ -693,7 +746,7 @@ const getProductDetail = async (req, res) => {
 
     
 
-    res.render("user/productdetails", { variant })
+    res.render("user/productdetails", { variant , user})
 
 }
 

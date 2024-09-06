@@ -226,6 +226,7 @@ console.log(newOrderId);
                 $push: {
                     transaction_history: {
                         amount: -(order.totalAmount) *100,
+                        orderId : order._id,
                         type: 'debit',
                         description: 'Order payment',
                         dateTime: new Date()
@@ -687,19 +688,20 @@ const razorpayFailure = async (req, res) => {
             return res.status(400).json({ error: 'Order ID is required' });
         }
 
-        // Validate the status (though it should always be "Pending" in this case)
-        if (status !== 'Pending') {
-            return res.status(400).json({ error: 'Invalid status provided' });
-        }
+        
+        // if (status !== 'Pending') {
+        //     return res.status(400).json({ error: 'Invalid status provided' });
+        // }
+        
 
         // Update order in the database
         const result = await Order.updateOne(
             { _id: new ObjectId(orderId) },
             {
                 $set: {
-                    'orderedItems.$[].orderStatus': 'Confirmed',
+                    'orderedItems.$[].orderStatus': 'Pending',
                     'orderedItems.$[].paymentStatus': 'Pending',
-                    orderStatus: 'Confirmed',
+                    orderStatus: 'Pending',
                     paymentStatus: 'Pending'
                 }
             },
