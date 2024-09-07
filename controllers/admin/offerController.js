@@ -9,30 +9,60 @@ const Product = require('../../models/productSchema')
 const mongoose = require('mongoose')
 const { ObjectId } = mongoose.Types;
 
+const getOfferPage = async(req, res) => {
+    const currentDate = new Date();
+    
+    // Find expired offers
+    const expiredOffers = await Offer.find({ validUntil: { $lt: currentDate } });
+    console.log(expiredOffers, 'expiredOffers');
 
-const getOfferPage = async(req,res)=>{
+    // If expired offers are found, delete them
+    if (expiredOffers.length > 0) {
+        await Offer.deleteMany({ validUntil: { $lt: currentDate } });
 
-     const currentDate = new Date()
-     await Offer.deleteMany({ validUntil :{$lt : currentDate}})
-    // pagination 
+        // Process each expired offer individually
+        for (const expiredOffer of expiredOffers) {
+            if (expiredOffer.offerType === 'productWise') {
+                console.log('Product-wise offer detected...');
+
+                await Product.updateMany(
+                    { _id: new ObjectId(expiredOffer.productId) },
+                    { $set: { offerApplied: false, offerName: '', offerPrice: '', offer: '' } }
+                );
+                console.log('Updated product-wise offer');
+            } else if (expiredOffer.offerType === 'categoryWise') {
+                console.log('Category-wise offer detected...');
+
+                const products = await Product.find({ category: expiredOffer.categoryName });
+
+                for (const product of products) {
+                    await Product.updateOne(
+                        { _id: product._id },
+                        { $set: { offerApplied: false, offerName: '', offerPrice: '', offer: '' } }
+                    );
+                }
+                console.log('Updated category-wise offer');
+            }
+        }
+    }
+
+    // Pagination
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 4;
     const startIndex = (page - 1) * limit;
-    console.log(page,limit,startIndex);
 
-    const offer = await Offer.find({}).skip(startIndex).limit(limit)
-    // console.log(offer,'offer');
-    const category = await Category.find()
-    const product = await Products.find()
-// console.log(category,'category');
-// console.log(product,'pro');
-const matchCriteria = {}
-const totalCount = await Offer.countDocuments(matchCriteria);
-const totalPages = Math.ceil(totalCount / limit);
+    const offer = await Offer.find({}).skip(startIndex).limit(limit);
+    const category = await Category.find();
+    const product = await Product.find();
 
-    res.render('admin/add-offer',{offer,category,product, currentPage: page, limit,totalCount,totalPages})
+    const totalCount = await Offer.countDocuments({});
+    const totalPages = Math.ceil(totalCount / limit);
 
-}
+    res.render('admin/add-offer', {
+        offer, category, product, currentPage: page, limit, totalCount, totalPages
+    });
+};
+
 
 
 const newOffer = async (req, res) => {

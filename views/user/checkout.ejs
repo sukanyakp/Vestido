@@ -649,7 +649,7 @@ However, delay the fade out process for 2.5 seconds */
                                                 <div id="addressContainer">
                                                     <% address.addresses.forEach((address, index) => { %>
                                                         <div class="address" id="address<%= index %>" style="display: none;">
-                                                            <input type="radio" name="selectedAddress" value="<%= address._id %>">
+                                                            <input type="radio" id="address<%= index %>" name="selectedAddress" value="<%= address._id %>">
                                                             <label for="address<%= index %>">
                                                                 <p>
                                                                     <%= address.name %> <br>
@@ -1894,6 +1894,11 @@ async function confirmRemoveItem(variantId, cartId) {
         document.getElementById("placeOrderButton").addEventListener('click', function (event) {
             event.preventDefault();
             // localStorage.removeItem('appliedCoupon');
+        //    const isValid =  validate()
+
+        //    if(!isValid) return
+
+
             placeOrder();
         })
 
@@ -2012,7 +2017,7 @@ async function confirmRemoveItem(variantId, cartId) {
     } catch (err) {
         console.log(err);
         
-        showSnackBar("Please select an address");
+        showSnackBar("Please select a payment method");
     }
 }
 
@@ -2194,6 +2199,7 @@ console.log(data.discountAmount,'data.discountAmount');
         }
     } catch (err) {
         console.log(err);
+        
         showSnackBar(err.message);
     }
 }
@@ -2378,6 +2384,34 @@ function validateForm() {
    
     return isValid;
 }
+
+
+function validate() {
+
+    try{
+
+        let isValid = true;
+
+        // Name validation
+        const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked').value;
+        console.log(selectedAddress,'selectedAddress');
+        
+        if (!selectedAddressElement) {
+        showSnackBar('Please select your address');
+        isValid = false;
+    } else {
+        const selectedAddress = selectedAddressElement.value;
+        console.log(selectedAddress, 'selectedAddress');
+    }
+
+        return isValid;
+        
+    }catch(err){
+
+        showSnackBar(' Please select an address')
+    }
+        
+    }
 
 </script>
 
