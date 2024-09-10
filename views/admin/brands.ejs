@@ -137,7 +137,7 @@
           </thead>
           <tbody id="tbody">
             
-              <%if(brands){%>
+              <%if (brands && brands.length > 0){%>
                 <%brands.forEach((brand)=>{%>
                     <tr id="<%=brand._id%>">
                         <td class="border-bottom-0">

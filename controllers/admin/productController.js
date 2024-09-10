@@ -25,8 +25,13 @@ const getShop = (req, res) => {
 
 const addnewcategory = async (req, res) => {
     try {
-        let category = req.body.category;
+        let category = req.body.category.trim();
         let isExist = await Category.findOne({ categoryName: category });
+
+        if (!category) {
+            return res.render('admin/addcategory', { err: "Please enter a category name" });
+        }
+
 
         if (isExist) {
             res.render('admin/addcategory', { err: "Entered category already exists" });
@@ -236,7 +241,7 @@ const getBrands = async (req, res) => {
 //get add new brands
 const getAddBrands = async (req, res) => {
     try {
-        let brandName = req.body.brand;
+        // let brandName = req.body.brand;
         let brands = await Brand.find();
 
         res.render('admin/addnewbrands', { brands: brands });
@@ -363,7 +368,13 @@ const editCat = async (req, res) => {
 //add new brand
 const addNewBrand = async (req, res) => {
     try {
-        let brand = req.body.brand;
+        let brand = req.body.brand //.trim();
+
+        
+        // if (!brand) {
+        //     return res.render('admin/brands', { err: "Please enter a brand name" });
+        // }
+
         let alreadyExist = await Brand.findOne({ brandname: brand });
 
         if (alreadyExist) {
@@ -373,7 +384,6 @@ const addNewBrand = async (req, res) => {
                 brandname: brand,
                 isDeleted: false
             });
-            // console.log(newBrand);
             res.redirect('/admin/products/brands');
         }
     } catch (error) {
@@ -381,6 +391,7 @@ const addNewBrand = async (req, res) => {
         res.status(500).send("An error occurred while adding new brand");
     }
 }
+
 
 
 //delete Brand
