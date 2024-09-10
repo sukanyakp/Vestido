@@ -20,6 +20,8 @@ const { ObjectId } = mongoose.Types;
 const axios = require('axios');
 const categoryShema = require('../../models/categoryShema');
 
+const serverDomain = process.env.SERVER_DOMAIIN || 'http://localhost:8000'
+
 let OTP
 let registerdEmail
 
@@ -241,7 +243,7 @@ passport.use(new GoogleStrategy({
 
     clientID:process.env.Google_clientID,
     clientSecret:process.env.Google_clientSecret,
-    callbackURL: "http://localhost:8000/auth/google/callback",
+    callbackURL: `${serverDomain}/auth/google/callback`,
     passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
     try {
