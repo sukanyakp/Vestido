@@ -953,11 +953,11 @@
 
                 // Update the total price in the DOM
                 const totalCol = document.querySelector(`#total-col-${cartId}`);
-                totalCol.textContent = `$${data.totalPrice.toFixed(2)}`;
+                totalCol.textContent = `₹${data.totalPrice.toFixed(2)}`;
 
                 // Update the total cart price in the DOM
                 const totalCartPriceCol = document.querySelector('#total-cart-price');
-                totalCartPriceCol.textContent = `$${data.totalCartPrice.toFixed(2)}`;
+                totalCartPriceCol.textContent = `₹${data.totalCartPrice.toFixed(2)}`;
 
              
 
@@ -1017,11 +1017,11 @@ async function decrementQuantity(variantId, cartId,size) {
 
                 // Update the total price in the DOM
                 const totalCol = document.querySelector(`#total-col-${cartId}`);
-                totalCol.textContent = `$${data.totalPrice.toFixed(2)}`;
+                totalCol.textContent = `₹${data.totalPrice.toFixed(2)}`;
 
                  // Update the total cart price in the DOM
                  const totalCartPriceCol = document.querySelector('#total-cart-price');
-                totalCartPriceCol.textContent = `$${data.totalCartPrice.toFixed(2)}`;               
+                totalCartPriceCol.textContent = `₹${data.totalCartPrice.toFixed(2)}`;               
 
 
                 
@@ -1077,7 +1077,7 @@ async function removeItem(variantId, cartId) {
 
             // Update the total cart price in the DOM
             const totalCartPriceCol = document.querySelector('#total-cart-price');
-            totalCartPriceCol.textContent = `$${data.totalCartPrice.toFixed(2)}`;
+            totalCartPriceCol.textContent = `₹${data.totalCartPrice.toFixed(2)}`;
         } else {
             console.error('Failed to remove item');
         }
