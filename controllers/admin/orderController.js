@@ -115,7 +115,7 @@ const getOrderDetails = async (req, res) => {
       const totalPages = Math.ceil(totalCount / limit);
 
       console.log("orderDetails", orders[0].orderedItems);
-      res.render("admin/orderdetails", { orders,currentPage: page, limit,totalCount,totalPages });
+      res.render("admin/order-details", { orders,currentPage: page, limit,totalCount,totalPages });
   } catch (err) {
       console.log(err);
   }

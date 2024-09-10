@@ -958,6 +958,13 @@ function sendPassword(){
                     .then(response => response.json())
                     .then(data => {
                         showSnackBar('Payment successful')
+
+                        setTimeout(() => {
+                               window.location.href = '/profile'
+                        }, 3000);
+
+                     
+
                         // alert('Payment successful');
                         // You can redirect or update the UI
                     })

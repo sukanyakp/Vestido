@@ -765,6 +765,11 @@ async function sendCartData(variantId) {
 
                     showSnackBar(data.msg);
 
+                    setTimeout(() => {
+                        window.location.href = '/wishlist'
+                    }, 3000);
+                    
+
             } else if(data.type === 'error') {
 
                 showSnackBar(data.err);
