@@ -1894,9 +1894,9 @@ async function confirmRemoveItem(variantId, cartId) {
         document.getElementById("placeOrderButton").addEventListener('click', function (event) {
             event.preventDefault();
             // localStorage.removeItem('appliedCoupon');
-        //    const isValid =  validate()
+           const isValid =  validate()
 
-        //    if(!isValid) return
+           if(!isValid) return
 
 
             placeOrder();
@@ -2408,7 +2408,7 @@ function validate() {
         
     }catch(err){
 
-        showSnackBar(' Please select an address')
+        showSnackBar(' Please select an address and a payment method')
     }
         
     }
